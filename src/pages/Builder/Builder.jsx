@@ -1,6 +1,6 @@
 import React from "react";
 import "./Builder.scss";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import Header from "../../components/Header/Header";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -15,10 +15,11 @@ import {
   BsPeopleFill,
   BsTsunami,
 } from "react-icons/bs";
+import { useSelector } from "react-redux";
 
 export default function Builder() {
-  const location = useLocation();
   const navigate = useNavigate();
+  const card = useSelector((state) => state.card.card);
 
   return (
     <div className="builder">
@@ -28,59 +29,46 @@ export default function Builder() {
           <button onClick={() => navigate(-1)}>
             <MdKeyboardArrowLeft />
           </button>
-          {location.pathname === "/builder/1" ? (
-            <p className="title">카테고리</p>
-          ) : (
-            <p className="title">등록하기</p>
-          )}
+          <p className="title">등록하기</p>
         </div>
-        {location.pathname === "/builder/1" ? (
-          <div className="builder-category-list">
-            <ul className="list">
+        <div className="form-area">
+          <div className="block">
+            <p className="block-title">카테고리</p>
+            <ul className="builder-category-list">
               <li>
                 <span>노래</span>
-                <BsMusicNote />
               </li>
               <li>
                 <span>영상</span>
-                <BsFillCameraVideoFill />
               </li>
               <li>
                 <span>음식</span>
-                <BsFillCupHotFill />
               </li>
               <li>
                 <span>소비</span>
-                <BsFillBasketFill />
               </li>
               <li>
                 <span>공간</span>
-                <BsFillTreeFill />
               </li>
               <li>
                 <span>운동</span>
-                <BsTsunami />
               </li>
               <li>
                 <span>순간</span>
-                <BsEggFried />
               </li>
               <li>
                 <span>한마디</span>
-                <BsFillChatDotsFill />
               </li>
               <li>
                 <span>사람</span>
-                <BsPeopleFill />
               </li>
             </ul>
-            <div className="flex">
-              <button onClick={() => navigate("/builder/2")}>다음</button>
-            </div>
           </div>
-        ) : (
-          <p className="title">등록하기</p>
-        )}
+          <input type="date" defaultValue={card.date}></input>
+        </div>
+        <button className="button" onClick={() => navigate("/builder")}>
+          등록하기
+        </button>
       </div>
       <MobileNavbar />
     </div>

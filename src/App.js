@@ -9,8 +9,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/builder/1" element={<Builder />} />
-        <Route path="/builder/2" element={<Builder />} />
+        <Route path="/builder" element={<Builder />} />
       </Routes>
     </>
   );

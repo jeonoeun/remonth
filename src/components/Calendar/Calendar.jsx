@@ -6,6 +6,9 @@ import moment from "moment";
 import { cards } from "../../data";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCard } from "../../store/card";
+import { useEffect } from "react";
 
 export default function ReactCalendar() {
   const [value, onChange] = useState(new Date());
@@ -14,6 +17,16 @@ export default function ReactCalendar() {
     (card) => card.date === moment(value).format("YYYY-MM-DD")
   );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(
+      setCard({
+        date: moment(value).format("YYYY-MM-DD"),
+      })
+    );
+  }, [value]);
 
   const handleClick = () => {
     setIsDateModal(true);
@@ -64,7 +77,7 @@ export default function ReactCalendar() {
             )}
             <button
               className="category-btn flex"
-              onClick={() => navigate("/builder/1")}
+              onClick={() => navigate("/builder")}
             >
               <AiOutlinePlus />
             </button>
