@@ -3,9 +3,14 @@
 // }
 
 body {
+    position: relative;
     font-family: "Pretendard Variable", Pretendard, -apple-system, "Noto Sans KR",
     sans-serif;
     color: #191B1C;
+}
+
+.wrapper {
+    height: 100vh;
 }
 
 .flex {

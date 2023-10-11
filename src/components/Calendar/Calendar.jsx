@@ -3,30 +3,28 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./Calendar.scss";
 import moment from "moment";
-import { cards } from "../../data";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setCard } from "../../store/card";
+import { useDispatch } from "react-redux";
+import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
 
-export default function ReactCalendar() {
+export default function ReactCalendar({ moments }) {
   const [value, onChange] = useState(new Date());
   const [isDateModal, setIsDateModal] = useState(null);
-  const matchedCard = cards.find(
+  const matchedCard = moments.find(
     (card) => card.date === moment(value).format("YYYY-MM-DD")
   );
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(
-      setCard({
+      setCardDetail({
         date: moment(value).format("YYYY-MM-DD"),
       })
     );
-  }, [value]);
+  }, [value, dispatch]);
 
   const handleClick = () => {
     setIsDateModal(true);
@@ -44,16 +42,14 @@ export default function ReactCalendar() {
         next2Label={null}
         prev2Label={null}
         tileContent={({ date, view }) => {
-          const card = cards.find(
+          const momentCard = moments.find(
             (card) => card.date === moment(date).format("YYYY-MM-DD")
           );
 
-          if (card) {
+          if (momentCard) {
             return (
-              <div className="flex justify-center items-center absoluteDiv">
-                <div className="dot">
-                  <img src={card.image} alt="" />
-                </div>
+              <div className="dot">
+                <img src={momentCard.image} alt="" />
               </div>
             );
           }
@@ -67,7 +63,10 @@ export default function ReactCalendar() {
             </div>
             {matchedCard ? (
               <ul>
-                <li className="flex">
+                <li
+                  className="flex"
+                  onClick={() => navigate(`/${matchedCard.id}`)}
+                >
                   <div className="color-box"></div>
                   <p>{matchedCard.title}</p>
                 </li>

@@ -4,18 +4,27 @@ import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { FaBell } from "react-icons/fa";
 import { login, logout, onUserChanged } from "../../api/firebase";
-import { setUser } from "../../store/user";
 import { useDispatch, useSelector } from "react-redux";
+import { addUser, setCurrentUser } from "../../store/user";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.userData);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     onUserChanged((userAuth) => {
       userAuth &&
         dispatch(
-          setUser({
+          addUser({
+            name: userAuth.displayName,
+            image: userAuth.photoURL,
+            id: userAuth.uid,
+          })
+        );
+      userAuth &&
+        dispatch(
+          setCurrentUser({
             name: userAuth.displayName,
             image: userAuth.photoURL,
             id: userAuth.uid,
@@ -24,23 +33,25 @@ export default function Header() {
     });
   }, [dispatch]);
 
+  console.log(user);
+
   const handleLogout = () => {
     logout();
-    dispatch(setUser(null));
+    dispatch(setCurrentUser(null));
   };
 
   return (
     <header className="header">
       <div className="hd-wrapper flex">
-        {user ? (
+        {currentUser ? (
           <div className="profile flex">
-            <img src={user.image} alt="" className="user-img" />
+            <img src={currentUser.image} alt="" className="user-img" />
             <IoIosArrowDown />
           </div>
         ) : (
           <button onClick={login}>login</button>
         )}
-        {/* <button onClick={handleLogout}>logout</button> */}
+        <button onClick={handleLogout}>logout</button>
         <div className="util flex">
           <button>
             <FiSearch />
