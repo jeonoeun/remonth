@@ -10,8 +10,8 @@ import { setMoments } from "../../store/moment";
 export default function Home() {
   const dispatch = useDispatch();
   const moments = useSelector((state) => state.moments.moments);
-  // const currentUser = useSelector((state) => state.user.user);
-  const [userData, setUserData] = useState([]);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const [userCardData, setUserCardData] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -19,12 +19,15 @@ export default function Home() {
         const data = await getMomentList();
         dispatch(setMoments(data));
 
-        // currentUser.id &&
-        //   data.forEach((item) => {
-        //     if (item.user.id === currentUser.id) {
-        //       setUserData((card) => [...card, item]);
-        //     }
-        //   });
+        currentUser.id &&
+          moments.forEach((item) => {
+            const found = moments.find((e) => e.id === userCardData.id);
+            if (!found) {
+              if (item.user.id === currentUser.id) {
+                setUserCardData((card) => [...card, item]);
+              }
+            }
+          });
       } catch (error) {
         console.error(error);
       }
@@ -37,7 +40,7 @@ export default function Home() {
     <div className="home">
       <Header />
       <div className="content">
-        <Calendar moments={moments} />
+        <Calendar userCardData={userCardData} />
         {/* <CategoryList /> */}
       </div>
       <MobileNavbar />

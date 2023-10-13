@@ -9,10 +9,10 @@ import { useDispatch } from "react-redux";
 import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
 
-export default function ReactCalendar({ moments }) {
+export default function ReactCalendar({ userCardData }) {
   const [value, onChange] = useState(new Date());
   const [isDateModal, setIsDateModal] = useState(null);
-  const matchedCard = moments.find(
+  const matchedCard = userCardData.find(
     (card) => card.date === moment(value).format("YYYY-MM-DD")
   );
   const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function ReactCalendar({ moments }) {
         next2Label={null}
         prev2Label={null}
         tileContent={({ date, view }) => {
-          const momentCard = moments.find(
+          const momentCard = userCardData.find(
             (card) => card.date === moment(date).format("YYYY-MM-DD")
           );
 

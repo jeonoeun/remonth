@@ -24,7 +24,7 @@ export default function Builder() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
-  const user = useSelector((state) => state.user.user);
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [card, setCard] = useState({
     tags: [],
   });
@@ -38,7 +38,7 @@ export default function Builder() {
     file
       ? uploadImage(file)
           .then((url) => {
-            addNewMoment(card, url, user, cardDate.date) //
+            addNewMoment(card, url, currentUser, cardDate.date) //
               .then(() => {
                 setSuccess("등록되었습니다!");
                 setTimeout(() => {
@@ -47,7 +47,7 @@ export default function Builder() {
               });
           })
           .finally(() => setIsUploading(false))
-      : addNewMoment(card, user)
+      : addNewMoment(card, currentUser)
           .then(() => {
             setSuccess("등록되었습니다!");
             setTimeout(() => {

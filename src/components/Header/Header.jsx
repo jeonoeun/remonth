@@ -9,7 +9,6 @@ import { addUser, setCurrentUser } from "../../store/user";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.userData);
   const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
@@ -32,8 +31,6 @@ export default function Header() {
         );
     });
   }, [dispatch]);
-
-  console.log(user);
 
   const handleLogout = () => {
     logout();
