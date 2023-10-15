@@ -23,6 +23,8 @@ const githubProvider = new GithubAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 const auth = getAuth();
 const database = getDatabase();
+
+
 export function login() {
   signInWithPopup(auth, googleProvider).catch((error) => console.error(error));
 }

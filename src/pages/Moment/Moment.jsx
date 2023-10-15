@@ -5,8 +5,9 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { GoCircle, GoCheckCircleFill } from "react-icons/go";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const categroyList = [
   "노래",
@@ -24,10 +25,19 @@ export default function Moment() {
   const navigate = useNavigate();
   const [isCategoryModal, setIsCategoryModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const selectedCards =
+    selectedCategory.length === 0
+      ? moments
+      : moments.filter((card) => selectedCategory.includes(card.category));
 
   return (
     <div className="moment">
-      <Header />
+      <div className="title">
+        <button onClick={() => navigate(-1)}>
+          <MdKeyboardArrowLeft />
+        </button>
+        <p className="page-name">모먼트</p>
+      </div>
       <div className="content">
         <div className="title-ct">
           <div className="category-ct flex">
@@ -39,6 +49,7 @@ export default function Moment() {
                 .filter((_, i) => i < 4)
                 .map((item) => (
                   <div
+                    key={item}
                     onClick={() =>
                       setSelectedCategory((prev) => [...prev, item])
                     }
@@ -54,6 +65,7 @@ export default function Moment() {
               {selectedCategory &&
                 selectedCategory.map((item) => (
                   <li
+                    key={item}
                     onClick={() => {
                       const deleted = selectedCategory.filter(
                         (e) => !(e === item)
@@ -70,16 +82,19 @@ export default function Moment() {
                 ))}
             </ul>
           </div>
-          <p className="total">전체 {moments.length}</p>
+          <p className="total">전체 {selectedCards.length}</p>
         </div>
         <div className="momentList-ct">
-          {moments.map((card) => (
+          {selectedCards.map((card) => (
             <div
+              key={card.id}
               className="moment-card"
               onClick={() => navigate(`/${card.id}`)}
             >
-              <img src={card.image} alt="" className="card-img" />
-              <div className="card-info">
+              <div className="img-ct">
+                <img src={card.image} alt="" className="card-img" />
+              </div>
+              <div className="card-info flex">
                 <p className="card-title">{card.title}</p>
                 <div className="user flex">
                   <img src={card.user.image} alt="" className="user-img" />

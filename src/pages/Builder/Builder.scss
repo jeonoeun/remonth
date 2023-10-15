@@ -6,10 +6,13 @@
         height: 100%;
 
         .builder-title {
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
             background-color: #fff;
             padding: 16px;
-            border-bottom: 10px solid rgb(247, 249, 250);
+            // border-bottom: 10px solid rgb(247, 249, 250);
 
             .title {
                 position: absolute;
@@ -20,6 +23,7 @@
         }
 
         .form-area {
+            margin-top: 52px;
             padding: 16px 16px 100px 16px;
 
             .block {

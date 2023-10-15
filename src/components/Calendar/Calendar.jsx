@@ -5,16 +5,21 @@ import "./Calendar.scss";
 import moment from "moment";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
 
-export default function ReactCalendar({ userCardData }) {
+export default function ReactCalendar() {
   const [value, onChange] = useState(new Date());
   const [isDateModal, setIsDateModal] = useState(null);
-  const matchedCard = userCardData.find(
-    (card) => card.date === moment(value).format("YYYY-MM-DD")
-  );
+  const currentUser = useSelector((state) => state.user.currentUser) || {};
+  const matchedCard =
+    currentUser && currentUser.cards
+      ? currentUser.cards.find(
+          (card) => card.date === moment(value).format("YYYY-MM-DD")
+        )
+      : null;
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,9 +47,12 @@ export default function ReactCalendar({ userCardData }) {
         next2Label={null}
         prev2Label={null}
         tileContent={({ date, view }) => {
-          const momentCard = userCardData.find(
-            (card) => card.date === moment(date).format("YYYY-MM-DD")
-          );
+          const momentCard =
+            currentUser && currentUser.cards
+              ? currentUser.cards.find(
+                  (card) => card.date === moment(date).format("YYYY-MM-DD")
+                )
+              : null;
 
           if (momentCard) {
             return (

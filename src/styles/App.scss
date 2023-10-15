@@ -7,6 +7,10 @@ body {
     font-family: "Pretendard Variable", Pretendard, -apple-system, "Noto Sans KR",
     sans-serif;
     color: #191B1C;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .wrapper {

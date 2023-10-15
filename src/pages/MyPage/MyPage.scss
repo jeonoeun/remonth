@@ -1,0 +1,103 @@
+.myPage {
+    .title {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        z-index: 9;
+        padding: 16px;
+
+        .page-name {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .content {
+        margin-top: 52px;
+
+        .user-area {
+            border-bottom: 10px solid rgb(247, 249, 250);
+
+            .user {
+                padding: 16px;
+
+                .user-img {
+                    border-radius: 50%;
+                    margin-bottom: 7px;
+                }
+
+                .name {
+                    font-size: 21px;
+                    font-weight: 900;
+                    color: rgb(41, 42, 50);
+                    margin-bottom: 7px;
+                }
+
+                .email {
+                    font-size: 13px;
+                    color: rgb(116, 116, 123);
+                }
+            }
+
+            .userCard-num {
+                border-top: 1px solid rgb(244, 244, 247);
+
+                .flex {
+                    flex: 1;
+                    flex-direction: column;
+                    padding: 20px 0;
+                    gap: 4px;
+                    color: #74747B;
+                    font-size: 14px;
+
+                    .num {
+                        font-size: 16px;
+                        font-weight: 700;
+                        color: #000;
+                    }
+                }
+            }
+        }
+
+        .block {
+            padding: 16px;
+
+            .block-title {
+                justify-content: space-between;
+                margin-bottom: 20px;
+
+                .color-num {
+                    color: #35C5F0;
+                    margin: 0 6px;
+                }
+
+                button {
+                    color: #35C5F0;
+                }
+            }
+
+
+            .photo-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 10px;
+
+                .photo {
+                    height: 108px;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 5px;
+                }
+
+            }
+        }
+    }
+}

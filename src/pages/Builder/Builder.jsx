@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Builder.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { addNewMoment } from "../../api/firebase";
 import { uploadImage } from "../../api/uploader";
 import { HiPhotograph } from "react-icons/hi";
 import { setCardDetail } from "../../store/card";
+import { setUserCards } from "../../store/user";
 
 const categroyList = [
   "노래",
@@ -31,6 +32,8 @@ export default function Builder() {
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
+  const moments = useSelector((state) => state.moments.moments);
+  const location = useLocation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,6 +46,7 @@ export default function Builder() {
                 setSuccess("등록되었습니다!");
                 setTimeout(() => {
                   setSuccess(null);
+                  navigate("/");
                 }, 4000);
               });
           })
@@ -52,9 +56,10 @@ export default function Builder() {
             setSuccess("등록되었습니다!");
             setTimeout(() => {
               setSuccess(null);
+              navigate("/");
             }, 4000);
           })
-          .finally(() => setIsUploading(false));
+          .then(() => setIsUploading(false));
   };
 
   const handleChange = (e) => {
@@ -85,7 +90,6 @@ export default function Builder() {
 
   return (
     <div className="builder">
-      <Header />
       <div className="builder-ct">
         <div className="flex builder-title">
           <button onClick={() => navigate(-1)}>

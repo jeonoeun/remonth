@@ -17,7 +17,7 @@ const initialState = {
         "https://i.pinimg.com/564x/c2/e3/98/c2e39863091b34b4b253e903115e5550.jpg",
     },
   ],
-  currentUser: { name: "", id: "", image: "" },
+  currentUser: { name: "", id: "", image: "", email: "", cards: [] },
 };
 
 const userSlice = createSlice({
@@ -33,8 +33,11 @@ const userSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
     },
+    setUserCards: (state, action) => {
+      state.currentUser.cards = action.payload;
+    },
   },
 });
 
-export const { addUser, setCurrentUser } = userSlice.actions;
+export const { addUser, setCurrentUser, setUserCards } = userSlice.actions;
 export default userSlice.reducer;

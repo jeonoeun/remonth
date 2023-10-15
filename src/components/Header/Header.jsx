@@ -19,6 +19,7 @@ export default function Header() {
             name: userAuth.displayName,
             image: userAuth.photoURL,
             id: userAuth.uid,
+            email: userAuth.email,
           })
         );
       userAuth &&
@@ -27,6 +28,7 @@ export default function Header() {
             name: userAuth.displayName,
             image: userAuth.photoURL,
             id: userAuth.uid,
+            email: userAuth.email,
           })
         );
     });
