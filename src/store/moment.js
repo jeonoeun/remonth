@@ -6,13 +6,17 @@ const momentSlice = createSlice({
   name: "moments",
   initialState: {
     moments: [],
+    remonths: [],
   },
   reducers: {
     setMoments: (state, action) => {
       state.moments = action.payload;
     },
+    setRemonths: (state, action) => {
+      state.remonths = action.payload;
+    },
   },
 });
 
-export const { setMoments } = momentSlice.actions;
+export const { setMoments, setRemonths } = momentSlice.actions;
 export default momentSlice.reducer;

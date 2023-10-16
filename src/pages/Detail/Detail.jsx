@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Detail.scss";
-import Header from "../../components/Header/Header";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaShareAlt } from "react-icons/fa";
 import { BiSolidMap } from "react-icons/bi";
+import { MdKeyboardArrowLeft } from "react-icons/md";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 
 export default function Detail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const moments = useSelector((state) => state.moments.moments);
   const [matchedItem, setMatchedItem] = useState();
   useEffect(() => {
@@ -17,7 +19,12 @@ export default function Detail() {
 
   return (
     <div className="detail">
-      <Header />
+      <div className="page-title">
+        <button onClick={() => navigate(-1)}>
+          <MdKeyboardArrowLeft />
+        </button>
+        {matchedItem && <p className="page-name">{matchedItem.title}</p>}
+      </div>
       {matchedItem && (
         <div className="content">
           <img className="detail-img" src={matchedItem.image} alt="" />
@@ -65,6 +72,7 @@ export default function Detail() {
           </div>
         </div>
       )}
+      <MobileNavbar />
     </div>
   );
 }

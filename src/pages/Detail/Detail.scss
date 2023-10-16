@@ -1,5 +1,26 @@
 .detail {
+    padding-bottom: 80px;
+
+    .page-title {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 16px;
+        z-index: 9;
+
+        .page-name {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
     .content {
+        margin-top: 52px;
+        
         .detail-img {
             width: 100%;
             height: 354px;

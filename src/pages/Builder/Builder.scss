@@ -11,8 +11,13 @@
             left: 0;
             width: 100%;
             background-color: #fff;
-            padding: 16px;
+            z-index: 9;
             // border-bottom: 10px solid rgb(247, 249, 250);
+
+            .navigate-btn {
+                width: 100%;
+                padding: 16px;
+            }
 
             .title {
                 position: absolute;
@@ -22,8 +27,22 @@
             }
         }
 
-        .form-area {
+        .location-btn {
             margin-top: 52px;
+
+            li {
+                flex: 1;
+                border-bottom: 2px solid #ddd;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .on {
+                border-bottom: 2px solid #35c5f0;
+            }
+        }
+
+        .form-area {
             padding: 16px 16px 100px 16px;
 
             .block {
@@ -35,7 +54,7 @@
                 }
 
                 .input {
-                    width: 100%; 
+                    width: 100%;
                     border: 1px solid #EBEBEB;
                     border-radius: 5px;
                     padding: 15px 20px;
@@ -134,9 +153,10 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
+                z-index: 9;
 
                 .button {
-                    background-color: #337EA9;
+                    background-color: #35c5f0;
                     color: #fff;
                     width: 100%;
                     padding: 20px;

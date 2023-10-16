@@ -17,7 +17,8 @@ export default function App() {
         <Route path="/moment" element={<Moment />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/:id" element={<Detail />} />
-        <Route path="/builder" element={<Builder />} />
+        <Route path="/builder/moment" element={<Builder />} />
+        <Route path="/builder/remonth" element={<Builder />} />
       </Routes>
     </div>
   );

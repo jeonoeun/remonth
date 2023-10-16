@@ -24,7 +24,6 @@ const googleProvider = new GoogleAuthProvider();
 const auth = getAuth();
 const database = getDatabase();
 
-
 export function login() {
   signInWithPopup(auth, googleProvider).catch((error) => console.error(error));
 }
@@ -56,6 +55,28 @@ export async function addNewMoment(moment, image, user, date) {
 
 export async function getMomentList() {
   return get(ref(database, `moments`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
+  });
+}
+
+export async function addNewRemonth(remonthData, user) {
+  const id = uuid();
+  const data = {
+    ...remonthData,
+    id,
+    userEmail: user.email,
+    userImage: user.image,
+    userName: user.name,
+    userId: user.id,
+  };
+  return set(ref(database, `remonths/${id}`), data);
+}
+
+export async function getRemonthList() {
+  return get(ref(database, `remonths`)).then((snapshot) => {
     if (snapshot.exists()) {
       return Object.values(snapshot.val());
     }

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./Moment.scss";
-import Header from "../../components/Header/Header";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { BiSolidCategoryAlt } from "react-icons/bi";
-import { AiOutlineClose, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { GoCircle, GoCheckCircleFill } from "react-icons/go";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
@@ -39,7 +38,7 @@ export default function Moment() {
         <p className="page-name">모먼트</p>
       </div>
       <div className="content">
-        <div className="title-ct">
+        <div className="content-title-ct">
           <div className="category-ct flex">
             <div className="button-icon">
               <BiSolidCategoryAlt />
@@ -110,7 +109,7 @@ export default function Moment() {
         <div className="category-modal">
           <div className="modal-hd">
             카데고리 선택
-            <button className="clear" onClick={() => setSelectedCategory(null)}>
+            <button className="clear" onClick={() => setSelectedCategory([])}>
               초기화
             </button>
           </div>

@@ -84,7 +84,7 @@ export default function ReactCalendar() {
             )}
             <button
               className="category-btn flex"
-              onClick={() => navigate("/builder")}
+              onClick={() => navigate("/builder/moment")}
             >
               <AiOutlinePlus />
             </button>

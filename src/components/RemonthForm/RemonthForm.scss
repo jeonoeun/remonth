@@ -1,0 +1,66 @@
+.remonth-form {
+    padding: 16px 16px 100px 16px;
+
+    .block {
+        background-color: #fff;
+        padding: 16px 0;
+
+        .block-title {
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+    }
+
+    .mySwiper {
+        overflow-x: visible;
+
+        .card-item {
+            .card-img {
+                width: 100%;
+                height: 109px;
+                border-radius: 5px;
+                overflow: hidden;
+
+                .on {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 109px;
+                    background-color: rgba(0, 0, 0, 0.9);
+                    border-radius: 5px;
+                    justify-content: center;
+
+                    .flex {
+                        flex-direction: column;
+                        gap: 10px;
+                        color: #35c5f0;
+                    }
+
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .btn-area {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9;
+
+
+        .button {
+            background-color: #35c5f0;
+            color: #fff;
+            width: 100%;
+            padding: 20px;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+.remonth {
+    padding-bottom: 80px;
+
+    .title {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 16px;
+        z-index: 9;
+    
+        .page-name {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .content {
+        margin-top: 52px;
+
+    }
+
+}
