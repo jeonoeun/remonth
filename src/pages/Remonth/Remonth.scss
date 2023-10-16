@@ -21,6 +21,38 @@
     .content {
         margin-top: 52px;
 
+        .remonth-card {
+            position: relative;
+
+            .img-ct {
+                height: 376px;
+
+                .card-img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .card-info {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                padding: 16px;
+                color: #fff;
+
+                .user {
+                    .user-img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+           
+        }
+
+        
     }
 
 }

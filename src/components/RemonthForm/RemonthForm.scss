@@ -1,13 +1,39 @@
 .remonth-form {
-    padding: 16px 16px 100px 16px;
+    padding-bottom: 100px;
+
+    .form-ct {
+        padding: 16px;
+    }
+
+    .selected-num {
+        justify-content: flex-end;
+        gap: 8px;
+
+        .flex {
+            gap: 5px;
+
+            .num {
+                strong {
+                    color: #35c5f0;
+                }
+            }
+        }
+
+    }
 
     .block {
         background-color: #fff;
         padding: 16px 0;
 
         .block-title {
-            justify-content: space-between;
             margin-bottom: 15px;
+        }
+
+        .input {
+            width: 100%;
+            border: 1px solid #EBEBEB;
+            border-radius: 5px;
+            padding: 15px 20px;
         }
     }
 
@@ -27,7 +53,7 @@
                     left: 0;
                     width: 100%;
                     height: 109px;
-                    background-color: rgba(0, 0, 0, 0.9);
+                    background-color: rgba(0, 0, 0, 0.7);
                     border-radius: 5px;
                     justify-content: center;
 
@@ -36,7 +62,6 @@
                         gap: 10px;
                         color: #35c5f0;
                     }
-
                 }
 
                 img {
@@ -46,6 +71,11 @@
                 }
             }
         }
+    }
+
+    .select-area {
+        padding: 16px;
+        border-top: 10px solid rgb(247, 249, 250);
     }
 
     .btn-area {

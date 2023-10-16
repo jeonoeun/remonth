@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRemonthList } from "../../api/firebase";
 import { setRemonths } from "../../store/moment";
 import { setUserRemonths } from "../../store/user";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
 export default function Remonth() {
@@ -48,10 +48,13 @@ export default function Remonth() {
             className="remonth-card"
             onClick={() => navigate(`/${card.id}`)}
           >
-            {/* <div className="img-ct">
-              <img src={card.image} alt="" className="card-img" />
-            </div> */}
-            <div className="card-info flex">
+            <div className="img-ct">
+              <img src={card.영상.image} alt="" className="card-img" />
+            </div>
+            <div className="card-info">
+              <p>
+                {card.month.slice(5, 7)}월호 | {card.title}
+              </p>
               <div className="user flex">
                 <img src={card.userImage} alt="" className="user-img" />
                 <p>{card.userName}</p>
