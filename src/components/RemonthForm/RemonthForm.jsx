@@ -22,15 +22,15 @@ const categroyList = [
 export default function RemonthForm() {
   const [remonthData, setRemonthData] = useState({
     month: "",
+    title: "",
+    review: "",
+    selectedCards: [],
   });
+
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
   const navigate = useNavigate();
-  const filteredKeys = Object.keys(remonthData).filter(
-    (key) => !["month", "review", "title"].includes(key)
-  );
-  const remonthDataLength = filteredKeys.length;
 
   const handleSubmit = () => {
     setIsUploading(true);
@@ -64,9 +64,10 @@ export default function RemonthForm() {
           <input
             type="month"
             onChange={(e) => {
-              setRemonthData({
+              setRemonthData((prev) => ({
+                ...prev,
                 month: e.target.value,
-              });
+              }));
             }}
           />
         </div>
@@ -102,8 +103,7 @@ export default function RemonthForm() {
             <p>추가된 카드</p>
             <div className="flex">
               <div className="num">
-                <strong>{remonthDataLength > 0 ? remonthDataLength : 0}</strong>{" "}
-                개
+                {Object.keys(remonthData.selectedCards).length} 개
               </div>
               <MdOutlineKeyboardArrowRight />
             </div>
@@ -126,16 +126,33 @@ export default function RemonthForm() {
                       <SwiperSlide>
                         <div
                           className="card-item"
-                          onClick={() =>
-                            setRemonthData((prev) => ({
-                              ...prev,
-                              [card.category]: card,
-                            }))
-                          }
+                          onClick={() => {
+                            console.log(card);
+                            setRemonthData((prev) => {
+                              const { selectedCards } = prev;
+                              const cardCategory = card.category;
+
+                              // // 이미 선택한 카테고리와 같은 객체가 있는지 확인
+                              const existingIndex = selectedCards.findIndex(
+                                (item) => item.category === cardCategory
+                              );
+
+                              if (existingIndex !== -1) {
+                                // 이미 선택한 카테고리와 같은 객체가 있다면 해당 객체를 삭제하고 새로운 객체로 대체
+                                selectedCards.splice(existingIndex, 1);
+                              }
+
+                              // 새로운 객체를 추가
+                              return {
+                                ...prev,
+                                selectedCards: [...selectedCards, card],
+                              };
+                            });
+                          }}
                         >
                           <div className="card-img">
                             <img src={card.image} alt="" />
-                            {Object.values(remonthData).includes(card) && (
+                            {remonthData.selectedCards.includes(card) && (
                               <div className="on flex">
                                 <div className="flex">
                                   <BsFillCheckCircleFill />

@@ -8,7 +8,9 @@ export default function MyPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
   const moments = useSelector((state) => state.moments.moments);
+  const remonths = useSelector((state) => state.moments.remonths);
   const userMoment = moments.filter((card) => card.user.id === currentUser.id);
+  const userRemonth = remonths.filter((card) => card.userId === currentUser.id);
 
   return (
     <div className="myPage">
@@ -31,7 +33,7 @@ export default function MyPage() {
               <span>모먼트</span>
             </div>
             <div className="flex">
-              <span className="num">187</span>
+              <span className="num">{userRemonth.length}</span>
               <span>월간지</span>
             </div>
             <div className="flex">
@@ -62,16 +64,16 @@ export default function MyPage() {
           <div className="block-title flex">
             <div>
               <span>월간지</span>
-              <span className="color-num">{userMoment.length}</span>
+              <span className="color-num">{userRemonth.length}</span>
             </div>
             <button>더보기</button>
           </div>
           <div className="photo-grid">
-            {userMoment
+            {userRemonth
               .filter((_, i) => i < 3)
               .map((card) => (
                 <div className="photo" onClick={() => navigate(`/${card.id}`)}>
-                  <img src={card.image} alt="" />
+                  <img src={card.selectedCards[0].image} alt="" />
                 </div>
               ))}
           </div>

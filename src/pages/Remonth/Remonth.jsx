@@ -25,6 +25,7 @@ export default function Remonth() {
               data.filter((card) => card.userId === currentUser.id)
             )
           );
+        console.log(remonthData);
       } catch (error) {
         console.error(error);
       }
@@ -49,7 +50,7 @@ export default function Remonth() {
             onClick={() => navigate(`/${card.id}`)}
           >
             <div className="img-ct">
-              <img src={card.영상.image} alt="" className="card-img" />
+              <img src={card.selectedCards[0].image} alt="" className="card-img" />
             </div>
             <div className="card-info">
               <p>

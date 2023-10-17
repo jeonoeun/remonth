@@ -15,7 +15,7 @@ export default function ReactCalendar() {
   const currentUser = useSelector((state) => state.user.currentUser) || {};
   const matchedCard =
     currentUser && currentUser.cards
-      ? currentUser.cards.find(
+      ? currentUser.cards.filter(
           (card) => card.date === moment(value).format("YYYY-MM-DD")
         )
       : null;
@@ -49,15 +49,15 @@ export default function ReactCalendar() {
         tileContent={({ date, view }) => {
           const momentCard =
             currentUser && currentUser.cards
-              ? currentUser.cards.find(
+              ? currentUser.cards.filter(
                   (card) => card.date === moment(date).format("YYYY-MM-DD")
                 )
               : null;
 
-          if (momentCard) {
+          if (momentCard?.length > 0) {
             return (
               <div className="dot">
-                <img src={momentCard.image} alt="" />
+                <img src={momentCard[0].image} alt="" />
               </div>
             );
           }
@@ -71,13 +71,12 @@ export default function ReactCalendar() {
             </div>
             {matchedCard ? (
               <ul>
-                <li
-                  className="flex"
-                  onClick={() => navigate(`/${matchedCard.id}`)}
-                >
-                  <div className="color-box"></div>
-                  <p>{matchedCard.title}</p>
-                </li>
+                {matchedCard.map((card) => (
+                  <li className="flex" onClick={() => navigate(`/${card.id}`)}>
+                    <div className="color-box"></div>
+                    <p>{card.title}</p>
+                  </li>
+                ))}
               </ul>
             ) : (
               <p>이날의 기록이 없습니다</p>
