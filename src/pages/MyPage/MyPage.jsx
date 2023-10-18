@@ -72,7 +72,7 @@ export default function MyPage() {
             {userRemonth
               .filter((_, i) => i < 3)
               .map((card) => (
-                <div className="photo" onClick={() => navigate(`/${card.id}`)}>
+                <div className="photo" onClick={() => navigate(`/remonth/${card.id}`)}>
                   <img src={card.selectedCards[0].image} alt="" />
                 </div>
               ))}

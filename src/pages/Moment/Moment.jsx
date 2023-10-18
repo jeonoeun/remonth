@@ -3,7 +3,7 @@ import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BiSolidCategoryAlt } from "react-icons/bi";
+import { FaFilter } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import { GoCircle, GoCheckCircleFill } from "react-icons/go";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -41,7 +41,7 @@ export default function Moment() {
         <div className="content-title-ct">
           <div className="category-ct flex">
             <div className="button-icon">
-              <BiSolidCategoryAlt />
+              <FaFilter />
             </div>
             <div className="list-ct flex">
               {categroyList

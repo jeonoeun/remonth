@@ -26,7 +26,7 @@ export default function Detail() {
         {matchedItem && <p className="page-name">{matchedItem.title}</p>}
       </div>
       {matchedItem && (
-        <div className="content">
+        <div className="content-ct">
           <img className="detail-img" src={matchedItem.image} alt="" />
           <div className="content">
             <div className="title-box">

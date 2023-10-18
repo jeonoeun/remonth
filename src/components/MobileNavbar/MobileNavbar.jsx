@@ -15,13 +15,13 @@ export default function MobileNavbar() {
           <AiFillHome />
           <span>홈</span>
         </li>
-        <li onClick={() => navigate("/remonth")}>
-          <BsFillGrid1X2Fill />
-          <span>월간지</span>
-        </li>
         <li onClick={() => navigate("/moment")}>
           <SiAlpinedotjs />
           <span>모먼트</span>
+        </li>
+        <li onClick={() => navigate("/remonth")}>
+          <BsFillGrid1X2Fill />
+          <span>월간지</span>
         </li>
         <li onClick={() => navigate("/mypage")}>
           <BsFillHeartFill />

@@ -25,7 +25,6 @@ export default function Remonth() {
               data.filter((card) => card.userId === currentUser.id)
             )
           );
-        console.log(remonthData);
       } catch (error) {
         console.error(error);
       }
@@ -43,22 +42,38 @@ export default function Remonth() {
         <p className="page-name">remonth</p>
       </div>
       <div className="content">
+        <p className="total">전체 {remonthData.length}</p>
         {remonthData.map((card) => (
           <div
             key={card.id}
             className="remonth-card"
-            onClick={() => navigate(`/${card.id}`)}
+            onClick={() => navigate(`/remonth/${card.id}`)}
           >
-            <div className="img-ct">
-              <img src={card.selectedCards[0].image} alt="" className="card-img" />
+            <div className="img-ct flex">
+              {card.selectedCards
+                .filter((_, i) => i < 4)
+                .map((e) => (
+                  <div className="image">
+                    <img src={e.image} alt="" />
+                  </div>
+                ))}
+              <div className="filter"></div>
+              <div className="user flex">
+                <div className="flex">
+                  <img src={card.userImage} alt="" className="user-img" />
+                  <p>{card.userName}</p>
+                </div>
+                <span className="card-num">+ {card.selectedCards.length}</span>
+              </div>
             </div>
             <div className="card-info">
-              <p>
-                {card.month.slice(5, 7)}월호 | {card.title}
+              <p className="card-title">
+                {card.month.slice(5, 7)}월호 | {card.title.repeat(10)}
               </p>
-              <div className="user flex">
-                <img src={card.userImage} alt="" className="user-img" />
-                <p>{card.userName}</p>
+              <p className="card-review">{card.review.repeat(10)}</p>
+              <div className="like-box">
+                <span>좋아요 0</span>
+                <span>댓글 0</span>
               </div>
             </div>
           </div>
