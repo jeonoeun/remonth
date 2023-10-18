@@ -3,9 +3,20 @@ import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { BsFillShareFill } from "react-icons/bs";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike, AiOutlineShareAlt } from "react-icons/ai";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+
+const categroyList = {
+  노래: "music",
+  책: "book",
+  영상: "video",
+  음식: "food",
+  소비: "item",
+  공간: "place",
+  운동: "workout",
+  순간: "moment",
+};
 
 export default function RemonthDetail() {
   const { id } = useParams();
@@ -15,7 +26,6 @@ export default function RemonthDetail() {
   useEffect(() => {
     setMatchedItem(remonthData.find((remonth) => remonth.id === id));
   }, [id, remonthData]);
-  console.log(matchedItem);
 
   return (
     <div className="remonth-detail">
@@ -23,6 +33,7 @@ export default function RemonthDetail() {
         <button onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </button>
+      
       </div>
       {matchedItem && (
         <div className="content">
@@ -49,7 +60,7 @@ export default function RemonthDetail() {
             </div>
             <div className="detail-info">
               <p className="detail-title">{matchedItem.title}</p>
-              <p className="detail-review">{matchedItem.review.repeat(10)}</p>
+              <p className="detail-review">{matchedItem.review}</p>
               <div className="like-box">
                 <span>좋아요 0</span>
                 <span>댓글 0</span>
@@ -72,16 +83,56 @@ export default function RemonthDetail() {
             </ul>
           </div>
           <div className="content-body">
-            <ul>
-              <li>💘 올해의 드라마 : 작은아씨들</li>
-              <li>💘 올해의 책 : 가녀장의 시대 </li>
-              <li>💘 올해의 노래 : 모든 DAY6 음악 </li>
-              <li>💘 올해의 술 : 잭다니엘 애플 </li>
-              <li>💘 올해의 만취 모먼트 : 내일 봬요 누나</li>
-            </ul>
+            <div className="preview-list">
+              <p className="preview-title">월간지 미리보기</p>
+              <ul>
+                {matchedItem.selectedCards.map((item) => (
+                  <li>
+                    💘{" "}
+                    <strong>
+                      {matchedItem.month.slice(-2)}월의 {item.category} :
+                    </strong>{" "}
+                    {item.title}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="card-area">
+              {matchedItem.selectedCards.map((card) => (
+                <div className="category-card">
+                  <span className="category-name">
+                    {categroyList[card.category]}
+                  </span>
+                  <ul className="title-area">
+                    <li className="title">{card.title}</li>
+                    <li>✦✦✦✦✧</li>
+                    <li>{card.date}</li>
+                    <li className="flex">
+                      <p>
+                        {matchedItem.month.slice(-2)}월의 {card.category}
+                      </p>
+                      {card.tags && (
+                        <div className="tags flex">
+                          {card.tags.map((tag) => (
+                            <span>/ {tag}</span>
+                          ))}
+                        </div>
+                      )}
+                    </li>
+                  </ul>
+                  <img
+                    src={card.image}
+                    alt=""
+                    onClick={() => navigate(`/${card.id}`)}
+                  />
+                  <p className="review">{card.review}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
+      <MobileNavbar />
     </div>
   );
 }

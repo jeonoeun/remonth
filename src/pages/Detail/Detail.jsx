@@ -23,7 +23,6 @@ export default function Detail() {
         <button onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </button>
-        {matchedItem && <p className="page-name">{matchedItem.title}</p>}
       </div>
       {matchedItem && (
         <div className="content-ct">

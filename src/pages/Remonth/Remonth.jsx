@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Remonth.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,12 +7,14 @@ import { setRemonths } from "../../store/moment";
 import { setUserRemonths } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { BiSliderAlt } from "react-icons/bi";
 
 export default function Remonth() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser) || {};
   const remonthData = useSelector((state) => state.moments.remonths);
   const navigate = useNavigate();
+  const [isModal, setIsModal] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -39,10 +41,18 @@ export default function Remonth() {
         <button onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </button>
-        <p className="page-name">remonth</p>
+        <p className="page-name">월간지</p>
       </div>
       <div className="content">
-        <p className="total">전체 {remonthData.length}</p>
+        <div className="block-title flex">
+          <div>
+            <span>전체</span>
+            <span className="color-num">{remonthData.length}</span>
+          </div>
+          <button className="filter-btn flex" onClick={() => setIsModal(true)}>
+            <BiSliderAlt />
+          </button>
+        </div>
         {remonthData.map((card) => (
           <div
             key={card.id}
@@ -68,9 +78,9 @@ export default function Remonth() {
             </div>
             <div className="card-info">
               <p className="card-title">
-                {card.month.slice(5, 7)}월호 | {card.title.repeat(10)}
+                {card.month.slice(-2)}월호 | {card.title}
               </p>
-              <p className="card-review">{card.review.repeat(10)}</p>
+              <p className="card-review">{card.review}</p>
               <div className="like-box">
                 <span>좋아요 0</span>
                 <span>댓글 0</span>
@@ -80,6 +90,11 @@ export default function Remonth() {
         ))}
       </div>
       <MobileNavbar />
+      {isModal && (
+        <div className="modal">
+          <div className="modal-hd">카데고리 선택</div>
+        </div>
+      )}
     </div>
   );
 }

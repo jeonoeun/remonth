@@ -48,7 +48,7 @@ export default function MyPage() {
               <span>모먼트</span>
               <span className="color-num">{userMoment.length}</span>
             </div>
-            <button>더보기</button>
+            <button onClick={() => navigate("/mypage/moment")}>더보기</button>
           </div>
           <div className="photo-grid">
             {userMoment
@@ -59,6 +59,12 @@ export default function MyPage() {
                 </div>
               ))}
           </div>
+          <button
+            className="builder-btn"
+            onClick={() => navigate("/builder/moment")}
+          >
+            + 모먼트 등록하기
+          </button>
         </div>
         <div className="block">
           <div className="block-title flex">
@@ -72,11 +78,20 @@ export default function MyPage() {
             {userRemonth
               .filter((_, i) => i < 3)
               .map((card) => (
-                <div className="photo" onClick={() => navigate(`/remonth/${card.id}`)}>
+                <div
+                  className="photo"
+                  onClick={() => navigate(`/remonth/${card.id}`)}
+                >
                   <img src={card.selectedCards[0].image} alt="" />
                 </div>
               ))}
           </div>
+          <button
+            className="builder-btn"
+            onClick={() => navigate("/builder/remonth")}
+          >
+            + 월간지 등록하기
+          </button>
         </div>
         <div className="block">
           <p>좋아요</p>

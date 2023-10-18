@@ -2,8 +2,9 @@
     .title {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 376px;
         background-color: #fff;
         z-index: 9;
         padding: 16px;
@@ -64,7 +65,7 @@
         }
 
         .block {
-            padding: 16px;
+            padding: 20px 16px;    
 
             .block-title {
                 justify-content: space-between;
@@ -97,6 +98,14 @@
                     border-radius: 5px;
                 }
 
+            }
+
+            .builder-btn {
+                width: 100%;
+                border: 1px solid #EBEBEB;
+                border-radius: 6px;
+                padding: 10px;
+                margin-top: 10px;
             }
         }
     }

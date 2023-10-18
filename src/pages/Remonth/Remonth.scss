@@ -1,11 +1,13 @@
 .remonth {
     padding-bottom: 80px;
+    background-color: #fff;
 
     .title {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 376px;
         background-color: #fff;
         padding: 16px;
         z-index: 9;
@@ -22,8 +24,22 @@
         margin-top: 52px;
         padding: 20px;
 
-        .total {
-            margin-bottom: 10px;
+        .block-title {
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .color-num {
+                color: #35C5F0;
+                margin: 0 6px;
+            }
+
+            button {
+                width: 40px;
+                height: 40px;
+                border: 1px solid #B0B0B0;
+                border-radius: 50%;
+                justify-content: center;
+            }
         }
 
         .remonth-card {
@@ -83,7 +99,7 @@
                 }
             }
 
-            .detail-info {
+            .card-info {
                 padding: 20px;
 
                 .card-title {
@@ -120,11 +136,17 @@
                     border-top: 1px solid rgb(210, 210, 210);
                 }
             }
-
-            
-
         }
 
+    }
+
+    .modal {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 376px;
+        background-color: #fff;
     }
 
 }

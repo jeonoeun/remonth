@@ -53,45 +53,51 @@
   .date-modal {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 376px;
     height: 100%;
     background-color: rgba(25, 27, 28, 0.5);
 
     .modal {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 95%;
-      height: 400px;
+      bottom: 0;
+      left: 0;
+      width: 100%;
       background-color: #fff;
       padding: 35px 30px;
-      border-radius: 15px;
+      border-top-right-radius: 22px;
+      border-top-left-radius: 22px;
+      padding-bottom: 180px;
 
-      .date-title {
-        font-size: 24px;
-        font-weight: 500;
-        margin-bottom: 30px;
-      }
+      .inner {
+        padding-bottom: 80px;
 
-      ul {
-        li {
-          gap: 12px;
-          padding-bottom: 30px;
-
-          .color-box {
-            width: 16px;
-            height: 16px;
-            background-color: aqua;
-            border-radius: 3px;
+        .date-title {
+          font-size: 24px;
+          font-weight: 500;
+          margin-bottom: 30px;
+        }
+  
+        ul {
+          li {
+            gap: 12px;
+            padding-bottom: 30px;
+            line-height: 2rem;
+  
+            .color-box {
+              width: 16px;
+              height: 16px;
+              background-color: aqua;
+              border-radius: 3px;
+            }
           }
         }
       }
 
       .category-btn {
         position: absolute;
-        bottom: 35px;
+        bottom: 100px;
         right: 30px;
         background-color: #337EA9;
         border-radius: 50%;

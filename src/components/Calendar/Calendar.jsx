@@ -66,21 +66,27 @@ export default function ReactCalendar() {
       {isDateModal && (
         <div className="date-modal">
           <div className="modal">
-            <div className="date-title">
-              {moment(value).format("YYYY년 MM월 DD일")}
+            <div className="inner">
+              <div className="date-title">
+                {moment(value).format("YYYY년 MM월 DD일")}
+              </div>
+              {matchedCard ? (
+                <ul>
+                  {matchedCard.map((card) => (
+                    <li
+                      className="flex"
+                      onClick={() => navigate(`/${card.id}`)}
+                    >
+                      <div className="color-box"></div>
+                      <p>{card.title}</p>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>이날의 기록이 없습니다</p>
+              )}
             </div>
-            {matchedCard ? (
-              <ul>
-                {matchedCard.map((card) => (
-                  <li className="flex" onClick={() => navigate(`/${card.id}`)}>
-                    <div className="color-box"></div>
-                    <p>{card.title}</p>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>이날의 기록이 없습니다</p>
-            )}
+
             <button
               className="category-btn flex"
               onClick={() => navigate("/builder/moment")}

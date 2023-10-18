@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
 import { FaBell } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
 import { login, logout, onUserChanged } from "../../api/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setCurrentUser } from "../../store/user";
+import logo from "../../images/logo.svg";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
+  const [isModal, setIsModal] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     onUserChanged((userAuth) => {
@@ -42,15 +47,12 @@ export default function Header() {
   return (
     <header className="header">
       <div className="hd-wrapper flex">
-        {currentUser ? (
-          <div className="profile flex">
-            <img src={currentUser.image} alt="" className="user-img" />
-            <IoIosArrowDown />
-          </div>
-        ) : (
-          <button onClick={login}>login</button>
-        )}
-        <button onClick={handleLogout}>logout</button>
+        <button className="modal-btn" onClick={() => setIsModal(true)}>
+          <AiOutlineMenu />
+        </button>
+        <h1 onClick={() => navigate("/")}>
+          <img src={logo} alt="" />
+        </h1>
         <div className="util flex">
           <button>
             <FiSearch />

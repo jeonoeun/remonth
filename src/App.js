@@ -8,6 +8,7 @@ import Remonth from "./pages/Remonth/Remonth";
 import Moment from "./pages/Moment/Moment";
 import MyPage from "./pages/MyPage/MyPage";
 import RemonthDetail from "./pages/RemonthDetail/RemonthDetail";
+import MyMoment from "./pages/MyMoment/MyMoment";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/remonth" element={<Remonth />} />
         <Route path="/moment" element={<Moment />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage/moment" element={<MyMoment />} />
         <Route path="/:id" element={<Detail />} />
         <Route path="/remonth/:id" element={<RemonthDetail />} />
         <Route path="/builder/moment" element={<Builder />} />

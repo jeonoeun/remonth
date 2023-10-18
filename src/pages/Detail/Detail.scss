@@ -1,12 +1,13 @@
 .detail {
-    padding-bottom: 80px;
+    padding-bottom: 80px;    
+    background-color: #fff;
 
     .page-title {
         position: fixed;
         top: 0;
-        left: 0;
-        width: 100%;
-        background-color: #fff;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 376px;
         padding: 16px;
         z-index: 9;
 
@@ -19,8 +20,6 @@
     }
 
     .content-ct {
-        margin-top: 52px;
-        
         .detail-img {
             width: 100%;
             height: 354px;
