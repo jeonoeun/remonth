@@ -95,15 +95,25 @@ export default function Home() {
             currentUser.cards
               .filter((item) => item.category === selectedTag)
               .map((card) => (
-                <div className="card-item">
-                  <img src={card.image} alt="" /> {card.title}
+                <div
+                  className="card-item"
+                  onClick={() => navigate(`/${card.id}`)}
+                >
+                  <div className="img-ct">
+                    <img src={card.image} alt="" />
+                    <div className="filter"></div>
+                  </div>
+                  <div className="card-title flex">
+                    <p className="title">{card.title}</p>
+                    <p className="date">{card.date}</p>
+                  </div>
                 </div>
               ))}
           <button
             className="new-btn"
             onClick={() => navigate("/builder/moment")}
           >
-            모먼트 추가하기
+            + 모먼트 추가하기
           </button>
         </div>
       </div>

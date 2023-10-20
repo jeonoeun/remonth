@@ -6,9 +6,17 @@ import { useNavigate } from "react-router-dom";
 import { FaFilter } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineHeart } from "react-icons/ai";
 import { GoCircle, GoCheckCircleFill } from "react-icons/go";
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import {
+  MdKeyboardArrowLeft,
+  MdOutlineKeyboardArrowDown,
+  MdOutlineKeyboardArrowUp,
+} from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { BiComment, BiSliderAlt } from "react-icons/bi";
+import { GrPowerReset } from "react-icons/gr";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.module.css";
 
 const categroyList = [
   "노래",
@@ -32,6 +40,10 @@ export default function Moment() {
       ? moments
       : moments.filter((card) => selectedCategory.includes(card.category));
 
+  const [startDate, setStartDate] = useState(new Date("2023/10/01"));
+  const [endDate, setEndDate] = useState(new Date("2023/10/19"));
+  const [isModal, setIsModal] = useState(false);
+
   useEffect(() => {
     function getToday() {
       const date = new Date();
@@ -53,6 +65,7 @@ export default function Moment() {
         </button>
         <p className="page-name">모먼트</p>
       </div>
+
       <div className="content">
         <div className="block-title flex">
           <div>
@@ -61,11 +74,75 @@ export default function Moment() {
           </div>
           <button
             className="filter-btn flex"
-            onClick={() => setIsCategoryModal(true)}
+            onClick={() => setIsModal(!isModal)}
           >
             <BiSliderAlt />
           </button>
         </div>
+        <div className="selected-ct">
+          <ul className="flex">
+            {selectedCategory &&
+              selectedCategory.map((item) => (
+                <li
+                  key={item}
+                  onClick={() => {
+                    const deleted = selectedCategory.filter(
+                      (e) => !(e === item)
+                    );
+                    setSelectedCategory(deleted);
+                  }}
+                  className="flex"
+                >
+                  <span>{item}</span>
+                  <span className="close-icon flex">
+                    <AiOutlineClose />
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </div>
+        {isModal && (
+          <ul className="filter-box">
+            <li className="list flex">
+              <div className="list-name">카테고리</div>
+              <ul className="category-list flex">
+                {categroyList.map((list) => (
+                  <li
+                    onClick={() => {
+                      selectedCategory.includes(list)
+                        ? setSelectedCategory(
+                            selectedCategory.filter((e) => e !== list)
+                          )
+                        : setSelectedCategory((prev) => [...prev, list]);
+                    }}
+                    className={selectedCategory.includes(list) && "on"}
+                  >
+                    {list}
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li className="list flex">
+              <div className="list-name">기간</div>
+              <div className="flex">
+                <input type="month" />
+                <input type="month" />
+              </div>
+            </li>
+            <li className="list ft flex">
+              <button
+                className="clear flex"
+                onClick={() => setSelectedCategory([])}
+              >
+                <GrPowerReset />
+                <span>초기화</span>
+              </button>
+              <button className="close" onClick={() => setIsModal(false)}>
+                {selectedCards.length}개 표시
+              </button>
+            </li>
+          </ul>
+        )}
         <div className="content-title-ct">
           {/* <div className="category-ct flex">
             <div className="button-icon">
@@ -87,7 +164,7 @@ export default function Moment() {
               <div onClick={() => setIsCategoryModal(true)}>더보기..</div>
             </div>
           </div> */}
-          <div className="selected-ct">
+          {/* <div className="selected-ct">
             <ul className="flex">
               {selectedCategory &&
                 selectedCategory.map((item) => (
@@ -108,47 +185,65 @@ export default function Moment() {
                   </li>
                 ))}
             </ul>
-          </div>
+          </div> */}
         </div>
         <div className="momentList-ct">
           {selectedCards.map((card) => (
-            <div
-              key={card.id}
-              className="moment-card"
-              onClick={() => navigate(`/${card.id}`)}
-            >
-              <div className="moment-card-title flex">
-                <div className="user flex">
-                  <img src={card.user.image} alt="" className="user-img" />
-                  <div className="flex">
-                    <p>{card.user.name}</p>
-                    <p>{card.date}</p>
+            // <div
+            //   key={card.id}
+            //   className="moment-card"
+            //   onClick={() => navigate(`/${card.id}`)}
+            // >
+            //   <div className="moment-card-title flex">
+            //     <div className="user flex">
+            //       <img src={card.user.image} alt="" className="user-img" />
+            //       <div className="flex">
+            //         <p>{card.user.name}</p>
+            //         <p>{card.date}</p>
+            //       </div>
+            //     </div>
+            //     <button>
+            //       <BsThreeDotsVertical />
+            //     </button>
+            //   </div>
+            //   <div className="img-ct">
+            //     <img src={card.image} alt="" className="card-img" />
+            //     {/* {today === card.date && <span className="new-tag">new</span>} */}
+            //   </div>
+            //   <div className="card-util flex">
+            //     <div className="flex">
+            //       <button>
+            //         <AiOutlineHeart />
+            //       </button>
+            //       <button>
+            //         <BiComment />
+            //       </button>
+            //     </div>
+            //     <span>0 likes</span>
+            //   </div>
+            //   <div className="card-info flex">
+            //     <p className="card-title">{card.title.repeat(3)}</p>
+            //     <p className="card-review">{card.review}</p>
+            //   </div>
+            // </div>
+            <div className="card-item" onClick={() => navigate(`/${card.id}`)}>
+              <div className="img-ct">
+                <img src={card.image} alt="" />
+                <div className="filter"></div>
+              </div>
+              <div className="card-name flex">
+                <div className="left">
+                  <p className="card-title">{card.title}</p>
+                  <div className="user flex">
+                    <img src={card.user.image} alt="" className="user-img" />
+                    <div>
+                      <span>{card.user.name}</span>
+                    </div>
                   </div>
                 </div>
-                <button>
-                  <BsThreeDotsVertical />
-                </button>
-              </div>
-
-              <div className="img-ct">
-                <img src={card.image} alt="" className="card-img" />
-                {/* <div className="filter"></div> */}
-                {today === card.date && <span className="new-tag">new</span>}
-              </div>
-              <div className="card-util flex">
-                <div className="flex">
-                  <button>
-                    <AiOutlineHeart />
-                  </button>
-                  <button>
-                    <BiComment />
-                  </button>
-                </div>
-                <span>0 likes</span>
-              </div>
-              <div className="card-info flex">
-                <p className="card-title">{card.title.repeat(3)}</p>
-                <p className="card-review">{card.review}</p>
+                <p className="category">
+                  <span>{card.category}</span>
+                </p>
               </div>
             </div>
           ))}
@@ -157,27 +252,66 @@ export default function Moment() {
       <MobileNavbar />
       {isCategoryModal && (
         <div className="modal">
-          <div className="modal-hd">카데고리 선택</div>
-          <ul className="category-list flex">
-            {categroyList.map((list) => (
-              <li
-                onClick={() => setSelectedCategory((prev) => [...prev, list])}
-                className="flex"
-              >
-                <span className="checked-icon">
-                  {selectedCategory && selectedCategory.includes(list) ? (
-                    <GoCheckCircleFill />
-                  ) : (
-                    <GoCircle />
-                  )}
-                </span>
-                <span>{list}</span>
-              </li>
-            ))}
-          </ul>
-          <div className="btn-area flex">
-            <button className="clear" onClick={() => setSelectedCategory([])}>
-              초기화
+          <div className="modal-hd flex">
+            <button
+              className="close-btn flex"
+              onClick={() => setIsCategoryModal(false)}
+            >
+              <AiOutlineClose />
+            </button>
+            <span className="hd-title">필터</span>
+          </div>
+          <div className="modal-inner">
+            <div className="category-filter">
+              <p className="filter-title">카테고리 설정</p>
+              <ul className="category-list flex">
+                {categroyList.map((list) => (
+                  <li
+                    onClick={() =>
+                      setSelectedCategory((prev) => [...prev, list])
+                    }
+                    className="flex"
+                  >
+                    <span className="checked-icon">
+                      {selectedCategory && selectedCategory.includes(list) ? (
+                        <GoCheckCircleFill />
+                      ) : (
+                        <GoCircle />
+                      )}
+                    </span>
+                    <span>{list}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="date-filter">
+              <p className="filter-title">기간 설정</p>
+              <div className="flex">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="modal-ft flex">
+            <button
+              className="clear flex"
+              onClick={() => setSelectedCategory([])}
+            >
+              <GrPowerReset />
+              <span>초기화</span>
             </button>
             <button className="close" onClick={() => setIsCategoryModal(false)}>
               {selectedCards.length}개 표시

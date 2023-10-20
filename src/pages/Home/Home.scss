@@ -4,7 +4,7 @@
 
     .moment-box {
         padding: 30px 16px;
-        border-top: 10px solid rgb(247, 249, 250); 
+        border-top: 10px solid rgb(247, 249, 250);
 
         .title-area {
             justify-content: space-between;
@@ -19,12 +19,12 @@
 
         .category-ct {
             padding: 20px 0;
-            
+
             .list-ct {
                 gap: 5px;
                 flex-wrap: wrap;
                 white-space: nowrap;
-                
+
                 li {
                     background-color: #f5f5f5;
                     border-color: #f5f5f5;
@@ -42,15 +42,59 @@
         }
 
         .card-item {
-      
+            position: relative;
+            border-radius: 7px;
+            overflow: hidden;
+            margin-bottom: 5px;
+
+            .img-ct {
+                position: relative;
+                height: 110px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .filter {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgb(0, 0, 0);
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+                }
+            }
+
+            .card-title {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                color: #fff;
+                padding: 15px;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+
+                .title {
+                    display: block;
+                    width: 170px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    line-height: 2.8rem;
+                }
+            }
         }
 
         .new-btn {
             width: 100%;
-            border: 1px solid #757575;
-            padding: 12px 40px;
-            border-radius: 4px;
+            border: 1px solid #EBEBEB;
+            padding: 12px;
+            border-radius: 6px;
         }
-        
+
     }
 }

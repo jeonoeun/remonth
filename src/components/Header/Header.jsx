@@ -47,12 +47,10 @@ export default function Header() {
   return (
     <header className="header">
       <div className="hd-wrapper flex">
-        <button className="modal-btn" onClick={() => setIsModal(true)}>
-          <AiOutlineMenu />
-        </button>
-        <h1 onClick={() => navigate("/")}>
-          <img src={logo} alt="" />
-        </h1>
+        <div className="user flex">
+          <img src={currentUser.image} alt="" />
+          <IoIosArrowDown />
+        </div>
         <div className="util flex">
           <button>
             <FiSearch />

@@ -8,6 +8,8 @@ import { setUserRemonths } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
+import { GrPowerReset } from "react-icons/gr";
 
 export default function Remonth() {
   const dispatch = useDispatch();
@@ -15,6 +17,7 @@ export default function Remonth() {
   const remonthData = useSelector((state) => state.moments.remonths);
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
+  const [date, setDate] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,6 +56,46 @@ export default function Remonth() {
             <BiSliderAlt />
           </button>
         </div>
+        {isModal && (
+          <ul className="filter-box">
+            <li className="list flex">
+              <div className="list-name">기간</div>
+              <div className="flex">
+                <input type="month" />
+                <input type="month" />
+              </div>
+            </li>
+            <li className="list ft flex">
+              <button className="clear flex">
+                <GrPowerReset />
+                <span>초기화</span>
+              </button>
+              <button className="close" onClick={() => setIsModal(false)}>
+                {remonthData.length}개 표시
+              </button>
+            </li>
+          </ul>
+        )}
+        <div className="selected-ct">
+          <ul className="flex">
+            {date &&
+              date.map((item) => (
+                <li
+                  key={item}
+                  onClick={() => {
+                    const deleted = date.filter((e) => !(e === item));
+                    setDate(deleted);
+                  }}
+                  className="flex"
+                >
+                  <span>{item}</span>
+                  <span className="close-icon flex">
+                    <AiOutlineClose />
+                  </span>
+                </li>
+              ))}
+          </ul>
+        </div>
         {remonthData.map((card) => (
           <div
             key={card.id}
@@ -90,11 +133,38 @@ export default function Remonth() {
         ))}
       </div>
       <MobileNavbar />
-      {isModal && (
-        <div className="modal">
-          <div className="modal-hd">카데고리 선택</div>
+      {/* {isModal && (
+        <div className="modal flex">
+          <div className="modal-hd flex">
+            <button
+              className="close-btn flex"
+              onClick={() => setIsModal(false)}
+            >
+              <AiOutlineClose />
+            </button>
+            <span className="hd-title">필터</span>
+          </div>
+          <div className="modal-inner">
+            <div className="date-filter">
+              <p className="filter-title">기간 설정</p>
+              <input type="month" />
+              <input
+                type="month"
+                onChange={(e) => {
+                  setDate();
+                }}
+              />
+            </div>
+          </div>
+          <div className="modal-ft flex">
+            <button className="clear flex">
+              <GrPowerReset />
+              <span>초기화</span>
+            </button>
+            <button className="close">4개 표시</button>
+          </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

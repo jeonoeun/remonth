@@ -33,7 +33,6 @@ export default function RemonthDetail() {
         <button onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </button>
-      
       </div>
       {matchedItem && (
         <div className="content">
@@ -62,9 +61,9 @@ export default function RemonthDetail() {
               <p className="detail-title">{matchedItem.title}</p>
               <p className="detail-review">{matchedItem.review}</p>
               <div className="like-box">
-                <span>좋아요 0</span>
-                <span>댓글 0</span>
-                <span>{matchedItem.month.slice(0, 7)}</span>
+                {/* <span>좋아요 0</span>
+                <span>댓글 0</span> */}
+                <span>{matchedItem.month.slice(0, 7)}월호</span>
               </div>
             </div>
             <ul className="util-list flex">
@@ -84,7 +83,7 @@ export default function RemonthDetail() {
           </div>
           <div className="content-body">
             <div className="preview-list">
-              <p className="preview-title">월간지 미리보기</p>
+              <p className="preview-title">미리보기</p>
               <ul>
                 {matchedItem.selectedCards.map((item) => (
                   <li>
