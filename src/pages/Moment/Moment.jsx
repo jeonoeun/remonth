@@ -33,7 +33,7 @@ export default function Moment() {
   const [today, setToday] = useState();
   const moments = useSelector((state) => state.moments.moments);
   const navigate = useNavigate();
-  const [isCategoryModal, setIsCategoryModal] = useState(false);
+  const [isCategoryModal, setIsCategoryModal] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const selectedCards =
     selectedCategory.length === 0
@@ -122,13 +122,6 @@ export default function Moment() {
                 ))}
               </ul>
             </li>
-            <li className="list flex">
-              <div className="list-name">기간</div>
-              <div className="flex">
-                <input type="month" />
-                <input type="month" />
-              </div>
-            </li>
             <li className="list ft flex">
               <button
                 className="clear flex"
@@ -138,95 +131,18 @@ export default function Moment() {
                 <span>초기화</span>
               </button>
               <button className="close" onClick={() => setIsModal(false)}>
-                {selectedCards.length}개 표시
+                적용
               </button>
             </li>
           </ul>
         )}
-        <div className="content-title-ct">
-          {/* <div className="category-ct flex">
-            <div className="button-icon">
-              <FaFilter />
-            </div>
-            <div className="list-ct flex">
-              {categroyList
-                .filter((_, i) => i < 4)
-                .map((item) => (
-                  <div
-                    key={item}
-                    onClick={() =>
-                      setSelectedCategory((prev) => [...prev, item])
-                    }
-                  >
-                    {item}
-                  </div>
-                ))}
-              <div onClick={() => setIsCategoryModal(true)}>더보기..</div>
-            </div>
-          </div> */}
-          {/* <div className="selected-ct">
-            <ul className="flex">
-              {selectedCategory &&
-                selectedCategory.map((item) => (
-                  <li
-                    key={item}
-                    onClick={() => {
-                      const deleted = selectedCategory.filter(
-                        (e) => !(e === item)
-                      );
-                      setSelectedCategory(deleted);
-                    }}
-                    className="flex"
-                  >
-                    <span>{item}</span>
-                    <span className="close-icon flex">
-                      <AiOutlineClose />
-                    </span>
-                  </li>
-                ))}
-            </ul>
-          </div> */}
-        </div>
+
         <div className="momentList-ct">
           {selectedCards.map((card) => (
-            // <div
-            //   key={card.id}
-            //   className="moment-card"
-            //   onClick={() => navigate(`/${card.id}`)}
-            // >
-            //   <div className="moment-card-title flex">
-            //     <div className="user flex">
-            //       <img src={card.user.image} alt="" className="user-img" />
-            //       <div className="flex">
-            //         <p>{card.user.name}</p>
-            //         <p>{card.date}</p>
-            //       </div>
-            //     </div>
-            //     <button>
-            //       <BsThreeDotsVertical />
-            //     </button>
-            //   </div>
-            //   <div className="img-ct">
-            //     <img src={card.image} alt="" className="card-img" />
-            //     {/* {today === card.date && <span className="new-tag">new</span>} */}
-            //   </div>
-            //   <div className="card-util flex">
-            //     <div className="flex">
-            //       <button>
-            //         <AiOutlineHeart />
-            //       </button>
-            //       <button>
-            //         <BiComment />
-            //       </button>
-            //     </div>
-            //     <span>0 likes</span>
-            //   </div>
-            //   <div className="card-info flex">
-            //     <p className="card-title">{card.title.repeat(3)}</p>
-            //     <p className="card-review">{card.review}</p>
-            //   </div>
-            // </div>
-            <div className="card-item" onClick={() => navigate(`/${card.id}`)}>
+            <div
+              className="card-item"
+              onClick={() => navigate(`/moment/${card.id}`)}
+            >
               <div className="img-ct">
                 <img src={card.image} alt="" />
                 <div className="filter"></div>

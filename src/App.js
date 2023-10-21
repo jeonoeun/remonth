@@ -15,12 +15,12 @@ export default function App() {
     <div className="wrapper">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/remonth" element={<Remonth />} />
         <Route path="/moment" element={<Moment />} />
+        <Route path="/moment/:id" element={<Detail />} />
+        <Route path="/remonth" element={<Remonth />} />
+        <Route path="/remonth/:id" element={<RemonthDetail />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/mypage/moment" element={<MyMoment />} />
-        <Route path="/:id" element={<Detail />} />
-        <Route path="/remonth/:id" element={<RemonthDetail />} />
         <Route path="/builder/moment" element={<Builder />} />
         <Route path="/builder/remonth" element={<Builder />} />
       </Routes>

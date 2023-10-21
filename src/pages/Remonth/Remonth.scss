@@ -50,23 +50,25 @@
             }
 
             .list-name {
-                width: 70px;
-                max-width: 70px;
-                min-width: 70px;
+                width: 65px;
+                max-width: 65px;
+                min-width: 65px;
             }
 
-            .category-list {
-                flex-direction: row;
-                flex-wrap: wrap;
-                gap: 3px;
-                row-gap: 7px;
+            .selected-date {
+                color: #35C5F0;
+            }
 
-                li {
-                    padding: 0 10px;
-                }
+            .input {
+                margin-top: 10px;
+                justify-content: space-between;
 
-                .on {
-                    color: #35C5F0;
+                input {
+                    width: 125px;
+                    margin-right: 10px;
+                    border: 1px solid rgb(210, 210, 210);
+                    padding: 1px 3px;
+                    border-radius: 2px;
                 }
             }
 
@@ -77,9 +79,6 @@
     
                 .clear {
                     gap: 5px;
-                }
-    
-                .close {
                 }
             }
         }

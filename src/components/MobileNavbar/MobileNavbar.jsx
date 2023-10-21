@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = [
   {
-    pathname: "/",
+    pathname: "/home",
     label: "홈",
     icon: <AiFillHome />,
   },

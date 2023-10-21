@@ -61,17 +61,20 @@
 
     .modal {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      min-height: 300px;
       background-color: #fff;
       padding: 35px 30px;
-      border-top-right-radius: 22px;
-      border-top-left-radius: 22px;
-      padding-bottom: 180px;
+      border-radius: 22px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
 
       .inner {
-        padding-bottom: 80px;
+        width: 100%;
 
         .date-title {
           font-size: 24px;
@@ -84,29 +87,41 @@
             gap: 12px;
             padding-bottom: 30px;
             line-height: 2rem;
+            align-items: flex-start;
   
             .color-box {
               width: 16px;
+              min-width: 16px;
               height: 16px;
               background-color: aqua;
               border-radius: 3px;
+            }
+
+            .category-name {
+              margin-top: 3px;
+              color: #74747B;
+              font-size: 14px;
             }
           }
         }
       }
 
-      .category-btn {
-        position: absolute;
-        bottom: 100px;
-        right: 30px;
-        background-color: #337EA9;
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        color: #fff;
-        font-size: 20px;
-        justify-content: center;
+      .btn-area {
+        width: 100%;
+        justify-content: flex-end;
+
+        .category-btn {
+          background-color: #337EA9;
+          border-radius: 50%;
+          width: 45px;
+          height: 45px;
+          color: #fff;
+          font-size: 20px;
+          justify-content: center;
+        }
       }
+
+     
     }
   }
 

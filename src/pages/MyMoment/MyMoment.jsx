@@ -61,7 +61,7 @@ export default function MyMoment() {
               <div
                 key={card.id}
                 className="moment-card"
-                onClick={() => navigate(`/${card.id}`)}
+                onClick={() => navigate(`/moment/${card.id}`)}
               >
                 <div className="moment-card-title flex">
                   <div className="user flex">

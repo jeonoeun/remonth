@@ -65,7 +65,7 @@ export default function ReactCalendar() {
       />
       {isDateModal && (
         <div className="date-modal">
-          <div className="modal">
+          <div className="modal flex">
             <div className="inner">
               <div className="date-title">
                 {moment(value).format("YYYY년 MM월 DD일")}
@@ -78,7 +78,10 @@ export default function ReactCalendar() {
                       onClick={() => navigate(`/${card.id}`)}
                     >
                       <div className="color-box"></div>
-                      <p>{card.title}</p>
+                      <div>
+                        <p>{card.title}</p>
+                        <span className="category-name">{card.category}</span>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -86,13 +89,14 @@ export default function ReactCalendar() {
                 <p>이날의 기록이 없습니다</p>
               )}
             </div>
-
-            <button
-              className="category-btn flex"
-              onClick={() => navigate("/builder/moment")}
-            >
-              <AiOutlinePlus />
-            </button>
+            <div className="btn-area flex">
+              <button
+                className="category-btn flex"
+                onClick={() => navigate("/builder/moment")}
+              >
+                <AiOutlinePlus />
+              </button>
+            </div>
           </div>
         </div>
       )}

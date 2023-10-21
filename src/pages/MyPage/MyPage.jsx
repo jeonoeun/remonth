@@ -54,7 +54,7 @@ export default function MyPage() {
             {userMoment
               .filter((_, i) => i < 3)
               .map((card) => (
-                <div className="photo" onClick={() => navigate(`/${card.id}`)}>
+                <div className="photo" onClick={() => navigate(`/moment/${card.id}`)}>
                   <img src={card.image} alt="" />
                 </div>
               ))}

@@ -97,7 +97,7 @@ export default function Home() {
               .map((card) => (
                 <div
                   className="card-item"
-                  onClick={() => navigate(`/${card.id}`)}
+                  onClick={() => navigate(`moment/${card.id}`)}
                 >
                   <div className="img-ct">
                     <img src={card.image} alt="" />
