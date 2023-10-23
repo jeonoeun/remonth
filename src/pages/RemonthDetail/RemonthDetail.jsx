@@ -61,28 +61,25 @@ export default function RemonthDetail() {
               <p className="detail-title">{matchedItem.title}</p>
               <p className="detail-review">{matchedItem.review}</p>
               <div className="like-box">
-                {/* <span>좋아요 0</span>
-                <span>댓글 0</span> */}
                 <span>{matchedItem.month.slice(0, 7)}월호</span>
               </div>
             </div>
             <ul className="util-list flex">
               <li>
                 <AiOutlineLike />
-                <span>좋아요</span>
+                <span>좋아요 0</span>
               </li>
               <li>
                 <BiComment />
-                <span>댓글</span>
+                <span>댓글 0</span>
               </li>
               <li>
                 <AiOutlineShareAlt />
-                <span>공유</span>
               </li>
             </ul>
           </div>
           <div className="content-body">
-            <div className="preview-list">
+            {/* <div className="preview-list">
               <p className="preview-title">미리보기</p>
               <ul>
                 {matchedItem.selectedCards.map((item) => (
@@ -95,7 +92,7 @@ export default function RemonthDetail() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
             <div className="card-area">
               {matchedItem.selectedCards.map((card) => (
                 <div className="category-card">

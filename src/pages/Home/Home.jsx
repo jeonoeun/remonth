@@ -8,7 +8,6 @@ import { getMomentList } from "../../api/firebase";
 import { setMoments } from "../../store/moment";
 import { setUserCards } from "../../store/user";
 import { IoIosArrowForward } from "react-icons/io";
-import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 const categroyList = [

@@ -75,7 +75,7 @@ export default function ReactCalendar() {
                   {matchedCard.map((card) => (
                     <li
                       className="flex"
-                      onClick={() => navigate(`/${card.id}`)}
+                      onClick={() => navigate(`/moment/${card.id}`)}
                     >
                       <div className="color-box"></div>
                       <div>

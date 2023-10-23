@@ -7,7 +7,15 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { get, getDatabase, ref, set } from "firebase/database";
+import {
+  get,
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+} from "firebase/database";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -82,4 +90,39 @@ export async function getRemonthList() {
     }
     return [];
   });
+}
+
+export function removeData(id) {
+  remove(ref(database, `moments/${id}`));
+}
+
+export function addLikeUser(id, userId) {
+  const postListRef = ref(database, `moments/${id}/likeUsers`);
+  const newPostRef = push(postListRef);
+  set(newPostRef, {
+    userId,
+  });
+}
+
+export function getLikeUser(userId, callback) {
+  const likeUsersRef = ref(database, "moments/" + userId + "/likeUsers");
+  onValue(likeUsersRef, (snapshot) => {
+    if (snapshot.exists()) {
+      callback(Object.values(snapshot.val()));
+    } else {
+      callback([]);
+    }
+  });
+}
+
+export async function removeLikeUser(id, userIndex) {
+  const databaseRef = ref(database, `moments/${id}/likeUsers`);
+
+  const snapshot = await get(databaseRef);
+  if (snapshot.exists()) {
+    const likeUsers = snapshot.val();
+    const userKeyToDelete = Object.keys(likeUsers)[userIndex];
+
+    remove(ref(database, `moments/${id}/likeUsers/${userKeyToDelete}`));
+  }
 }

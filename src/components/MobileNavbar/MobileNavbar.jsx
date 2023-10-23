@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const tabs = [
   {
-    pathname: "/home",
+    pathname: "/",
     label: "홈",
     icon: <AiFillHome />,
   },
@@ -37,6 +37,7 @@ export default function MobileNavbar() {
       <ul className="flex">
         {tabs.map((tab) => (
           <li
+            key={tab.pathname}
             className={location.pathname === tab.pathname ? "selected" : ""}
             onClick={() => navigate(tab.pathname)}
           >

@@ -12,7 +12,6 @@ import {
   MdKeyboardArrowUp,
 } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
-import { AiOutlineClose } from "react-icons/ai";
 import { GrPowerReset } from "react-icons/gr";
 
 export default function Remonth() {
@@ -153,9 +152,9 @@ export default function Remonth() {
               <div className="img-ct flex">
                 {card.selectedCards
                   .filter((_, i) => i < 4)
-                  .map((e) => (
-                    <div className="image">
-                      <img src={e.image} alt="" />
+                  .map((item) => (
+                    <div className="image" key={item.image}>
+                      <img src={item.image} alt="" />
                     </div>
                   ))}
                 <div className="filter"></div>

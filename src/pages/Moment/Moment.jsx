@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaFilter } from "react-icons/fa";
 import { AiOutlineClose, AiOutlineHeart } from "react-icons/ai";
-import { GoCircle, GoCheckCircleFill } from "react-icons/go";
-import {
-  MdKeyboardArrowLeft,
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
-import { BsThreeDotsVertical } from "react-icons/bs";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 import { BiComment, BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import moment from "moment";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.module.css";
+import { getMomentList } from "../../api/firebase";
+import { setMoments } from "../../store/moment";
+import { setUserCards } from "../../store/user";
 
 const categroyList = [
   "노래",
@@ -30,32 +24,34 @@ const categroyList = [
 ];
 
 export default function Moment() {
-  const [today, setToday] = useState();
+  const dispatch = useDispatch();
   const moments = useSelector((state) => state.moments.moments);
   const navigate = useNavigate();
-  const [isCategoryModal, setIsCategoryModal] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const selectedCards =
     selectedCategory.length === 0
       ? moments
       : moments.filter((card) => selectedCategory.includes(card.category));
 
-  const [startDate, setStartDate] = useState(new Date("2023/10/01"));
-  const [endDate, setEndDate] = useState(new Date("2023/10/19"));
   const [isModal, setIsModal] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
-    function getToday() {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = ("0" + (1 + date.getMonth())).slice(-2);
-      const day = ("0" + date.getDate()).slice(-2);
-
-      setToday(year + "-" + month + "-" + day);
+    async function fetchData() {
+      try {
+        const data = await getMomentList();
+        dispatch(setMoments(data));
+        currentUser.id &&
+          dispatch(
+            setUserCards(data.filter((card) => card.user.id === currentUser.id))
+          );
+      } catch (error) {
+        console.error(error);
+      }
     }
 
-    getToday();
-  }, []);
+    fetchData();
+  }, [dispatch, currentUser.id]);
 
   return (
     <div className="moment">
@@ -108,6 +104,7 @@ export default function Moment() {
               <ul className="category-list flex">
                 {categroyList.map((list) => (
                   <li
+                    key={list}
                     onClick={() => {
                       selectedCategory.includes(list)
                         ? setSelectedCategory(
@@ -136,10 +133,10 @@ export default function Moment() {
             </li>
           </ul>
         )}
-
         <div className="momentList-ct">
           {selectedCards.map((card) => (
             <div
+              key={card.id}
               className="card-item"
               onClick={() => navigate(`/moment/${card.id}`)}
             >
@@ -166,75 +163,6 @@ export default function Moment() {
         </div>
       </div>
       <MobileNavbar />
-      {isCategoryModal && (
-        <div className="modal">
-          <div className="modal-hd flex">
-            <button
-              className="close-btn flex"
-              onClick={() => setIsCategoryModal(false)}
-            >
-              <AiOutlineClose />
-            </button>
-            <span className="hd-title">필터</span>
-          </div>
-          <div className="modal-inner">
-            <div className="category-filter">
-              <p className="filter-title">카테고리 설정</p>
-              <ul className="category-list flex">
-                {categroyList.map((list) => (
-                  <li
-                    onClick={() =>
-                      setSelectedCategory((prev) => [...prev, list])
-                    }
-                    className="flex"
-                  >
-                    <span className="checked-icon">
-                      {selectedCategory && selectedCategory.includes(list) ? (
-                        <GoCheckCircleFill />
-                      ) : (
-                        <GoCircle />
-                      )}
-                    </span>
-                    <span>{list}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="date-filter">
-              <p className="filter-title">기간 설정</p>
-              <div className="flex">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
-                  selectsStart
-                  startDate={startDate}
-                  endDate={endDate}
-                />
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
-                  selectsEnd
-                  startDate={startDate}
-                  endDate={endDate}
-                  minDate={startDate}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="modal-ft flex">
-            <button
-              className="clear flex"
-              onClick={() => setSelectedCategory([])}
-            >
-              <GrPowerReset />
-              <span>초기화</span>
-            </button>
-            <button className="close" onClick={() => setIsCategoryModal(false)}>
-              {selectedCards.length}개 표시
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

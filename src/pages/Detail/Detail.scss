@@ -10,12 +10,32 @@
         width: 376px;
         padding: 16px;
         z-index: 9;
+        justify-content: space-between;
 
-        .page-name {
-            position: absolute;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
+        .setting-btn {
+            position: relative;
+
+            ul {
+                position: absolute;
+                top: 120%;
+                right: 0;
+                width: max-content;
+                text-align: center;
+                background-color: #f5f5f5;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+                border-radius: 4px;
+                padding: 5px 0;
+    
+                li {
+                    background-color: #f5f5f5;
+                    padding: 14px 20px;
+    
+                    &:hover {
+                        background-color: #35C5F0;
+                    }
+                }
+            }
+
         }
     }
 
@@ -28,7 +48,7 @@
 
         .content {
             padding: 0 20px;
-            
+
             .title-box {
                 flex-direction: column;
                 gap: 15px;
@@ -66,7 +86,7 @@
                 border-top: 1px solid rgba(210, 210, 210, 0.3);
                 border-bottom: 1px solid rgba(210, 210, 210, 0.3);
                 color: #A0A0A0;
-        
+
                 li {
                     display: flex;
                     align-items: center;
@@ -74,6 +94,10 @@
                     flex: 1;
                     padding: 15px;
                     gap: 7px;
+                }
+
+                .on {
+                    color: rgb(255, 47, 110);
                 }
             }
 
@@ -84,6 +108,10 @@
 
         .block {
             margin-bottom: 50px;
+
+            .title {
+                margin-bottom: 10px;
+            }
         }
 
         .review {
@@ -91,6 +119,7 @@
                 background-color: #F9F9F9;
                 line-height: 2.5rem;
                 border-radius: 6px;
+                padding: 16px;
             }
         }
 
@@ -98,7 +127,7 @@
             .tag-box {
                 flex-direction: row;
                 flex-wrap: wrap;
-                gap: 16px;
+                gap: 10px;
                 row-gap: 10px;
                 margin-bottom: 30px;
 

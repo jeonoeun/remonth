@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { IoIosArrowDown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi";
-import { FaBell } from "react-icons/fa";
+import { FaBell, FaUserCircle } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import { login, logout, onUserChanged } from "../../api/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setCurrentUser } from "../../store/user";
-import logo from "../../images/logo.svg";
 import { useNavigate } from "react-router-dom";
+import {
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowDown,
+  MdKeyboardArrowUp,
+} from "react-icons/md";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -47,9 +51,20 @@ export default function Header() {
   return (
     <header className="header">
       <div className="hd-wrapper flex">
-        <div className="user flex">
-          <img src={currentUser.image} alt="" />
-          <IoIosArrowDown />
+        <div className="user flex" onClick={() => setIsModal(!isModal)}>
+          {currentUser ? (
+            <img src={currentUser.image} alt="" />
+          ) : (
+            <FaUserCircle />
+          )}
+
+          {isModal ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
+          {isModal && (
+            <ul className="user-modal">
+              <li onClick={() => navigate("/mypage")}>마이페이지</li>
+              <li onClick={handleLogout}>로그아웃</li>
+            </ul>
+          )}
         </div>
         <div className="util flex">
           <button>
