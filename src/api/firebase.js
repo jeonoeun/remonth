@@ -126,3 +126,24 @@ export async function removeLikeUser(id, userIndex) {
     remove(ref(database, `moments/${id}/likeUsers/${userKeyToDelete}`));
   }
 }
+
+export function addComment(id, comment) {
+  const commentId = uuid();
+  const databaseRef = ref(database, "moments/" + id + "/comments");
+  const newCommentRef = push(databaseRef);
+  set(newCommentRef, {
+    ...comment,
+    commentId,
+  });
+}
+
+export function getComments(id, callback) {
+  const databaseRef = ref(database, "moments/" + id + "/comments");
+  onValue(databaseRef, (snapshot) => {
+    if (snapshot.exists()) {
+      callback(Object.values(snapshot.val()));
+    } else {
+      callback([]);
+    }
+  });
+}

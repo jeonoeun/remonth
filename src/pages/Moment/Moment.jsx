@@ -3,9 +3,9 @@ import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineClose, AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineClose } from "react-icons/ai";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { BiComment, BiSliderAlt } from "react-icons/bi";
+import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import "react-datepicker/dist/react-datepicker.module.css";
 import { getMomentList } from "../../api/firebase";
@@ -61,7 +61,6 @@ export default function Moment() {
         </button>
         <p className="page-name">모먼트</p>
       </div>
-
       <div className="content">
         <div className="block-title flex">
           <div>
@@ -75,10 +74,10 @@ export default function Moment() {
             <BiSliderAlt />
           </button>
         </div>
-        <div className="selected-ct">
-          <ul className="flex">
-            {selectedCategory &&
-              selectedCategory.map((item) => (
+        {selectedCategory.length > 0 && (
+          <div className="selected-ct">
+            <ul className="flex">
+              {selectedCategory.map((item) => (
                 <li
                   key={item}
                   onClick={() => {
@@ -95,8 +94,10 @@ export default function Moment() {
                   </span>
                 </li>
               ))}
-          </ul>
-        </div>
+            </ul>
+          </div>
+        )}
+
         {isModal && (
           <ul className="filter-box">
             <li className="list flex">

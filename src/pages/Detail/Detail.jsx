@@ -6,9 +6,10 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { IoMdSettings } from "react-icons/io";
 import { HiThumbUp } from "react-icons/hi";
-import { FaThumbsUp, FaShareAlt, FaComment } from "react-icons/fa";
+import { FaShareAlt, FaComment } from "react-icons/fa";
 import {
   addLikeUser,
+  getComments,
   getLikeUser,
   getMomentList,
   removeData,
@@ -16,6 +17,8 @@ import {
 } from "../../api/firebase";
 import { setMoments } from "../../store/moment";
 import { setUserCards } from "../../store/user";
+import Comment from "../../components/Comment/Comment";
+import CommentForm from "../../components/CommentForm/CommentForm";
 
 export default function Detail() {
   const { id } = useParams();
@@ -26,6 +29,15 @@ export default function Detail() {
   const [isModal, setIsModal] = useState(false);
   const [likeUsers, setLikeUsers] = useState();
   const currentUser = useSelector((state) => state.user.currentUser);
+  const [isCommentModal, setIsCommentModal] = useState(false);
+  const [success, setSuccess] = useState();
+  const [comments, setComments] = useState();
+
+  useEffect(() => {
+    getComments(id, (data) => {
+      setComments(data);
+    });
+  }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -108,9 +120,9 @@ export default function Detail() {
                 <HiThumbUp />
                 {likeUsers && <span>좋아요 {likeUsers.length}</span>}
               </li>
-              <li>
+              <li onClick={() => setIsCommentModal(!isCommentModal)}>
                 <FaComment />
-                <span>댓글 0</span>
+                <span>댓글 {comments && comments.length}</span>
               </li>
               <li>
                 <FaShareAlt />
@@ -136,8 +148,20 @@ export default function Detail() {
               )}
             </div>
           </div>
+          <Comment
+            currentUser={currentUser}
+            comments={comments}
+            setIsCommentModal={setIsCommentModal}
+          />
         </div>
       )}
+      {isCommentModal && (
+        <CommentForm
+          setIsCommentModal={setIsCommentModal}
+          setSuccess={setSuccess}
+        />
+      )}
+      {success && <div className="success-box">{success}</div>}
       <MobileNavbar />
     </div>
   );

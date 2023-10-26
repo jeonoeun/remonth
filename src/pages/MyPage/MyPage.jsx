@@ -43,18 +43,18 @@ export default function MyPage() {
           </div>
         </div>
         <div className="block">
-          <div className="block-title flex">
-            <div>
-              <span>모먼트</span>
-              <span className="color-num">{userMoment.length}</span>
-            </div>
-            <button onClick={() => navigate("/mypage/moment")}>더보기</button>
+          <div className="block-title">
+            <span>모먼트</span>
+            <span className="color-num">{userMoment.length}</span>
           </div>
           <div className="photo-grid">
             {userMoment
               .filter((_, i) => i < 3)
               .map((card) => (
-                <div className="photo" onClick={() => navigate(`/moment/${card.id}`)}>
+                <div
+                  className="photo"
+                  onClick={() => navigate(`/moment/${card.id}`)}
+                >
                   <img src={card.image} alt="" />
                 </div>
               ))}
@@ -67,12 +67,9 @@ export default function MyPage() {
           </button>
         </div>
         <div className="block">
-          <div className="block-title flex">
-            <div>
-              <span>월간지</span>
-              <span className="color-num">{userRemonth.length}</span>
-            </div>
-            <button>더보기</button>
+          <div className="block-title">
+            <span>월간지</span>
+            <span className="color-num">{userRemonth.length}</span>
           </div>
           <div className="photo-grid">
             {userRemonth

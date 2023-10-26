@@ -75,6 +75,7 @@ export default function RemonthDetail() {
               </li>
               <li>
                 <AiOutlineShareAlt />
+                <span>공유</span>
               </li>
             </ul>
           </div>
@@ -119,7 +120,7 @@ export default function RemonthDetail() {
                   <img
                     src={card.image}
                     alt=""
-                    onClick={() => navigate(`/${card.id}`)}
+                    onClick={() => navigate(`/moment/${card.id}`)}
                   />
                   <p className="review">{card.review}</p>
                 </div>

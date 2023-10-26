@@ -1,0 +1,27 @@
+.comment-form {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    width: 376px;
+    height: 100vh;
+    z-index: 999;
+
+    .comment-form-title {
+        padding: 16px;
+        z-index: 999;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(210, 210, 210, 0.3);
+    }
+
+    .content {
+        padding: 20px;
+
+        input {
+            width: 100%;
+            border: none;
+            outline: none;
+        }
+    }
+}
