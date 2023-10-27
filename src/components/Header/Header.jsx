@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./Header.scss";
-import { IoIosArrowDown } from "react-icons/io";
+import { AiFillHeart } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { FaBell, FaUserCircle } from "react-icons/fa";
-import { AiOutlineMenu } from "react-icons/ai";
 import { login, logout, onUserChanged } from "../../api/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setCurrentUser } from "../../store/user";
 import { useNavigate } from "react-router-dom";
 import {
-  MdKeyboardArrowLeft,
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
+  MdLogout,
+  MdLogin,
 } from "react-icons/md";
 
 export default function Header() {
@@ -57,13 +57,36 @@ export default function Header() {
           ) : (
             <FaUserCircle />
           )}
-
           {isModal ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
           {isModal && (
-            <ul className="user-modal">
-              <li onClick={() => navigate("/mypage")}>마이페이지</li>
-              <li onClick={handleLogout}>로그아웃</li>
-            </ul>
+            <div className="background">
+              <ul className="user-modal">
+                <li onClick={() => navigate("/mypage")}>
+                  <span>마이페이지</span>
+                  <span>
+                    <AiFillHeart />
+                  </span>
+                </li>
+                {currentUser ? (
+                  <li onClick={handleLogout}>
+                    <span>로그아웃</span>
+                    <span>
+                      <MdLogout />
+                    </span>
+                  </li>
+                ) : (
+                  <li onClick={login}>
+                    <span>로그인</span>
+                    <span>
+                      <MdLogin />
+                    </span>
+                  </li>
+                )}
+                <li className="close" onClick={() => setIsModal(!isModal)}>
+                  취소
+                </li>
+              </ul>
+            </div>
           )}
         </div>
         <div className="util flex">

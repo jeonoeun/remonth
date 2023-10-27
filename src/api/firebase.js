@@ -147,3 +147,15 @@ export function getComments(id, callback) {
     }
   });
 }
+
+export async function removeComment(id, userIndex) {
+  const databaseRef = ref(database, `moments/${id}/comments`);
+
+  const snapshot = await get(databaseRef);
+  if (snapshot.exists()) {
+    const comments = snapshot.val();
+    const userKeyToDelete = Object.keys(comments)[userIndex];
+
+    remove(ref(database, `moments/${id}/comments/${userKeyToDelete}`));
+  }
+}

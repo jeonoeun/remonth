@@ -1,7 +1,11 @@
 import React from "react";
 import "./Comment.scss";
+import { useParams } from "react-router-dom";
+import { removeComment } from "../../api/firebase";
 
 export default function Comment({ currentUser, setIsCommentModal, comments }) {
+  const { id } = useParams();
+
   return (
     <div className="comment-area">
       <p className="comment-area-title">
@@ -10,7 +14,7 @@ export default function Comment({ currentUser, setIsCommentModal, comments }) {
       {comments && comments.length > 0 ? (
         <ul className="inner">
           {comments.map((list) => (
-            <li key={list.commentId} onClick={() => console.log(list)}>
+            <li key={list.commentId}>
               <div className="top flex">
                 <div className="flex">
                   <img src={list.image} alt="" />
@@ -22,7 +26,15 @@ export default function Comment({ currentUser, setIsCommentModal, comments }) {
                 {list.userId === currentUser.id && (
                   <div className="user-btn flex">
                     <span>수정</span>
-                    <span>삭제</span>
+                    <span
+                      onClick={() => {
+                        const matched = (element) =>
+                          element.commentId === list.commentId;
+                        removeComment(id, comments.findIndex(matched));
+                      }}
+                    >
+                      삭제
+                    </span>
                   </div>
                 )}
               </div>

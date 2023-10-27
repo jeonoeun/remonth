@@ -6,6 +6,8 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { IoMdSettings } from "react-icons/io";
 import { HiThumbUp } from "react-icons/hi";
+import { BiSolidPencil } from "react-icons/bi";
+import { AiFillDelete } from "react-icons/ai";
 import { FaShareAlt, FaComment } from "react-icons/fa";
 import {
   addLikeUser,
@@ -77,16 +79,33 @@ export default function Detail() {
         <button onClick={() => navigate(-1)}>
           <MdKeyboardArrowLeft />
         </button>
-        <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
-          <IoMdSettings />
-          {isModal && (
-            <ul className="user-modal">
-              <li onClick={handleRemove}>삭제하기</li>
-              <li>수정하기</li>
-            </ul>
-          )}
-        </button>
+        {matchedItem && matchedItem.user.id === currentUser.id && (
+          <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
+            <IoMdSettings />
+          </button>
+        )}
       </div>
+      {isModal && (
+        <div className="background">
+          <ul className="user-modal">
+            <li>
+              <span>수정하기</span>
+              <span>
+                <BiSolidPencil />
+              </span>
+            </li>
+            <li onClick={handleRemove}>
+              <span>삭제하기</span>
+              <span>
+                <AiFillDelete />
+              </span>
+            </li>
+            <li className="close" onClick={() => setIsModal(!isModal)}>
+              취소
+            </li>
+          </ul>
+        </div>
+      )}
       {matchedItem && (
         <div className="content-ct">
           <img className="detail-img" src={matchedItem.image} alt="" />
