@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import { AiFillHeart } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import { FaBell, FaUserCircle } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";
 import { login, logout, onUserChanged } from "../../api/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setCurrentUser } from "../../store/user";
@@ -13,6 +13,7 @@ import {
   MdLogout,
   MdLogin,
 } from "react-icons/md";
+import noneProfile from "../../images/none.png";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ export default function Header() {
           {currentUser ? (
             <img src={currentUser.image} alt="" />
           ) : (
-            <FaUserCircle />
+            <img src={noneProfile} alt="" />
           )}
           {isModal ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
           {isModal && (
@@ -92,9 +93,6 @@ export default function Header() {
         <div className="util flex">
           <button>
             <FiSearch />
-          </button>
-          <button>
-            <FaBell />
           </button>
         </div>
       </div>

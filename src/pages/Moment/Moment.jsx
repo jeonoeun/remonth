@@ -41,17 +41,21 @@ export default function Moment() {
       try {
         const data = await getMomentList();
         dispatch(setMoments(data));
-        currentUser.id &&
-          dispatch(
-            setUserCards(data.filter((card) => card.user.id === currentUser.id))
-          );
       } catch (error) {
         console.error(error);
       }
     }
 
     fetchData();
-  }, [dispatch, currentUser.id]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    currentUser &&
+      currentUser.id &&
+      dispatch(
+        setUserCards(moments.filter((card) => card.user.id === currentUser.id))
+      );
+  }, []);
 
   return (
     <div className="moment">
