@@ -21,6 +21,7 @@ import { setMoments } from "../../store/moment";
 import { setUserCards } from "../../store/user";
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 export default function Detail() {
   const { id } = useParams();
@@ -75,16 +76,12 @@ export default function Detail() {
 
   return (
     <div className="detail">
-      <div className="page-title flex">
-        <button onClick={() => navigate(-1)}>
-          <MdKeyboardArrowLeft />
+      <PageHeader />
+      {matchedItem && matchedItem.user.id === currentUser.id && (
+        <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
+          <IoMdSettings />
         </button>
-        {matchedItem && matchedItem.user.id === currentUser.id && (
-          <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
-            <IoMdSettings />
-          </button>
-        )}
-      </div>
+      )}
       {isModal && (
         <div className="background">
           <ul className="user-modal">
@@ -150,12 +147,12 @@ export default function Detail() {
             </ul>
             <div className="box-list">
               <div className="review block">
-                <p className="title">리뷰/메모</p>
+                <p className="block-title">리뷰/메모</p>
                 <p className="review-content">{matchedItem.review}</p>
               </div>
               {matchedItem.tags && (
                 <div className="tags block">
-                  <p className="title">태그 {matchedItem.tags.length}</p>
+                  <p className="block-title">태그 {matchedItem.tags.length}</p>
                   <ul className="tag-box flex">
                     {matchedItem.tags.map((tag) => (
                       <li key={tag} className="tag">

@@ -22,14 +22,14 @@
             height: 100%;
             flex: 1;
             gap: 10px;
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: pointer;
         }
         
         .selected {
             position: relative;
             opacity: 1;
-            color: #000;
+            color: #3876BF;
 
             .underline {
                 position: absolute;
@@ -37,7 +37,7 @@
                 left: 0;
                 width: 100%;
                 height: 2px;
-                background-color: #35C5F0;
+                background-color: #9FBB73;
                 border-top-left-radius: 30px;
                 border-top-right-radius: 30px;
             }

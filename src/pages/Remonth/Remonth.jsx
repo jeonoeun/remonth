@@ -13,6 +13,7 @@ import {
 } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
+import PageHeader from "../../components/PageHeader/PageHeader"
 
 export default function Remonth() {
   const dispatch = useDispatch();
@@ -66,12 +67,7 @@ export default function Remonth() {
 
   return (
     <div className="remonth">
-      <div className="title">
-        <button onClick={() => navigate(-1)}>
-          <MdKeyboardArrowLeft />
-        </button>
-        <p className="page-name">월간지</p>
-      </div>
+      <PageHeader />
       <div className="content">
         <div className="block-title flex">
           <div>

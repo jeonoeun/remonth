@@ -1,12 +1,11 @@
 import React from "react";
 import "./MobileNavbar.scss";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiOutlineMenu } from "react-icons/ai";
 import { BsFillHeartFill, BsFillGridFill } from "react-icons/bs";
 import { FaUser, FaMountain } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { login } from "../../api/firebase";
-import { motion } from "framer-motion";
 
 export default function MobileNavbar() {
   const navigate = useNavigate();
@@ -22,9 +21,6 @@ export default function MobileNavbar() {
         >
           <AiFillHome />
           <span>홈</span>
-          {location.pathname.includes("/") ? (
-            <motion.div className="underline" layoutId="underline" />
-          ) : null}
         </li>
         <li
           className={location.pathname.includes("moment") ? "selected" : ""}
@@ -32,9 +28,6 @@ export default function MobileNavbar() {
         >
           <BsFillGridFill />
           <span>모먼트</span>
-          {location.pathname.includes("moment") ? (
-            <motion.div className="underline" layoutId="underline" />
-          ) : null}
         </li>
         <li
           className={location.pathname.includes("remonth") ? "selected" : ""}
@@ -42,9 +35,9 @@ export default function MobileNavbar() {
         >
           <FaMountain />
           <span>월간지</span>
-          {location.pathname.includes("remonth") ? (
+          {/* {location.pathname.includes("remonth") ? (
             <motion.div className="underline" layoutId="underline" />
-          ) : null}
+          ) : null} */}
         </li>
         {currentUser ? (
           <li
@@ -53,9 +46,6 @@ export default function MobileNavbar() {
           >
             <BsFillHeartFill />
             <span>마이</span>
-            {location.pathname === "/mypage" ? (
-              <motion.div className="underline" layoutId="underline" />
-            ) : null}
           </li>
         ) : (
           <li onClick={login}>
@@ -63,6 +53,10 @@ export default function MobileNavbar() {
             <span>로그인</span>
           </li>
         )}
+        <li>
+          <AiOutlineMenu />
+          <span>메뉴</span>
+        </li>
       </ul>
     </div>
   );

@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
+import { doc, getFirestore, setDoc, onSnapshot } from "firebase/firestore";
+
 import {
   getAuth,
   signInWithPopup,
-  GithubAuthProvider,
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
@@ -19,38 +20,44 @@ import {
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDWAWCCljE81rT53p76HiaxlnmbRvEWeWc",
-  authDomain: "remo-f87a3.firebaseapp.com",
-  projectId: "remo-f87a3",
-  databaseURL:
-    "https://remo-f87a3-default-rtdb.asia-southeast1.firebasedatabase.app/",
+  apiKey: "AIzaSyCt85_Yc5ta22H8ckRrwMUK4ZvwGPByg3I",
+  authDomain: "remonth-d68c4.firebaseapp.com",
+  projectId: "remonth-d68c4",
+  storageBucket: "remonth-d68c4.appspot.com",
+  messagingSenderId: "140253864757",
+  appId: "1:140253864757:web:ef49ad9c75c3ad4d42a27c",
 };
 
 const app = initializeApp(firebaseConfig);
-const githubProvider = new GithubAuthProvider();
+const db = getFirestore(app);
+const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-const auth = getAuth();
+
 const database = getDatabase();
 
+//로그인
 export function login() {
   signInWithPopup(auth, googleProvider).catch((error) => console.error(error));
 }
 
+//로그아웃
 export function logout() {
   signOut(auth).catch((error) => {
     console.error(error);
   });
 }
 
+//유저 상태 관리
 export function onUserChanged(callback) {
   onAuthStateChanged(auth, (user) => {
     callback(user);
   });
 }
 
+// 데이터 추가하기
 export async function addNewMoment(moment, image, user, date) {
   const id = uuid();
-  const momentData = {
+  const data = {
     ...moment,
     id,
     user,
@@ -58,7 +65,14 @@ export async function addNewMoment(moment, image, user, date) {
     date,
   };
 
-  return set(ref(database, `moments/${id}`), momentData);
+  await setDoc(doc(db, "moments", id), data);
+}
+
+// 데이터 가져오기
+export function getData() {
+  onSnapshot(doc(db, "moments"), (doc) => {
+    console.log("Current data: ", doc.data());
+  });
 }
 
 export async function getMomentList() {

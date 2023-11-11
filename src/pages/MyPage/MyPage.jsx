@@ -1,8 +1,8 @@
 import "./MyPage.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useSelector } from "react-redux";
-import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 export default function MyPage() {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -14,12 +14,7 @@ export default function MyPage() {
 
   return (
     <div className="myPage">
-      <div className="title">
-        <button onClick={() => navigate(-1)}>
-          <MdKeyboardArrowLeft />
-        </button>
-        <p className="page-name">마이페이지</p>
-      </div>
+      <PageHeader />
       <div className="content">
         <div className="user-area">
           <div className="user">

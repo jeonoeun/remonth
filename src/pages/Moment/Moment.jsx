@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { AiOutlineClose } from "react-icons/ai";
-import { MdKeyboardArrowLeft } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import "react-datepicker/dist/react-datepicker.module.css";
 import { getMomentList } from "../../api/firebase";
 import { setMoments } from "../../store/moment";
 import { setUserCards } from "../../store/user";
+import PageHeader from "../../components/PageHeader/PageHeader";
+import { useNavigate } from "react-router-dom";
 
 const categroyList = [
   "노래",
@@ -26,7 +26,6 @@ const categroyList = [
 export default function Moment() {
   const dispatch = useDispatch();
   const moments = useSelector((state) => state.moments.moments);
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState([]);
   const selectedCards =
     selectedCategory.length === 0
@@ -35,6 +34,7 @@ export default function Moment() {
 
   const [isModal, setIsModal] = useState(false);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -59,12 +59,7 @@ export default function Moment() {
 
   return (
     <div className="moment">
-      <div className="title">
-        <button onClick={() => navigate(-1)}>
-          <MdKeyboardArrowLeft />
-        </button>
-        <p className="page-name">모먼트</p>
-      </div>
+      <PageHeader />
       <div className="content">
         <div className="block-title flex">
           <div>

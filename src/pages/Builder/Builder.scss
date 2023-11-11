@@ -2,32 +2,6 @@
     width: 100%;
     height: 100%;
 
-    .builder-ct {
-        height: 100%;
-
-        .builder-title {
-            position: fixed;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 376px;
-            background-color: #fff;
-            z-index: 9;
-            // border-bottom: 10px solid rgb(247, 249, 250);
-
-            .navigate-btn {
-                width: 100%;
-                padding: 16px;
-            }
-
-            .title {
-                position: absolute;
-                top: 16px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-        }
-
         .location-btn {
             margin-top: 52px;
 
@@ -166,5 +140,5 @@
                 }
             }
         }
-    }
+    
 }

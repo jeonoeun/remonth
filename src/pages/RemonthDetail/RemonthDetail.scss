@@ -2,22 +2,8 @@
     padding-bottom: 80px;
     background-color: #fff;
 
-    .page-title {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 376px;
-        padding: 16px;
-        z-index: 9;
-        color: #fff;
-
-        .page-name {
-            position: absolute;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+    .content {
+        padding-top: 52px;
     }
 
     .img-ct {
@@ -170,7 +156,7 @@
                         padding: 2px 0;
                     }
 
-                    .title {
+                    .title-title {
                         font-size: 20px;
                         font-weight: 500;
                         line-height: 2.5rem;

@@ -40,6 +40,13 @@
         }
     }
 
+    .setting-btn {
+        position: fixed;
+        top: 0;
+        right: 0;
+        
+    }
+
     .content-ct {
         .detail-img {
             width: 100%;
@@ -110,7 +117,7 @@
         .block {
             margin-bottom: 50px;
 
-            .title {
+            .block-title {
                 margin-bottom: 10px;
             }
         }

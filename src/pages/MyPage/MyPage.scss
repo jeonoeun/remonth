@@ -1,21 +1,4 @@
 .myPage {
-    .title {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 376px;
-        background-color: #fff;
-        z-index: 9;
-        padding: 16px;
-
-        .page-name {
-            position: absolute;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
 
     .content {
         margin-top: 52px;

@@ -6,6 +6,7 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineLike, AiOutlineShareAlt } from "react-icons/ai";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
+import PageHeader from "../../components/PageHeader/PageHeader";
 
 const categroyList = {
   노래: "music",
@@ -29,11 +30,7 @@ export default function RemonthDetail() {
 
   return (
     <div className="remonth-detail">
-      <div className="page-title">
-        <button onClick={() => navigate(-1)}>
-          <MdKeyboardArrowLeft />
-        </button>
-      </div>
+      <PageHeader />
       {matchedItem && (
         <div className="content">
           <div className="content-header">
@@ -101,7 +98,7 @@ export default function RemonthDetail() {
                     {categroyList[card.category]}
                   </span>
                   <ul className="title-area">
-                    <li className="title">{card.title}</li>
+                    <li className="title-title">{card.title}</li>
                     <li>✦✦✦✦✧</li>
                     <li>{card.date}</li>
                     <li className="flex">

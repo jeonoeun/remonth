@@ -2,24 +2,6 @@
     padding-bottom: 80px;
     background-color: #fff;
 
-    .title {
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 376px;
-        background-color: #fff;
-        padding: 16px;
-        z-index: 9;
-
-        .page-name {
-            position: absolute;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
-
     .content {
         margin-top: 52px;
         padding: 20px;

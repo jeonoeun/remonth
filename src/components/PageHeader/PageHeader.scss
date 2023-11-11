@@ -1,0 +1,18 @@
+.title {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 376px;
+    background-color: #fff;
+    padding: 16px;
+    z-index: 9;
+    justify-content: space-between;
+
+    .page-name {
+        position: absolute;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

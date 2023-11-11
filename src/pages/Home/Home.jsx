@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import Calendar from "../../components/Calendar/Calendar";
-import Header from "../../components/Header/Header";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useDispatch, useSelector } from "react-redux";
-import { getMomentList } from "../../api/firebase";
+import { AddTest, getData, getMomentList, onUserChanged } from "../../api/firebase";
 import { setMoments } from "../../store/moment";
-import { setUserCards } from "../../store/user";
+import { addUser, setCurrentUser, setUserCards } from "../../store/user";
 import { IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +33,6 @@ export default function Home() {
       const month = 1 + date.getMonth();
       setToday(month);
     }
-
     getToday();
   }, []);
 
@@ -55,9 +53,35 @@ export default function Home() {
     fetchData();
   }, [dispatch, currentUser.id]);
 
+  useEffect(() => {
+    onUserChanged((userAuth) => {
+      userAuth &&
+        dispatch(
+          addUser({
+            name: userAuth.displayName,
+            image: userAuth.photoURL,
+            id: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+      userAuth &&
+        dispatch(
+          setCurrentUser({
+            name: userAuth.displayName,
+            image: userAuth.photoURL,
+            id: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+    });
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
   return (
     <div className="home">
-      <Header />
       <div className="content">
         <Calendar />
         <div className="moment-box">

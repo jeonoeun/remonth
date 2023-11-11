@@ -2,10 +2,21 @@
 
   // react-calendar custom
   .react-calendar {
+    position: relative;
     font-family: "Pretendard Variable", Pretendard, -apple-system, "Noto Sans KR",
       sans-serif;
     border: none;
     width: 100%;
+  }
+
+  .react-calendar__navigation__label {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+  }
+
+  .react-calendar__navigation {
+    justify-content: flex-end;
   }
 
   .react-calendar__tile--now {
@@ -21,7 +32,7 @@
 
   .react-calendar__navigation__label>span {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 700;
     color: #191B1C;
   }
 

@@ -3,20 +3,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  userData: [
-    {
-      name: "이재현",
-      id: "1234",
-      image:
-        "https://i.pinimg.com/564x/b1/3f/ed/b13fedffd73d512f9e11eb0b98fc52d4.jpg",
-    },
-    {
-      name: "이주연",
-      id: "0215",
-      image:
-        "https://i.pinimg.com/564x/c2/e3/98/c2e39863091b34b4b253e903115e5550.jpg",
-    },
-  ],
+  userData: [],
   currentUser: {
     name: "",
     id: "",
