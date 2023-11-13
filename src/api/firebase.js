@@ -1,5 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { doc, getFirestore, setDoc, onSnapshot } from "firebase/firestore";
+import {
+  doc,
+  getFirestore,
+  setDoc,
+  onSnapshot,
+  collection,
+  query,
+  deleteDoc,
+  arrayUnion,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
 
 import {
   getAuth,
@@ -54,7 +65,7 @@ export function onUserChanged(callback) {
   });
 }
 
-// 데이터 추가하기
+//모먼트 추가하기
 export async function addNewMoment(moment, image, user, date) {
   const id = uuid();
   const data = {
@@ -68,21 +79,59 @@ export async function addNewMoment(moment, image, user, date) {
   await setDoc(doc(db, "moments", id), data);
 }
 
-// 데이터 가져오기
-export function getData() {
-  onSnapshot(doc(db, "moments"), (doc) => {
-    console.log("Current data: ", doc.data());
+//모먼트 가져오기
+export function getMomentList(callback) {
+  const q = query(collection(db, "moments"));
+  onSnapshot(q, (querySnapshot) => {
+    const moments = [];
+    querySnapshot.forEach((doc) => {
+      moments.push(doc.data());
+    });
+    callback(moments);
   });
 }
 
-export async function getMomentList() {
-  return get(ref(database, `moments`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      return Object.values(snapshot.val());
-    }
-    return [];
+//모먼트 삭제
+export async function removeData(id) {
+  const docRef = doc(db, "moments", id);
+  deleteDoc(docRef)
+    .then(() => {
+      console.log("Entire Document has been deleted successfully.");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// 좋아요 유저 추가하기
+export async function addLikeUser(id, userId) {
+  const likeUsersRef = doc(db, "moments", id);
+
+  await updateDoc(likeUsersRef, {
+    likeUsers: arrayUnion(userId),
+  });
+
+  await updateDoc(likeUsersRef, {
+    likeUsers: arrayRemove(userId),
   });
 }
+
+// 좋아요 유저 삭제하기
+export async function removeLikeUser(id, userId) {
+  const likeUsersRef = doc(db, "moments", id);
+
+  await updateDoc(likeUsersRef, {
+    likeUsers: arrayRemove(userId),
+  });
+}
+
+// 좋아요 유저 가져오기
+export function getLikeUsers() {
+  console.log("왜 안되니");
+}
+
+
+
 
 export async function addNewRemonth(remonthData, user) {
   const id = uuid();
@@ -104,41 +153,6 @@ export async function getRemonthList() {
     }
     return [];
   });
-}
-
-export function removeData(id) {
-  remove(ref(database, `moments/${id}`));
-}
-
-export function addLikeUser(id, userId) {
-  const postListRef = ref(database, `moments/${id}/likeUsers`);
-  const newPostRef = push(postListRef);
-  set(newPostRef, {
-    userId,
-  });
-}
-
-export function getLikeUser(userId, callback) {
-  const likeUsersRef = ref(database, "moments/" + userId + "/likeUsers");
-  onValue(likeUsersRef, (snapshot) => {
-    if (snapshot.exists()) {
-      callback(Object.values(snapshot.val()));
-    } else {
-      callback([]);
-    }
-  });
-}
-
-export async function removeLikeUser(id, userIndex) {
-  const databaseRef = ref(database, `moments/${id}/likeUsers`);
-
-  const snapshot = await get(databaseRef);
-  if (snapshot.exists()) {
-    const likeUsers = snapshot.val();
-    const userKeyToDelete = Object.keys(likeUsers)[userIndex];
-
-    remove(ref(database, `moments/${id}/likeUsers/${userKeyToDelete}`));
-  }
 }
 
 export function addComment(id, comment) {

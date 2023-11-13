@@ -4,12 +4,12 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-export default function MyPage() {
+export default function MyPage({ userMoments }) {
   const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
-  const moments = useSelector((state) => state.moments.moments);
+  // const moments = useSelector((state) => state.moments.moments);
   const remonths = useSelector((state) => state.moments.remonths);
-  const userMoment = moments.filter((card) => card.user.id === currentUser.id);
+  // const userMoment = moments.filter((card) => card.user.id === currentUser.id);
   const userRemonth = remonths.filter((card) => card.userId === currentUser.id);
 
   return (
@@ -24,7 +24,7 @@ export default function MyPage() {
           </div>
           <div className="flex userCard-num">
             <div className="flex">
-              <span className="num">{userMoment.length}</span>
+              <span className="num">{userMoments && userMoments.length}</span>
               <span>모먼트</span>
             </div>
             <div className="flex">
@@ -40,19 +40,22 @@ export default function MyPage() {
         <div className="block">
           <div className="block-title">
             <span>모먼트</span>
-            <span className="color-num">{userMoment.length}</span>
+            <span className="color-num">
+              {userMoments && userMoments.length}
+            </span>
           </div>
           <div className="photo-grid">
-            {userMoment
-              .filter((_, i) => i < 3)
-              .map((card) => (
-                <div
-                  className="photo"
-                  onClick={() => navigate(`/moment/${card.id}`)}
-                >
-                  <img src={card.image} alt="" />
-                </div>
-              ))}
+            {userMoments &&
+              userMoments
+                .filter((_, i) => i < 3)
+                .map((card) => (
+                  <div
+                    className="photo"
+                    onClick={() => navigate(`/moment/${card.id}`)}
+                  >
+                    <img src={card.image} alt="" />
+                  </div>
+                ))}
           </div>
           <button
             className="builder-btn"

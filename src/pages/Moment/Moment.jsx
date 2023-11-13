@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import "react-datepicker/dist/react-datepicker.module.css";
-import { getMomentList } from "../../api/firebase";
-import { setMoments } from "../../store/moment";
-import { setUserCards } from "../../store/user";
+// import "react-datepicker/dist/react-datepicker.module.css";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 
@@ -23,39 +20,24 @@ const categroyList = [
   "순간",
 ];
 
-export default function Moment() {
+export default function Moment({ moments }) {
   const dispatch = useDispatch();
-  const moments = useSelector((state) => state.moments.moments);
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const selectedCards =
-    selectedCategory.length === 0
-      ? moments
-      : moments.filter((card) => selectedCategory.includes(card.category));
-
-  const [isModal, setIsModal] = useState(false);
-  const currentUser = useSelector((state) => state.user.currentUser);
   const navigate = useNavigate();
+  const [isModal, setIsModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState([]);
+  const [list, setList] = useState();
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getMomentList();
-        dispatch(setMoments(data));
-      } catch (error) {
-        console.error(error);
+    setList(() => {
+      if (selectedCategory.length !== 0) {
+        return moments.filter((card) =>
+          selectedCategory.includes(card.category)
+        );
+      } else {
+        return moments;
       }
-    }
-
-    fetchData();
-  }, [dispatch]);
-
-  useEffect(() => {
-    currentUser &&
-      currentUser.id &&
-      dispatch(
-        setUserCards(moments.filter((card) => card.user.id === currentUser.id))
-      );
-  }, []);
+    });
+  }, [selectedCategory, moments]);
 
   return (
     <div className="moment">
@@ -64,7 +46,7 @@ export default function Moment() {
         <div className="block-title flex">
           <div>
             <span>전체</span>
-            <span className="color-num">{selectedCards.length}</span>
+            <span className="color-num">{list && list.length}</span>
           </div>
           <button
             className="filter-btn flex"
@@ -73,7 +55,7 @@ export default function Moment() {
             <BiSliderAlt />
           </button>
         </div>
-        {selectedCategory.length > 0 && (
+        {selectedCategory.length !== 0 && (
           <div className="selected-ct">
             <ul className="flex">
               {selectedCategory.map((item) => (
@@ -133,35 +115,38 @@ export default function Moment() {
             </li>
           </ul>
         )}
-        <div className="momentList-ct">
-          {selectedCards.map((card) => (
-            <div
-              key={card.id}
-              className="card-item"
-              onClick={() => navigate(`/moment/${card.id}`)}
-            >
-              <div className="img-ct">
-                <img src={card.image} alt="" />
-                <div className="filter"></div>
-              </div>
-              <div className="card-name flex">
-                <div className="left">
-                  <p className="card-title">{card.title}</p>
-                  <div className="user flex">
-                    <img src={card.user.image} alt="" className="user-img" />
-                    <div>
-                      <span>{card.user.name}</span>
+        {list && (
+          <div className="momentList-ct">
+            {list.map((card) => (
+              <div
+                key={card.id}
+                className="card-item"
+                onClick={() => navigate(`/moment/${card.id}`)}
+              >
+                <div className="img-ct">
+                  <img src={card.image} alt="" />
+                  <div className="filter"></div>
+                </div>
+                <div className="card-name flex">
+                  <div className="left">
+                    <p className="card-title">{card.title}</p>
+                    <div className="user flex">
+                      <img src={card.user.image} alt="" className="user-img" />
+                      <div>
+                        <span>{card.user.name}</span>
+                      </div>
                     </div>
                   </div>
+                  <p className="category">
+                    <span>{card.category}</span>
+                  </p>
                 </div>
-                <p className="category">
-                  <span>{card.category}</span>
-                </p>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
+
       <MobileNavbar />
     </div>
   );

@@ -5,23 +5,21 @@ import "./Calendar.scss";
 import moment from "moment";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
 
-export default function ReactCalendar() {
-  const [value, onChange] = useState(new Date());
-  const [isDateModal, setIsDateModal] = useState(null);
-  const currentUser = useSelector((state) => state.user.currentUser) || {};
-  const matchedCard =
-    currentUser && currentUser.cards
-      ? currentUser.cards.filter(
-          (card) => card.date === moment(value).format("YYYY-MM-DD")
-        )
-      : null;
-
+export default function ReactCalendar({ userMoments }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [value, onChange] = useState(new Date());
+  const [isDateModal, setIsDateModal] = useState(null);
+
+  const matchedCard = userMoments
+    ? userMoments.filter(
+        (card) => card.date === moment(value).format("YYYY-MM-DD")
+      )
+    : null;
 
   useEffect(() => {
     dispatch(
@@ -47,17 +45,16 @@ export default function ReactCalendar() {
         next2Label={null}
         prev2Label={null}
         tileContent={({ date, view }) => {
-          const momentCard =
-            currentUser && currentUser.cards
-              ? currentUser.cards.filter(
-                  (card) => card.date === moment(date).format("YYYY-MM-DD")
-                )
-              : null;
+          const momentDot = userMoments
+            ? userMoments.filter(
+                (card) => card.date === moment(date).format("YYYY-MM-DD")
+              )
+            : null;
 
-          if (momentCard?.length > 0) {
+          if (momentDot?.length > 0) {
             return (
               <div className="dot">
-                <img src={momentCard[0].image} alt="" />
+                <img src={momentDot[0].image} alt="" />
               </div>
             );
           }

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./Home.scss";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useDispatch, useSelector } from "react-redux";
-import { AddTest, getData, getMomentList, onUserChanged } from "../../api/firebase";
-import { setMoments } from "../../store/moment";
-import { addUser, setCurrentUser, setUserCards } from "../../store/user";
+import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 
 const categroyList = [
   "노래",
@@ -20,80 +16,23 @@ const categroyList = [
   "순간",
 ];
 
-export default function Home() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser) || {};
-  const [today, setToday] = useState();
-  const [selectedTag, setSelectedTag] = useState("노래");
+export default function Home({ userMoments }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    function getToday() {
-      const date = new Date();
-      const month = 1 + date.getMonth();
-      setToday(month);
-    }
-    getToday();
-  }, []);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getMomentList();
-        dispatch(setMoments(data));
-        currentUser.id &&
-          dispatch(
-            setUserCards(data.filter((card) => card.user.id === currentUser.id))
-          );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, [dispatch, currentUser.id]);
-
-  useEffect(() => {
-    onUserChanged((userAuth) => {
-      userAuth &&
-        dispatch(
-          addUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-      userAuth &&
-        dispatch(
-          setCurrentUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-    });
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const [selectedTag, setSelectedTag] = useState("노래");
 
   return (
     <div className="home">
       <div className="content">
-        <Calendar />
+        <Calendar userMoments={userMoments} />
         <div className="moment-box">
           <div className="title-area flex">
             <div>
-              <p className="box-title">{today}월의 모먼트</p>
+              <p className="box-title">10월의 모먼트</p>
               <p>
                 총{" "}
-                {currentUser.cards &&
-                  currentUser.cards.filter(
-                    (item) => item.category === selectedTag
-                  ).length}
+                {userMoments &&
+                  userMoments.filter((item) => item.category === selectedTag)
+                    .length}
                 개의 {selectedTag} 모먼트가 있어요
               </p>
             </div>
@@ -114,8 +53,8 @@ export default function Home() {
               ))}
             </ul>
           </div>
-          {currentUser.cards &&
-            currentUser.cards
+          {userMoments &&
+            userMoments
               .filter((item) => item.category === selectedTag)
               .map((card) => (
                 <div
@@ -127,7 +66,7 @@ export default function Home() {
                     <div className="filter"></div>
                   </div>
                   <div className="card-title flex">
-                    <p className="title">{card.title}</p>
+                    <p className="box-title">{card.title}</p>
                     <p className="date">{card.date}</p>
                   </div>
                 </div>

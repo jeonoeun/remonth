@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Detail.scss";
+import "./MomentDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useSelector } from "react-redux";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { IoMdSettings } from "react-icons/io";
 import { HiThumbUp } from "react-icons/hi";
@@ -12,22 +11,17 @@ import { FaShareAlt, FaComment } from "react-icons/fa";
 import {
   addLikeUser,
   getComments,
-  getLikeUser,
-  getMomentList,
+  getLikeUsers,
   removeData,
-  removeLikeUser,
 } from "../../api/firebase";
-import { setMoments } from "../../store/moment";
-import { setUserCards } from "../../store/user";
+
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-export default function Detail() {
+export default function MomentDetail({ moments }) {
   const { id } = useParams();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const moments = useSelector((state) => state.moments.moments);
   const [matchedItem, setMatchedItem] = useState();
   const [isModal, setIsModal] = useState(false);
   const [likeUsers, setLikeUsers] = useState();
@@ -37,38 +31,20 @@ export default function Detail() {
   const [comments, setComments] = useState();
 
   useEffect(() => {
+    moments && setMatchedItem(moments.find((moment) => moment.id === id));
+  }, [id, moments]);
+
+  useEffect(() => {
     getComments(id, (data) => {
       setComments(data);
     });
   }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getMomentList();
-        dispatch(setMoments(data));
-        currentUser.id &&
-          dispatch(
-            setUserCards(data.filter((card) => card.user.id === currentUser.id))
-          );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, [dispatch, currentUser.id, matchedItem?.likeUsers]);
-
-  useEffect(() => {
-    getLikeUser(id, (likeUserData) => {
-      setLikeUsers(likeUserData.map((e) => e.userId));
-    });
+    getLikeUsers();
   }, []);
 
-  useEffect(() => {
-    setMatchedItem(moments.find((moment) => moment.id === id));
-  }, [id, moments]);
-
+  //게시글 삭제
   const handleRemove = () => {
     removeData(id); //
     navigate("/moment");
@@ -77,11 +53,13 @@ export default function Detail() {
   return (
     <div className="detail">
       <PageHeader />
+
       {matchedItem && matchedItem.user.id === currentUser.id && (
         <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
           <IoMdSettings />
         </button>
       )}
+
       {isModal && (
         <div className="background">
           <ul className="user-modal">
@@ -103,6 +81,7 @@ export default function Detail() {
           </ul>
         </div>
       )}
+
       {matchedItem && (
         <div className="content-ct">
           <img className="detail-img" src={matchedItem.image} alt="" />
@@ -121,24 +100,29 @@ export default function Detail() {
                 <span>·</span>
                 <span>{matchedItem.date}</span>
               </li>
+              <li className="flex like-box">
+                <span>좋아요 3343</span>
+                <span>댓글 10</span>
+              </li>
             </ul>
             <ul className="util-list flex">
               <li
-                onClick={() => {
-                  likeUsers.includes(currentUser.id)
-                    ? removeLikeUser(id, likeUsers.indexOf(currentUser.id))
-                    : addLikeUser(id, currentUser.id);
-                }}
+                // onClick={() => {
+                //   likeUsers.includes(currentUser.id)
+                //     ? removeLikeUser(id, likeUsers.indexOf(currentUser.id))
+                //     : addLikeUser(id, currentUser.id);
+                // }}
+                onClick={() => addLikeUser(id, currentUser.id)}
                 className={
                   likeUsers && likeUsers.includes(currentUser.id) ? "on" : ""
                 }
               >
                 <HiThumbUp />
-                {likeUsers && <span>좋아요 {likeUsers.length}</span>}
+                <span>좋아요</span>
               </li>
               <li onClick={() => setIsCommentModal(!isCommentModal)}>
                 <FaComment />
-                <span>댓글 {comments && comments.length}</span>
+                <span>댓글</span>
               </li>
               <li>
                 <FaShareAlt />
@@ -150,7 +134,7 @@ export default function Detail() {
                 <p className="block-title">리뷰/메모</p>
                 <p className="review-content">{matchedItem.review}</p>
               </div>
-              {matchedItem.tags && (
+              {matchedItem.tags.length !== 0 && (
                 <div className="tags block">
                   <p className="block-title">태그 {matchedItem.tags.length}</p>
                   <ul className="tag-box flex">
@@ -171,13 +155,16 @@ export default function Detail() {
           />
         </div>
       )}
+
       {isCommentModal && (
         <CommentForm
           setIsCommentModal={setIsCommentModal}
           setSuccess={setSuccess}
         />
       )}
+
       {success && <div className="success-box">{success}</div>}
+
       <MobileNavbar />
     </div>
   );

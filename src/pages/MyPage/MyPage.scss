@@ -7,9 +7,12 @@
             border-bottom: 10px solid rgb(247, 249, 250);
 
             .user {
-                padding: 16px;
+                padding: 20px;
 
                 .user-img {
+                    width: 96px;
+                    height: 96px;
+                    object-fit: cover;
                     border-radius: 50%;
                     margin-bottom: 7px;
                 }
@@ -48,7 +51,7 @@
         }
 
         .block {
-            padding: 20px 16px;    
+            padding: 20px;    
 
             .block-title {
                 justify-content: space-between;

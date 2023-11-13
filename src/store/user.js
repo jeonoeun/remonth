@@ -9,8 +9,6 @@ const initialState = {
     id: "",
     image: "",
     email: "",
-    cards: [],
-    remonths: [],
   },
 };
 
