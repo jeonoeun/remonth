@@ -110,10 +110,6 @@ export async function addLikeUser(id, userId) {
   await updateDoc(likeUsersRef, {
     likeUsers: arrayUnion(userId),
   });
-
-  await updateDoc(likeUsersRef, {
-    likeUsers: arrayRemove(userId),
-  });
 }
 
 // 좋아요 유저 삭제하기
@@ -126,12 +122,15 @@ export async function removeLikeUser(id, userId) {
 }
 
 // 좋아요 유저 가져오기
-export function getLikeUsers() {
-  console.log("왜 안되니");
+export function getLikeUsers(id, callback) {
+  const docRef = doc(db, "moments", id);
+  const unsubscriber = onSnapshot(docRef, (snapshot) => {
+    const item = snapshot.data();
+    callback(item.likeUsers ? item.likeUsers : []);
+  });
+
+  // unsubscriber(); // 구독을 해제할 때 사용
 }
-
-
-
 
 export async function addNewRemonth(remonthData, user) {
   const id = uuid();

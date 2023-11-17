@@ -13,6 +13,7 @@ import {
   getComments,
   getLikeUsers,
   removeData,
+  removeLikeUser,
 } from "../../api/firebase";
 
 import Comment from "../../components/Comment/Comment";
@@ -22,33 +23,36 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 export default function MomentDetail({ moments }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [matchedItem, setMatchedItem] = useState();
-  const [isModal, setIsModal] = useState(false);
-  const [likeUsers, setLikeUsers] = useState();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [isCommentModal, setIsCommentModal] = useState(false);
-  const [success, setSuccess] = useState();
+
+  const [matchedItem, setMatchedItem] = useState();
+  const [likeUsers, setLikeUsers] = useState();
   const [comments, setComments] = useState();
+  const [success, setSuccess] = useState();
+
+  const [isModal, setIsModal] = useState(false);
+  const [isCommentModal, setIsCommentModal] = useState(false);
+
+  const handleRemove = () => {
+    removeData(id); //
+    navigate("/moment");
+  };
 
   useEffect(() => {
     moments && setMatchedItem(moments.find((moment) => moment.id === id));
   }, [id, moments]);
 
   useEffect(() => {
+    getLikeUsers(id, (data) => {
+      setLikeUsers(data);
+    });
+  }, [id]);
+
+  useEffect(() => {
     getComments(id, (data) => {
       setComments(data);
     });
   }, []);
-
-  useEffect(() => {
-    getLikeUsers();
-  }, []);
-
-  //게시글 삭제
-  const handleRemove = () => {
-    removeData(id); //
-    navigate("/moment");
-  };
 
   return (
     <div className="detail">
@@ -101,18 +105,17 @@ export default function MomentDetail({ moments }) {
                 <span>{matchedItem.date}</span>
               </li>
               <li className="flex like-box">
-                <span>좋아요 3343</span>
+                <span>좋아요 {likeUsers && likeUsers.length}</span>
                 <span>댓글 10</span>
               </li>
             </ul>
             <ul className="util-list flex">
               <li
-                // onClick={() => {
-                //   likeUsers.includes(currentUser.id)
-                //     ? removeLikeUser(id, likeUsers.indexOf(currentUser.id))
-                //     : addLikeUser(id, currentUser.id);
-                // }}
-                onClick={() => addLikeUser(id, currentUser.id)}
+                onClick={() => {
+                  likeUsers && likeUsers.includes(currentUser.id)
+                    ? removeLikeUser(id, currentUser.id)
+                    : addLikeUser(id, currentUser.id);
+                }}
                 className={
                   likeUsers && likeUsers.includes(currentUser.id) ? "on" : ""
                 }

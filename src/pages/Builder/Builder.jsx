@@ -20,7 +20,7 @@ const categroyList = [
   "순간",
 ];
 
-export default function Builder() {
+export default function Builder({ userMoments }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
@@ -203,7 +203,7 @@ export default function Builder() {
           </div>
         </form>
       ) : (
-        <RemonthForm />
+        <RemonthForm userMoments={userMoments} />
       )}
     </div>
   );

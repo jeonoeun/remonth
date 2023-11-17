@@ -19,7 +19,7 @@ const categroyList = [
   "순간",
 ];
 
-export default function RemonthForm() {
+export default function RemonthForm({ userMoments }) {
   const [remonthData, setRemonthData] = useState({
     month: "",
     title: "",
@@ -109,7 +109,7 @@ export default function RemonthForm() {
             </div>
           </div>
           {categroyList.map((list) => {
-            const filteredItems = currentUser.cards
+            const filteredItems = userMoments
               .filter((item) => item.date.slice(0, 7) === remonthData.month)
               .filter((item) => item.category === list);
 

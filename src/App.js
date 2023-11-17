@@ -63,7 +63,10 @@ export default function App() {
         <Route path="/mypage" element={<MyPage userMoments={userMoments} />} />
         <Route path="/mypage/moment" element={<MyMoment />} />
         <Route path="/builder/moment" element={<Builder />} />
-        <Route path="/builder/remonth" element={<Builder />} />
+        <Route
+          path="/builder/remonth"
+          element={<Builder userMoments={userMoments} />}
+        />
       </Routes>
     </div>
   );
