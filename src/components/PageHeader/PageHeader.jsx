@@ -6,8 +6,15 @@ import { useDispatch } from "react-redux";
 import { AiFillSetting } from "react-icons/ai";
 import { setCurrentUser } from "../../store/user";
 import { logout } from "../../api/firebase";
+import { IoMdSettings } from "react-icons/io";
 
-export default function PageHeader() {
+export default function PageHeader({
+  matchedItem,
+  isModal,
+  setIsModal,
+  currentUser,
+  title,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,7 +29,14 @@ export default function PageHeader() {
       <button onClick={() => navigate(-1)}>
         <MdKeyboardArrowLeft />
       </button>
-      <p className="page-name">모먼트</p>
+      <p className="page-name">{title}</p>
+      {location.pathname.includes("/moment") &&
+        matchedItem &&
+        matchedItem.user.id === currentUser.id && (
+          <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
+            <IoMdSettings />
+          </button>
+        )}
       {location.pathname === "/mypage" ? (
         <button className="logout-button" onClick={handleLogout}>
           <AiFillSetting />

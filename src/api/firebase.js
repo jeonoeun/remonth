@@ -10,6 +10,7 @@ import {
   arrayUnion,
   updateDoc,
   arrayRemove,
+  deleteField,
 } from "firebase/firestore";
 
 import {
@@ -132,6 +133,33 @@ export function getLikeUsers(id, callback) {
   // unsubscriber(); // 구독을 해제할 때 사용
 }
 
+// 댓글 등록
+export async function addComment(id, comment) {
+  const docRef = doc(db, "moments", id);
+
+  await updateDoc(docRef, {
+    comments: arrayUnion(comment),
+  });
+}
+
+// 댓글 가져오기
+export async function getComments(id, callback) {
+  const docRef = doc(db, "moments", id);
+  const unsubscriber = onSnapshot(docRef, (snapshot) => {
+    const item = snapshot.data();
+    callback(item.comments ? item.comments : []);
+  });
+}
+
+// 댓글 삭제
+export async function removeComment(id, list) {
+  const docRef = doc(db, "moments", id);
+
+  await updateDoc(docRef, {
+    comments: arrayRemove(list),
+  });
+}
+
 export async function addNewRemonth(remonthData, user) {
   const id = uuid();
   const data = {
@@ -152,37 +180,4 @@ export async function getRemonthList() {
     }
     return [];
   });
-}
-
-export function addComment(id, comment) {
-  const commentId = uuid();
-  const databaseRef = ref(database, "moments/" + id + "/comments");
-  const newCommentRef = push(databaseRef);
-  set(newCommentRef, {
-    ...comment,
-    commentId,
-  });
-}
-
-export function getComments(id, callback) {
-  const databaseRef = ref(database, "moments/" + id + "/comments");
-  onValue(databaseRef, (snapshot) => {
-    if (snapshot.exists()) {
-      callback(Object.values(snapshot.val()));
-    } else {
-      callback([]);
-    }
-  });
-}
-
-export async function removeComment(id, userIndex) {
-  const databaseRef = ref(database, `moments/${id}/comments`);
-
-  const snapshot = await get(databaseRef);
-  if (snapshot.exists()) {
-    const comments = snapshot.val();
-    const userKeyToDelete = Object.keys(comments)[userIndex];
-
-    remove(ref(database, `moments/${id}/comments/${userKeyToDelete}`));
-  }
 }

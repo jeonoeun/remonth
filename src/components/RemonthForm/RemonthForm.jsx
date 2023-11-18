@@ -127,7 +127,6 @@ export default function RemonthForm({ userMoments }) {
                         <div
                           className="card-item"
                           onClick={() => {
-                            console.log(card);
                             setRemonthData((prev) => {
                               const { selectedCards } = prev;
                               const cardCategory = card.category;

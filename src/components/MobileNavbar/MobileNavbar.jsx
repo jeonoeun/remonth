@@ -1,16 +1,17 @@
 import React from "react";
 import "./MobileNavbar.scss";
-import { AiFillHome, AiOutlineMenu } from "react-icons/ai";
+import { AiFillHome } from "react-icons/ai";
 import { BsFillHeartFill, BsFillGridFill } from "react-icons/bs";
 import { FaUser, FaMountain } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { login } from "../../api/firebase";
 
 export default function MobileNavbar() {
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.currentUser);
   const location = useLocation();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
     <div className="mobile-navbar">
@@ -21,6 +22,10 @@ export default function MobileNavbar() {
         >
           <AiFillHome />
           <span>홈</span>
+        </li>
+        <li onClick={() => navigate("/")}>
+          <FiSearch />
+          <span>검색</span>
         </li>
         <li
           className={location.pathname.includes("moment") ? "selected" : ""}
@@ -53,10 +58,6 @@ export default function MobileNavbar() {
             <span>로그인</span>
           </li>
         )}
-        <li>
-          <AiOutlineMenu />
-          <span>메뉴</span>
-        </li>
       </ul>
     </div>
   );

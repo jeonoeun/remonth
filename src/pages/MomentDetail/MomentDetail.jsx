@@ -3,7 +3,6 @@ import "./MomentDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { IoMdSettings } from "react-icons/io";
 import { HiThumbUp } from "react-icons/hi";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
@@ -56,14 +55,12 @@ export default function MomentDetail({ moments }) {
 
   return (
     <div className="detail">
-      <PageHeader />
-
-      {matchedItem && matchedItem.user.id === currentUser.id && (
-        <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
-          <IoMdSettings />
-        </button>
-      )}
-
+      <PageHeader
+        matchedItem={matchedItem}
+        isModal={isModal}
+        setIsModal={setIsModal}
+        currentUser={currentUser}
+      />
       {isModal && (
         <div className="background">
           <ul className="user-modal">
@@ -100,13 +97,13 @@ export default function MomentDetail({ moments }) {
                   </div>
                 )}
                 <span>·</span>
-                <span>{matchedItem.category}</span>
-                <span>·</span>
                 <span>{matchedItem.date}</span>
+                <span>·</span>
+                <span>{matchedItem.category}</span>
               </li>
               <li className="flex like-box">
                 <span>좋아요 {likeUsers && likeUsers.length}</span>
-                <span>댓글 10</span>
+                <span>댓글 {comments && comments.length}</span>
               </li>
             </ul>
             <ul className="util-list flex">

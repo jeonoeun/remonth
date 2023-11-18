@@ -25,16 +25,7 @@ export default function Comment({ currentUser, setIsCommentModal, comments }) {
                 </div>
                 {list.userId === currentUser.id && (
                   <div className="user-btn flex">
-                    <span>수정</span>
-                    <span
-                      onClick={() => {
-                        const matched = (element) =>
-                          element.commentId === list.commentId;
-                        removeComment(id, comments.findIndex(matched));
-                      }}
-                    >
-                      삭제
-                    </span>
+                    <span onClick={() => removeComment(id, list)}>삭제</span>
                   </div>
                 )}
               </div>

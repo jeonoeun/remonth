@@ -41,7 +41,7 @@ export default function Moment({ moments }) {
 
   return (
     <div className="moment">
-      <PageHeader />
+      <PageHeader title={"모먼트"} />
       <div className="content">
         <div className="block-title flex">
           <div>

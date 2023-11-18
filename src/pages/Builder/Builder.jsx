@@ -78,7 +78,7 @@ export default function Builder({ userMoments }) {
 
   return (
     <div className="builder">
-      <PageHeader />
+      <PageHeader title={"모먼트 / 월간지 등록하기"} />
       <ul className="location-btn flex">
         <li
           className={location.pathname === "/builder/moment" ? "on" : null}

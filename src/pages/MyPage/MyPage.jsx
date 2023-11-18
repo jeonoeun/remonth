@@ -14,7 +14,7 @@ export default function MyPage({ userMoments }) {
 
   return (
     <div className="myPage">
-      <PageHeader />
+      <PageHeader title={"마이페이지"} />
       <div className="content">
         <div className="user-area">
           <div className="user">
