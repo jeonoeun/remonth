@@ -93,7 +93,7 @@ export function getMomentList(callback) {
 }
 
 //모먼트 삭제
-export async function removeData(id) {
+export async function removeMoment(id) {
   const docRef = doc(db, "moments", id);
   deleteDoc(docRef)
     .then(() => {
@@ -160,24 +160,54 @@ export async function removeComment(id, list) {
   });
 }
 
-export async function addNewRemonth(remonthData, user) {
+//월간지 추가하기
+export async function addNewRemonth(remonthData, userData) {
   const id = uuid();
   const data = {
     ...remonthData,
     id,
-    userEmail: user.email,
-    userImage: user.image,
-    userName: user.name,
-    userId: user.id,
+    userData,
   };
-  return set(ref(database, `remonths/${id}`), data);
+  await setDoc(doc(db, "remonths", id), data);
 }
 
-export async function getRemonthList() {
-  return get(ref(database, `remonths`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      return Object.values(snapshot.val());
-    }
-    return [];
+//월간지 가져오기
+export async function getRemonthList(callback) {
+  const q = query(collection(db, "remonths"));
+  onSnapshot(q, (querySnapshot) => {
+    const remonths = [];
+    querySnapshot.forEach((doc) => {
+      remonths.push(doc.data());
+    });
+    callback(remonths);
   });
+}
+
+// 월간지 좋아요 유저 추가하기
+export async function addRemonthLikeUser(id, userId) {
+  const likeUsersRef = doc(db, "remonths", id);
+
+  await updateDoc(likeUsersRef, {
+    likeUsers: arrayUnion(userId),
+  });
+}
+
+// 월간지 좋아요 유저 삭제하기
+export async function removeRemonthLikeUser(id, userId) {
+  const likeUsersRef = doc(db, "remonths", id);
+
+  await updateDoc(likeUsersRef, {
+    likeUsers: arrayRemove(userId),
+  });
+}
+
+// 월간지 좋아요 유저 가져오기
+export function getRemonthLikeUsers(id, callback) {
+  const docRef = doc(db, "remonths", id);
+  const unsubscriber = onSnapshot(docRef, (snapshot) => {
+    const item = snapshot.data();
+    callback(item.likeUsers ? item.likeUsers : []);
+  });
+
+  // unsubscriber(); // 구독을 해제할 때 사용
 }

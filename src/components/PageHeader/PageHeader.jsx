@@ -22,6 +22,7 @@ export default function PageHeader({
   const handleLogout = () => {
     logout();
     dispatch(setCurrentUser(null));
+    navigate("/");
   };
 
   return (

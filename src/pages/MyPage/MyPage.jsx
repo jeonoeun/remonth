@@ -1,16 +1,10 @@
 import "./MyPage.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-export default function MyPage({ userMoments }) {
-  const currentUser = useSelector((state) => state.user.currentUser);
+export default function MyPage({ userMoments, userRemonths, currentUser }) {
   const navigate = useNavigate();
-  // const moments = useSelector((state) => state.moments.moments);
-  const remonths = useSelector((state) => state.moments.remonths);
-  // const userMoment = moments.filter((card) => card.user.id === currentUser.id);
-  const userRemonth = remonths.filter((card) => card.userId === currentUser.id);
 
   return (
     <div className="myPage">
@@ -28,7 +22,7 @@ export default function MyPage({ userMoments }) {
               <span>모먼트</span>
             </div>
             <div className="flex">
-              <span className="num">{userRemonth.length}</span>
+              <span className="num">{userRemonths && userRemonths.length}</span>
               <span>월간지</span>
             </div>
             <div className="flex">
@@ -67,19 +61,22 @@ export default function MyPage({ userMoments }) {
         <div className="block">
           <div className="block-title">
             <span>월간지</span>
-            <span className="color-num">{userRemonth.length}</span>
+            <span className="color-num">
+              {userRemonths && userRemonths.length}
+            </span>
           </div>
           <div className="photo-grid">
-            {userRemonth
-              .filter((_, i) => i < 3)
-              .map((card) => (
-                <div
-                  className="photo"
-                  onClick={() => navigate(`/remonth/${card.id}`)}
-                >
-                  <img src={card.selectedCards[0].image} alt="" />
-                </div>
-              ))}
+            {userRemonths &&
+              userRemonths
+                .filter((_, i) => i < 3)
+                .map((card) => (
+                  <div
+                    className="photo"
+                    onClick={() => navigate(`/remonth/${card.id}`)}
+                  >
+                    <img src={card.selectedCards[0].image} alt="" />
+                  </div>
+                ))}
           </div>
           <button
             className="builder-btn"

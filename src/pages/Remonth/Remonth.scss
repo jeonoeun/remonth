@@ -5,6 +5,7 @@
     .content {
         margin-top: 52px;
         padding: 20px;
+        padding-top: 0;
 
         .block-title {
             justify-content: space-between;
@@ -71,6 +72,7 @@
             overflow: hidden;
             border: 1px solid rgb(210, 210, 210);
             margin: 20px 0;
+            cursor: pointer;
 
             .img-ct {
                 position: relative;
@@ -126,10 +128,6 @@
                 padding: 20px;
 
                 .card-title {
-                    // display: block;
-                    // white-space: nowrap;
-                    // overflow: hidden;
-                    // text-overflow: ellipsis;
                     width: 100%;
                     white-space: normal;
                     display: -webkit-box;

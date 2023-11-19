@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-import { BiComment } from "react-icons/bi";
-import { AiOutlineLike, AiOutlineShareAlt } from "react-icons/ai";
+import { HiThumbUp } from "react-icons/hi";
+import { FaShareAlt, FaComment } from "react-icons/fa";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import {
+  addRemonthLikeUser,
+  getRemonthLikeUsers,
+  removeRemonthLikeUser,
+} from "../../api/firebase";
+import { useSelector } from "react-redux";
 
 const categroyList = {
   노래: "music",
@@ -19,14 +23,21 @@ const categroyList = {
   순간: "moment",
 };
 
-export default function RemonthDetail() {
+export default function RemonthDetail({ remonths, currentUser }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const remonthData = useSelector((state) => state.moments.remonths);
   const [matchedItem, setMatchedItem] = useState();
+  const [likeUsers, setLikeUsers] = useState();
+
   useEffect(() => {
-    setMatchedItem(remonthData.find((remonth) => remonth.id === id));
-  }, [id, remonthData]);
+    remonths && setMatchedItem(remonths.find((remonth) => remonth.id === id));
+  }, [id, remonths]);
+
+  useEffect(() => {
+    getRemonthLikeUsers(id, (data) => {
+      setLikeUsers(data);
+    });
+  }, [id]);
 
   return (
     <div className="remonth-detail">
@@ -46,51 +57,48 @@ export default function RemonthDetail() {
               <div className="user flex">
                 <div className="flex">
                   <img
-                    src={matchedItem.userImage}
+                    src={matchedItem.userData.image}
                     alt=""
                     className="user-img"
                   />
-                  <p>{matchedItem.userName}</p>
+                  <p>{matchedItem.userData.name}</p>
                 </div>
               </div>
             </div>
             <div className="detail-info">
               <p className="detail-title">{matchedItem.title}</p>
               <p className="detail-review">{matchedItem.review}</p>
-              <div className="like-box">
-                <span>{matchedItem.month.slice(0, 7)}월호</span>
+              <div className="detail-util">
+                <span>좋아요 4384</span>
+                <span>댓글 463</span>
+                <span>3년 전 업데이트</span>
               </div>
             </div>
             <ul className="util-list flex">
-              <li>
-                <AiOutlineLike />
-                <span>좋아요 0</span>
+              <li
+                onClick={() => {
+                  likeUsers && likeUsers.includes(currentUser.id)
+                    ? removeRemonthLikeUser(id, currentUser.id)
+                    : addRemonthLikeUser(id, currentUser.id);
+                }}
+                className={
+                  likeUsers && likeUsers.includes(currentUser.id) ? "on" : ""
+                }
+              >
+                <HiThumbUp />
+                <span>좋아요</span>
               </li>
               <li>
-                <BiComment />
-                <span>댓글 0</span>
+                <FaComment />
+                <span>댓글</span>
               </li>
               <li>
-                <AiOutlineShareAlt />
+                <FaShareAlt />
                 <span>공유</span>
               </li>
             </ul>
           </div>
           <div className="content-body">
-            {/* <div className="preview-list">
-              <p className="preview-title">미리보기</p>
-              <ul>
-                {matchedItem.selectedCards.map((item) => (
-                  <li>
-                    💘{" "}
-                    <strong>
-                      {matchedItem.month.slice(-2)}월의 {item.category} :
-                    </strong>{" "}
-                    {item.title}
-                  </li>
-                ))}
-              </ul>
-            </div> */}
             <div className="card-area">
               {matchedItem.selectedCards.map((card) => (
                 <div className="category-card">

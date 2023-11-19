@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./Remonth.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useDispatch, useSelector } from "react-redux";
-import { getRemonthList } from "../../api/firebase";
-import { setRemonths } from "../../store/moment";
-import { setUserRemonths } from "../../store/user";
 import { useNavigate } from "react-router-dom";
-import {
-  MdKeyboardArrowLeft,
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-} from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-export default function Remonth() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser) || {};
-  const remonthData = useSelector((state) => state.moments.remonths);
-  const [selectedCards, setSelectedCards] = useState(remonthData);
+export default function Remonth({ remonths }) {
   const navigate = useNavigate();
+  const [selectedCards, setSelectedCards] = useState(remonths);
   const [isModal, setIsModal] = useState(false);
   const [isDateModal, setIsDateModal] = useState(false);
   const [startDate, setStartDate] = useState("");
@@ -28,36 +17,17 @@ export default function Remonth() {
   const [selectedDate, setSelectedDate] = useState({ start: "", end: "" });
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getRemonthList();
-        dispatch(setRemonths(data));
-        currentUser.id &&
-          dispatch(
-            setUserRemonths(
-              data.filter((card) => card.userId === currentUser.id)
-            )
-          );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, [dispatch, currentUser.id]);
-
-  useEffect(() => {
     if (selectedDate.start && selectedDate.end) {
-      const filteredDateCards = remonthData.filter((card) => {
+      const filteredDateCards = remonths.filter((card) => {
         return (
           card.month >= selectedDate.start && card.month <= selectedDate.end
         );
       });
       setSelectedCards(filteredDateCards);
     } else {
-      setSelectedCards(remonthData);
+      setSelectedCards(remonths);
     }
-  }, [remonthData, selectedDate]);
+  }, [remonths, selectedDate.start, selectedDate.end]);
 
   const handleClose = () => {
     setSelectedDate({ start: startDate, end: endDate });
@@ -72,7 +42,9 @@ export default function Remonth() {
         <div className="block-title flex">
           <div>
             <span>전체</span>
-            <span className="color-num">{selectedCards.length}</span>
+            <span className="color-num">
+              {selectedCards && selectedCards.length}
+            </span>
           </div>
           <button
             className="filter-btn flex"
@@ -156,8 +128,12 @@ export default function Remonth() {
                 <div className="filter"></div>
                 <div className="user flex">
                   <div className="flex">
-                    <img src={card.userImage} alt="" className="user-img" />
-                    <p>{card.userName}</p>
+                    <img
+                      src={card.userData.image}
+                      alt=""
+                      className="user-img"
+                    />
+                    <p>{card.userData.name}</p>
                   </div>
                   <span className="card-num">
                     + {card.selectedCards.length}

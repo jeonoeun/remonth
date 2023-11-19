@@ -60,12 +60,6 @@
         padding: 20px;
 
         .detail-title {
-            // width: 100%;
-            // white-space: normal;
-            // display: -webkit-box;
-            // -webkit-line-clamp: 2;
-            // -webkit-box-orient: vertical;
-            // overflow: hidden;
             font-size: 19px;
             font-weight: 700;
             margin-bottom: 12px;
@@ -79,20 +73,22 @@
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            margin-bottom: 14px;
+            font-size: 16px;
+            margin-bottom: 24px;
             line-height: 2.5rem;
+            color: #787878;
         }
 
-        .like-box {
-            padding-top: 14px;
-            color: #A0A0A0;
+        .detail-util{
+            font-size: 14px;
+            color: #8c8c8c;
         }
     }
 
     .util-list {
         border-top: 1px solid rgba(210, 210, 210, 0.3);
         border-bottom: 1px solid rgba(210, 210, 210, 0.3);
-        color: #A0A0A0;
+        color: #67686a;
 
         li {
             display: flex;
@@ -100,40 +96,29 @@
             justify-content: center;
             flex: 1;
             padding: 15px;
+            margin: 3px;
             gap: 7px;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: rgba(41, 42, 50, 0.08);
+                color: rgb(41, 42, 50);
+            }
+        }
+
+        .on {
+            color: rgb(255, 47, 110);
+
+            &:hover {
+                color: rgb(255, 47, 110);
+            }
         }
     }
 
     .content-body {
-        .preview-list {
-            padding: 30px 20px;
-            background-color: #F8F8F8;
-
-            .preview-title {
-                color: rgb(140, 140, 140);
-                margin-bottom: 10px;
-            }
-
-            ul {
-                background-color: #fff;
-                border: 1px solid rgb(227, 227, 227);
-                border-radius: 6px;
-                padding: 15px;
-
-                li {
-                    padding: 5px;
-                    line-height: 2.5rem;
-
-                    strong {
-                        font-weight: 700;
-                    }
-                }
-            }
-        }
-
         .card-area {
-            margin-top: 20px;
-            padding: 20px;
+            padding: 30px;
+            // background-color: #F8F8F8;
 
             .category-card {
                 margin-bottom: 50px;
@@ -186,8 +171,5 @@
                 }
             }
         }
-
-
     }
-
 }

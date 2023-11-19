@@ -8,9 +8,8 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiComment, BiSliderAlt } from "react-icons/bi";
 
-export default function MyMoment() {
+export default function MyMoment({ currentUser }) {
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.currentUser);
   const moments = useSelector((state) => state.moments.moments);
   const remonths = useSelector((state) => state.moments.remonths);
   const userMoment = moments.filter((card) => card.user.id === currentUser.id);

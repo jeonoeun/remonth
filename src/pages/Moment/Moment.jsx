@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Moment.scss";
 import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
-import { useDispatch } from "react-redux";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
@@ -21,7 +20,6 @@ const categroyList = [
 ];
 
 export default function Moment({ moments }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -127,19 +125,12 @@ export default function Moment({ moments }) {
                   <img src={card.image} alt="" />
                   <div className="filter"></div>
                 </div>
-                <div className="card-name flex">
-                  <div className="left">
-                    <p className="card-title">{card.title}</p>
-                    <div className="user flex">
-                      <img src={card.user.image} alt="" className="user-img" />
-                      <div>
-                        <span>{card.user.name}</span>
-                      </div>
-                    </div>
+                <div className="card-name">
+                  <p className="card-title">{card.title}</p>
+                  <div className="user flex">
+                    <img src={card.user.image} alt="" className="user-img" />
+                    <span>{card.user.name}</span>
                   </div>
-                  <p className="category">
-                    <span>{card.category}</span>
-                  </p>
                 </div>
               </div>
             ))}

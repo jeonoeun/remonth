@@ -17,7 +17,7 @@ export default function MobileNavbar() {
     <div className="mobile-navbar">
       <ul className="flex">
         <li
-          className={location.pathname.includes("") ? "selected" : ""}
+          className={location.pathname === "/" ? "selected" : ""}
           onClick={() => navigate("/")}
         >
           <AiFillHome />

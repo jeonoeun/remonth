@@ -11,18 +11,16 @@ import {
   addLikeUser,
   getComments,
   getLikeUsers,
-  removeData,
   removeLikeUser,
+  removeMoment,
 } from "../../api/firebase";
-
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
 
-export default function MomentDetail({ moments }) {
+export default function MomentDetail({ moments, currentUser }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.currentUser);
 
   const [matchedItem, setMatchedItem] = useState();
   const [likeUsers, setLikeUsers] = useState();
@@ -33,7 +31,7 @@ export default function MomentDetail({ moments }) {
   const [isCommentModal, setIsCommentModal] = useState(false);
 
   const handleRemove = () => {
-    removeData(id); //
+    removeMoment(id); //
     navigate("/moment");
   };
 
@@ -51,7 +49,7 @@ export default function MomentDetail({ moments }) {
     getComments(id, (data) => {
       setComments(data);
     });
-  }, []);
+  }, [id]);
 
   return (
     <div className="detail">

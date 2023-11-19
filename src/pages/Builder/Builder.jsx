@@ -20,11 +20,10 @@ const categroyList = [
   "순간",
 ];
 
-export default function Builder({ userMoments }) {
+export default function Builder({ userMoments, currentUser }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
-  const currentUser = useSelector((state) => state.user.currentUser);
   const [card, setCard] = useState({
     tags: [],
   });

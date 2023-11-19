@@ -8,7 +8,7 @@ import Moment from "./pages/Moment/Moment";
 import MyPage from "./pages/MyPage/MyPage";
 import RemonthDetail from "./pages/RemonthDetail/RemonthDetail";
 import MyMoment from "./pages/MyMoment/MyMoment";
-import { getMomentList, onUserChanged } from "./api/firebase";
+import { getMomentList, getRemonthList, onUserChanged } from "./api/firebase";
 import { setCurrentUser } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 import MomentDetail from "./pages/MomentDetail/MomentDetail";
@@ -17,6 +17,8 @@ export default function App() {
   const dispatch = useDispatch();
   const [moments, setMoments] = useState();
   const [userMoments, setUserMoments] = useState();
+  const [remonths, setRemonths] = useState();
+  const [userRemonths, setUserRemonths] = useState();
   const currentUser = useSelector((state) => state.user.currentUser) || {};
 
   useEffect(() => {
@@ -30,10 +32,27 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    try {
+      getRemonthList((data) => {
+        setRemonths(data);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }, []);
+
+  useEffect(() => {
     setUserMoments(
       moments && moments.filter((moment) => moment.user.id === currentUser.id)
     );
   }, [currentUser.id, moments]);
+
+  useEffect(() => {
+    setUserRemonths(
+      remonths &&
+        remonths.filter((remonth) => remonth.userData.id === currentUser.id)
+    );
+  }, [currentUser.id, remonths]);
 
   useEffect(() => {
     onUserChanged((userAuth) => {
@@ -56,17 +75,36 @@ export default function App() {
         <Route path="/moment" element={<Moment moments={moments} />} />
         <Route
           path="/moment/:id"
-          element={<MomentDetail moments={moments} />}
+          element={<MomentDetail moments={moments} currentUser={currentUser} />}
         />
-        <Route path="/remonth" element={<Remonth />} />
-        <Route path="/remonth/:id" element={<RemonthDetail />} />
-        <Route path="/mypage" element={<MyPage userMoments={userMoments} />} />
-        <Route path="/mypage/moment" element={<MyMoment />} />
-        <Route path="/builder/moment" element={<Builder />} />
+        <Route path="/remonth" element={<Remonth remonths={remonths} />} />
         <Route
-          path="/builder/remonth"
-          element={<Builder userMoments={userMoments} />}
+          path="/remonth/:id"
+          element={
+            <RemonthDetail remonths={remonths} currentUser={currentUser} />
+          }
         />
+        <Route
+          path="/mypage"
+          element={
+            <MyPage
+              userMoments={userMoments}
+              userRemonths={userRemonths}
+              currentUser={currentUser}
+            />
+          }
+        />
+        <Route
+          path="/mypage/moment"
+          element={<MyMoment currentUser={currentUser} />}
+        />
+        <Route
+          path="/builder/moment"
+          element={
+            <Builder userMoments={userMoments} currentUser={currentUser} />
+          }
+        />
+        <Route path="/builder/remonth" element={<Builder />} />
       </Routes>
     </div>
   );
