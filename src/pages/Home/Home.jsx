@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
 
@@ -79,7 +78,6 @@ export default function Home({ userMoments }) {
           </button>
         </div>
       </div>
-      <MobileNavbar />
     </div>
   );
 }

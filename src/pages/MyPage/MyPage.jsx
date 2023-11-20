@@ -1,14 +1,29 @@
 import "./MyPage.scss";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { logout } from "../../api/firebase";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../store/user";
+import { AiFillSetting } from "react-icons/ai";
 
 export default function MyPage({ userMoments, userRemonths, currentUser }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    logout();
+    dispatch(setCurrentUser(null));
+    navigate("/");
+  };
 
   return (
     <div className="myPage">
       <PageHeader title={"마이페이지"} />
+      <button className="user-btn" onClick={handleLogout}>
+        <AiFillSetting />
+      </button>
       <div className="content">
         <div className="user-area">
           <div className="user">
@@ -26,7 +41,7 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
               <span>월간지</span>
             </div>
             <div className="flex">
-              <span className="num">187</span>
+              <span className="num">0</span>
               <span>좋아요</span>
             </div>
           </div>
@@ -38,19 +53,16 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
               {userMoments && userMoments.length}
             </span>
           </div>
-          <div className="photo-grid">
+          <Swiper slidesPerView={3} spaceBetween={8} className="mySwiper">
             {userMoments &&
-              userMoments
-                .filter((_, i) => i < 3)
-                .map((card) => (
-                  <div
-                    className="photo"
-                    onClick={() => navigate(`/moment/${card.id}`)}
-                  >
+              userMoments.map((card) => (
+                <SwiperSlide>
+                  <div className="card-item">
                     <img src={card.image} alt="" />
                   </div>
-                ))}
-          </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
           <button
             className="builder-btn"
             onClick={() => navigate("/builder/moment")}
@@ -65,19 +77,16 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
               {userRemonths && userRemonths.length}
             </span>
           </div>
-          <div className="photo-grid">
+          <Swiper slidesPerView={3} spaceBetween={8} className="mySwiper">
             {userRemonths &&
-              userRemonths
-                .filter((_, i) => i < 3)
-                .map((card) => (
-                  <div
-                    className="photo"
-                    onClick={() => navigate(`/remonth/${card.id}`)}
-                  >
+              userRemonths.map((card) => (
+                <SwiperSlide>
+                  <div className="card-item">
                     <img src={card.selectedCards[0].image} alt="" />
                   </div>
-                ))}
-          </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
           <button
             className="builder-btn"
             onClick={() => navigate("/builder/remonth")}
@@ -85,11 +94,7 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
             + 월간지 등록하기
           </button>
         </div>
-        <div className="block">
-          <p>좋아요</p>
-        </div>
       </div>
-      <MobileNavbar />
     </div>
   );
 }

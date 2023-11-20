@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Remonth.scss";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
@@ -153,7 +152,6 @@ export default function Remonth({ remonths }) {
             </div>
           ))}
       </div>
-      <MobileNavbar />
     </div>
   );
 }

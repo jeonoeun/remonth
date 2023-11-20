@@ -1,144 +1,173 @@
+@import "../../styles/mixin.scss";
+
 .builder {
     width: 100%;
     height: 100%;
+    background-color: #fff;
 
-        .location-btn {
-            margin-top: 52px;
+    .location-btn {
+        cursor: pointer;
+        
+        li {
+            flex: 1;
+            border-bottom: 2px solid #ddd;
+            text-align: center;
+            padding: 20px 10px;
+        }
+
+        .on {
+            border-bottom: 2px solid #35c5f0;
+        }
+    }
+
+    .form-area {
+        padding: 20px;
+        background-color: #fff;
+
+        .block {
+            background-color: #fff;
+            padding: 20px 0;
+
+            .block-title {
+                margin-bottom: 15px;
+            }
+
+            .input {
+                width: 100%;
+                border: 1px solid #EBEBEB;
+                border-radius: 5px;
+                padding: 15px 20px;
+            }
+
+            .card-img {
+                width: 150px;
+                height: 150px;
+                border: 1px solid #EBEBEB;
+                border-radius: 5px;
+                overflow: hidden;
+                margin-bottom: 16px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+
+                .none-file {
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                }
+            }
+        }
+
+        .keyword {
+            border-bottom: none;
+
+            .tag-info {
+                margin-bottom: 10px;
+            }
+
+            .tag-wrapper {
+                width: 100%;
+                max-width: 100%;
+                border: 1px solid #EBEBEB;
+                border-radius: 5px;
+                display: flex;
+                padding: 15px 20px;
+
+                .hashTags {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    row-gap: 12px;
+
+                    .tag {
+                        background-color: rgb(223, 224, 225);
+                        border-radius: 5px;
+                        margin-right: 12px;
+                        padding: 0 13px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        line-height: 1.5;
+                    }
+
+                    input {
+                        border: none;
+                        outline: none;
+                        max-width: 202px;
+                        padding: 0;
+                        border-radius: 0px;
+                    }
+                }
+            }
+        }
+
+        .builder-category-list {
+            gap: 10px;
+            flex-wrap: wrap;
+            white-space: nowrap;
 
             li {
-                flex: 1;
-                border-bottom: 2px solid #ddd;
-                text-align: center;
-                padding: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid #EBEBEB;
+                gap: 13px;
+                border-radius: 5px;
+                padding: 8px 20px;
+                cursor: pointer;
             }
 
             .on {
-                border-bottom: 2px solid #35c5f0;
+                border: 1px solid rgb(22, 131, 231);
+                color: rgb(22, 131, 231);
+                background-color: rgb(236, 245, 253);
             }
         }
 
-        .form-area {
-            padding: 16px 16px 100px 16px;
-            background-color: #fff;
+        .btn-area {
+            width: 100%;
+            padding: 10px 0;
 
-            .block {
-                background-color: #fff;
-                padding: 16px 0;
-
-                .block-title {
-                    margin-bottom: 15px;
-                }
-
-                .input {
-                    width: 100%;
-                    border: 1px solid #EBEBEB;
-                    border-radius: 5px;
-                    padding: 15px 20px;
-                }
-
-                .card-img {
-                    width: 150px;
-                    height: 150px;
-                    border: 1px solid #EBEBEB;
-                    border-radius: 5px;
-                    overflow: hidden;
-                    margin-bottom: 16px;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                    }
-
-                    .none-file {
-                        align-items: center;
-                        justify-content: center;
-                        height: 100%;
-                    }
-                }
-            }
-
-            .keyword {
-                border-bottom: none;
-
-                .tag-info {
-                    margin-bottom: 10px;
-                }
-
-                .tag-wrapper {
-                    width: 100%;
-                    max-width: 100%;
-                    border: 1px solid #EBEBEB;
-                    border-radius: 5px;
-                    display: flex;
-                    padding: 15px 20px;
-
-                    .hashTags {
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        row-gap: 12px;
-
-                        .tag {
-                            background-color: rgb(223, 224, 225);
-                            border-radius: 5px;
-                            margin-right: 12px;
-                            padding: 0 13px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            line-height: 1.5;
-                        }
-
-                        input {
-                            border: none;
-                            outline: none;
-                            max-width: 202px;
-                            padding: 0;
-                            border-radius: 0px;
-                        }
-                    }
-                }
-            }
-
-            .builder-category-list {
-                gap: 10px;
-                flex-wrap: wrap;
-                white-space: nowrap;
-
-                li {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border: 1px solid #EBEBEB;
-                    gap: 13px;
-                    border-radius: 5px;
-                    padding: 8px 20px;
-                    cursor: pointer;
-                }
-
-                .on {
-                    border: 1px solid rgb(22, 131, 231);
-                    color: rgb(22, 131, 231);
-                    background-color: rgb(236, 245, 253);
-                }
-            }
-
-            .btn-area {
-                position: fixed;
-                bottom: 0;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 376px;
-                z-index: 9;
-
-                .button {
-                    background-color: #35c5f0;
-                    color: #fff;
-                    width: 100%;
-                    padding: 20px;
-                }
+            .button {
+                background-color: #35c5f0;
+                color: #fff;
+                width: 100%;
+                padding: 20px;
+                border-radius: 7px;
             }
         }
-    
+    }
+}
+
+@include mobile {
+    .location-btn {
+        margin-top: 52px;
+
+        li {
+            padding: 10px !important;
+        }
+    }
+
+    .btn-area {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 376px;
+        z-index: 9;
+
+        .button {
+            background-color: #35c5f0;
+            color: #fff;
+            width: 100%;
+            padding: 20px;
+        }
+    }
+
+    .form-area {
+        padding-bottom: 80px !important;
+    }
 }

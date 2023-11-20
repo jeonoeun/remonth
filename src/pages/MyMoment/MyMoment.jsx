@@ -3,7 +3,6 @@ import "./MyMoment.scss";
 import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { useSelector } from "react-redux";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiComment, BiSliderAlt } from "react-icons/bi";
@@ -98,7 +97,6 @@ export default function MyMoment({ currentUser }) {
           </div>
         </div>
       </div>
-      <MobileNavbar />
     </div>
   );
 }

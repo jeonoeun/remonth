@@ -1,10 +1,7 @@
-.remonth-detail {
-    padding-bottom: 80px;
-    background-color: #fff;
+@import "../../styles/mixin.scss";
 
-    .content {
-        padding-top: 52px;
-    }
+.remonth-detail {
+    background-color: #fff;
 
     .img-ct {
         position: relative;
@@ -80,8 +77,21 @@
         }
 
         .detail-util{
+            gap: 10px;
             font-size: 14px;
             color: #8c8c8c;
+
+            strong {
+                color: #4a4a4a;
+            }
+
+            .bar {
+                display: inline-block;
+                background: rgb(180, 180, 180);
+                vertical-align: top;
+                width: 1px;
+                height: 10px;
+            }
         }
     }
 
@@ -99,6 +109,7 @@
             margin: 3px;
             gap: 7px;
             border-radius: 5px;
+            cursor: pointer;
 
             &:hover {
                 background-color: rgba(41, 42, 50, 0.08);
@@ -171,5 +182,11 @@
                 }
             }
         }
+    }
+}
+
+@include mobile {
+    .remonth-detail {
+        padding-bottom: 80px;
     }
 }

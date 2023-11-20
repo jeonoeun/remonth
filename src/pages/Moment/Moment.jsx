@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Moment.scss";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-// import "react-datepicker/dist/react-datepicker.module.css";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
 
@@ -137,8 +135,6 @@ export default function Moment({ moments }) {
           </div>
         )}
       </div>
-
-      <MobileNavbar />
     </div>
   );
 }

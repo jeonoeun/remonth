@@ -113,7 +113,7 @@ export default function RemonthForm({ userMoments }) {
               .filter((item) => item.date.slice(0, 7) === remonthData.month)
               .filter((item) => item.category === list);
 
-            if (filteredItems.length > 0) {
+            if (filteredItems.length !== 0) {
               return (
                 <div className="block">
                   <p className="block-title">{list}</p>

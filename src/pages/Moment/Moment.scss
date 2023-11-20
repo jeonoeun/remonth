@@ -1,11 +1,10 @@
+@import "../../styles/mixin.scss";
+
 .moment {
-    padding-bottom: 80px;
     background-color: #fff;
 
     .content {
         padding: 20px;
-        padding-top: 0;
-        margin-top: 52px;
 
         .block-title {
             justify-content: space-between;
@@ -56,6 +55,7 @@
 
                 li {
                     padding: 0 10px;
+                    cursor: pointer;
                 }
 
                 .on {
@@ -67,7 +67,7 @@
                 width: 100%;
                 justify-content: space-between;
                 border-bottom: 1px solid #f2f2f2;
-    
+
                 .clear {
                     gap: 5px;
                 }
@@ -104,6 +104,7 @@
                     padding: 4px 8px;
                     color: #fff;
                     gap: 7px;
+                    cursor: pointer;
 
                     .close-icon {
                         background-color: #fff;
@@ -124,7 +125,7 @@
     .momentList-ct {
         margin-top: 20px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         column-gap: 15px;
 
         .card-item {
@@ -208,6 +209,7 @@
                 object-fit: cover;
                 margin-right: 10px;
             }
+
             .flex {
                 flex-direction: column;
                 align-items: flex-start;
@@ -316,13 +318,13 @@
                     flex-wrap: wrap;
                     gap: 3px;
                     row-gap: 5px;
-        
+
                     li {
                         border-radius: 26px;
                         padding: 4px 8px;
                         gap: 7px;
                         border: 1px solid #EBEBEB;
-        
+
                         .checked-icon {
                             color: #35c5f0;
                         }
@@ -344,24 +346,19 @@
             }
 
         }
+    }
+}
 
-        .modal-ft {
-            width: 100%;
-            height: 80px;
-            justify-content: space-between;
-            padding: 20px;
-            border-top: 1px solid #EBEBEB;
+@include mobile {
+    .moment {
+        padding-bottom: 80px;
+    }
 
-            .clear {
-                gap: 5px;
-            }
+    .content {
+        margin-top: 52px;
+    }
 
-            .close {
-                background-color: #35c5f0;
-                color: #fff;
-                padding: 8px 20px;
-                border-radius: 6px;
-            }
-        }
+    .momentList-ct {
+        grid-template-columns: 1fr 1fr !important;
     }
 }

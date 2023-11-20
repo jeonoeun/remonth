@@ -1,16 +1,17 @@
+@import "../../styles/mixin.scss";
+
 .comment-form {
-    position: fixed;
+    position: absolute;
     top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
     background-color: #fff;
-    width: 376px;
-    height: 100vh;
-    z-index: 999;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
 
     .comment-form-title {
         padding: 16px;
-        z-index: 999;
+        z-index: 998;
         justify-content: space-between;
         border-bottom: 1px solid rgba(210, 210, 210, 0.3);
     }
@@ -25,3 +26,20 @@
         }
     }
 }
+
+
+@include mobile {
+    .comment-form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        
+        .content {
+            margin-top: 0px;
+        }
+    }
+}
+
+@include tablet {}
+
+@include desktop {}

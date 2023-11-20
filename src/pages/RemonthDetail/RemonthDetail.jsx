@@ -3,14 +3,12 @@ import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiThumbUp } from "react-icons/hi";
 import { FaShareAlt, FaComment } from "react-icons/fa";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import {
   addRemonthLikeUser,
   getRemonthLikeUsers,
   removeRemonthLikeUser,
 } from "../../api/firebase";
-import { useSelector } from "react-redux";
 
 const categroyList = {
   노래: "music",
@@ -68,10 +66,18 @@ export default function RemonthDetail({ remonths, currentUser }) {
             <div className="detail-info">
               <p className="detail-title">{matchedItem.title}</p>
               <p className="detail-review">{matchedItem.review}</p>
-              <div className="detail-util">
-                <span>좋아요 4384</span>
-                <span>댓글 463</span>
-                <span>3년 전 업데이트</span>
+              <div className="detail-util flex">
+                <span>
+                  좋아요 <strong>{likeUsers && likeUsers.length}</strong>
+                </span>
+                <span className="bar"></span>
+                <span>
+                  댓글 <strong>463</strong>
+                </span>
+                <span className="bar"></span>
+                <span>
+                  <strong>{matchedItem.month.slice(-2)}</strong> 월호
+                </span>
               </div>
             </div>
             <ul className="util-list flex">
@@ -134,7 +140,6 @@ export default function RemonthDetail({ remonths, currentUser }) {
           </div>
         </div>
       )}
-      <MobileNavbar />
     </div>
   );
 }

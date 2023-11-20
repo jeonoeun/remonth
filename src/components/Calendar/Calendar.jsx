@@ -74,7 +74,7 @@ export default function ReactCalendar({ userMoments }) {
                       className="flex"
                       onClick={() => navigate(`/moment/${card.id}`)}
                     >
-                      <div className="color-box"></div>
+                      {/* <div className="color-box"></div> */}
                       <div>
                         <p>{card.title}</p>
                         <span className="category-name">{card.category}</span>
@@ -86,7 +86,7 @@ export default function ReactCalendar({ userMoments }) {
                 <p>이날의 기록이 없습니다</p>
               )}
             </div>
-            <div className="btn-area flex">
+            <div className="modal-btn-area flex">
               <button
                 className="category-btn flex"
                 onClick={() => navigate("/builder/moment")}

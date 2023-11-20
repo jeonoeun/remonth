@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import "./PageHeader.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillSetting } from "react-icons/ai";
 import { setCurrentUser } from "../../store/user";
 import { logout } from "../../api/firebase";
@@ -12,12 +12,12 @@ export default function PageHeader({
   matchedItem,
   isModal,
   setIsModal,
-  currentUser,
   title,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleLogout = () => {
     logout();
@@ -32,6 +32,8 @@ export default function PageHeader({
       </button>
       <p className="page-name">{title}</p>
       {location.pathname.includes("/moment") &&
+        currentUser &&
+        currentUser.id &&
         matchedItem &&
         matchedItem.user.id === currentUser.id && (
           <button className="setting-btn" onClick={() => setIsModal(!isModal)}>

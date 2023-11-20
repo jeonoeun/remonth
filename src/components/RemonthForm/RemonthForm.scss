@@ -1,9 +1,11 @@
+@import "../../styles/mixin.scss";
+
 .remonth-form {
         background-color: #fff;
         padding-bottom: 100px;
 
     .form-ct {
-        padding: 16px;
+        padding: 20px 0 20px 20px;
     }
 
     .selected-num {
@@ -23,7 +25,7 @@
 
     .block {
         background-color: #fff;
-        padding: 16px 0;
+        padding: 20px 0;
 
         .block-title {
             margin-bottom: 15px;
@@ -43,7 +45,7 @@
         .card-item {
             .card-img {
                 width: 100%;
-                height: 109px;
+                aspect-ratio: 1 / 1;
                 border-radius: 5px;
                 overflow: hidden;
 
@@ -74,10 +76,25 @@
     }
 
     .select-area {
-        padding: 16px;
+        padding: 20px;
         border-top: 10px solid rgb(247, 249, 250);
     }
 
+    .btn-area {
+        width: 100%;
+        padding: 0 20px;
+
+        .button {
+            background-color: #35c5f0;
+            color: #fff;
+            width: 100%;
+            padding: 20px;
+            border-radius: 7px;
+        }
+    }
+}
+
+@include mobile {
     .btn-area {
         position: fixed;
         bottom: 0;
@@ -85,6 +102,7 @@
         transform: translateX(-50%);
         width: 376px;
         z-index: 9;
+        padding: 0 !important;
 
         .button {
             background-color: #35c5f0;

@@ -1,22 +1,50 @@
 .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 70px;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,0.08);
 
     .hd-wrapper {
         position: relative;
+        max-width: 1000px;
         height: 100%;
         margin: 0 auto;
         justify-content: space-between;
         align-items: center;
-        padding: 0 16px;
+        padding: 0 20px;
 
-        .add-button {
-            border: 1px solid rgb(159, 170, 180);
-            padding: 3px;
-            border-radius: 6px;
-            color: rgb(159, 170, 180); 
+        .one {
+            gap: 40px;
+
+            li {
+                padding: 0 20px;
+            }
         }
 
+        .hd-user {
+            a {
+                gap: 4px;
+
+                img {
+                    display: block;
+                    width: 27px;
+                    height: 27px;
+                    border-radius: 50%;
+                }
+            }
+
+           
+        }
+
+        .login-btn {
+            background-color: #3876BF;
+            color: #fff;
+            padding: 8px 24px;
+            border-radius: 7px;
+        }
     }
-
-
 }

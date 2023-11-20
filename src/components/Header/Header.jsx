@@ -1,55 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Header.scss";
-import { login, onUserChanged } from "../../api/firebase";
-import { useDispatch, useSelector } from "react-redux";
-import { addUser, setCurrentUser } from "../../store/user";
-import { Link, useNavigate } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
-import { BiMenuAltLeft } from "react-icons/bi";
+import { login } from "../../api/firebase";
 import logo from "../../images/logo.png";
+import { Link } from "react-router-dom";
 
-export default function Header() {
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const [isModal, setIsModal] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    onUserChanged((userAuth) => {
-      userAuth &&
-        dispatch(
-          addUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-      userAuth &&
-        dispatch(
-          setCurrentUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-    });
-  }, [dispatch]);
-
+export default function Header({ currentUser }) {
   return (
     <header className="header">
       <div className="hd-wrapper flex">
-        {currentUser ? (
-          <button
-            className="add-button flex"
-            onClick={() => navigate("/builder/moment")}
-          >
-            <AiOutlinePlus />
-          </button>
-        ) : (
-          <button onClick={login}>로그인</button>
-        )}
+        <div className="one flex">
+          <Link to="/">
+            <img src={logo} alt="" />
+          </Link>
+          <ul className="flex">
+            <li>
+              <Link to="/moment">모먼트</Link>
+            </li>
+            <li>
+              <Link to="/moment">검색</Link>
+            </li>
+            <li>
+              <Link to="/remonth">월간지</Link>
+            </li>
+            <li>
+              <Link to="/mypage">마이페이지</Link>
+            </li>
+            <li>
+              <Link to="/builder/moment">등록하기</Link>
+            </li>
+          </ul>
+        </div>
+        <div className="two">
+          {currentUser ? (
+            <div className="hd-user">
+              <Link to="/mypage" className="flex">
+                <img src={currentUser.image} alt="" />
+                <p>{currentUser.name}</p>
+              </Link>
+            </div>
+          ) : (
+            <button onClick={login} className="login-btn">
+              로그인
+            </button>
+          )}
+        </div>
       </div>
     </header>
   );

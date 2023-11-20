@@ -5,13 +5,11 @@ import { BsFillHeartFill, BsFillGridFill } from "react-icons/bs";
 import { FaUser, FaMountain } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { login } from "../../api/firebase";
 
-export default function MobileNavbar() {
+export default function MobileNavbar({ currentUser }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
     <div className="mobile-navbar">

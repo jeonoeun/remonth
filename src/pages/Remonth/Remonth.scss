@@ -1,11 +1,11 @@
+@import "../../styles/mixin.scss";
+
 .remonth {
     padding-bottom: 80px;
     background-color: #fff;
 
     .content {
-        margin-top: 52px;
         padding: 20px;
-        padding-top: 0;
 
         .block-title {
             justify-content: space-between;
@@ -232,4 +232,10 @@
         }
     }
 
+}
+
+@include mobile {
+    .content {
+        margin-top: 52px;
+    }
 }

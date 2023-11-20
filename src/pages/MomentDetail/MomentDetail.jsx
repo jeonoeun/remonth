@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MomentDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import { HiThumbUp } from "react-icons/hi";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
@@ -17,6 +15,7 @@ import {
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import { IoMdSettings } from "react-icons/io";
 
 export default function MomentDetail({ moments, currentUser }) {
   const { id } = useParams();
@@ -57,8 +56,13 @@ export default function MomentDetail({ moments, currentUser }) {
         matchedItem={matchedItem}
         isModal={isModal}
         setIsModal={setIsModal}
-        currentUser={currentUser}
       />
+      {currentUser && matchedItem && matchedItem.user.id === currentUser.id && (
+        <button className="user-btn" onClick={() => setIsModal(!isModal)}>
+          <IoMdSettings />
+        </button>
+      )}
+
       {isModal && (
         <div className="background">
           <ul className="user-modal">
@@ -80,7 +84,6 @@ export default function MomentDetail({ moments, currentUser }) {
           </ul>
         </div>
       )}
-
       {matchedItem && (
         <div className="content-ct">
           <img className="detail-img" src={matchedItem.image} alt="" />
@@ -107,12 +110,14 @@ export default function MomentDetail({ moments, currentUser }) {
             <ul className="util-list flex">
               <li
                 onClick={() => {
-                  likeUsers && likeUsers.includes(currentUser.id)
+                  currentUser && likeUsers && likeUsers.includes(currentUser.id)
                     ? removeLikeUser(id, currentUser.id)
                     : addLikeUser(id, currentUser.id);
                 }}
                 className={
-                  likeUsers && likeUsers.includes(currentUser.id) ? "on" : ""
+                  currentUser && likeUsers && likeUsers.includes(currentUser.id)
+                    ? "on"
+                    : ""
                 }
               >
                 <HiThumbUp />
@@ -153,17 +158,13 @@ export default function MomentDetail({ moments, currentUser }) {
           />
         </div>
       )}
-
       {isCommentModal && (
         <CommentForm
           setIsCommentModal={setIsCommentModal}
           setSuccess={setSuccess}
         />
       )}
-
       {success && <div className="success-box">{success}</div>}
-
-      <MobileNavbar />
     </div>
   );
 }
