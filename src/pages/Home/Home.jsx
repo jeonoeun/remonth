@@ -35,7 +35,7 @@ export default function Home({ userMoments }) {
                 개의 {selectedTag} 모먼트가 있어요
               </p>
             </div>
-            <button>
+            <button onClick={() => navigate("/moment")}>
               <IoIosArrowForward />
             </button>
           </div>

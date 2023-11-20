@@ -57,7 +57,10 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
             {userMoments &&
               userMoments.map((card) => (
                 <SwiperSlide>
-                  <div className="card-item">
+                  <div
+                    className="card-item"
+                    onClick={() => navigate(`/moment/${card.id}`)}
+                  >
                     <img src={card.image} alt="" />
                   </div>
                 </SwiperSlide>
@@ -81,7 +84,10 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
             {userRemonths &&
               userRemonths.map((card) => (
                 <SwiperSlide>
-                  <div className="card-item">
+                  <div
+                    className="card-item"
+                    onClick={() => navigate(`/remonth/${card.id}`)}
+                  >
                     <img src={card.selectedCards[0].image} alt="" />
                   </div>
                 </SwiperSlide>

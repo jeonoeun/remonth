@@ -209,6 +209,10 @@
 }
 
 @include mobile {
+    .user-btn {
+        display: none;
+    }
+
     .detail {
         margin-top: 52px;
         padding-bottom: 80px;
@@ -216,6 +220,7 @@
 }
 
 @include tablet {
+
     .background {
         .user-modal {
             bottom: 20px;

@@ -125,7 +125,7 @@
     .momentList-ct {
         margin-top: 20px;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
         column-gap: 15px;
 
         .card-item {
@@ -358,7 +358,4 @@
         margin-top: 52px;
     }
 
-    .momentList-ct {
-        grid-template-columns: 1fr 1fr !important;
-    }
 }

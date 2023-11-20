@@ -94,10 +94,10 @@ export default function RemonthDetail({ remonths, currentUser }) {
                 <HiThumbUp />
                 <span>좋아요</span>
               </li>
-              <li>
+              {/* <li>
                 <FaComment />
                 <span>댓글</span>
-              </li>
+              </li> */}
               <li>
                 <FaShareAlt />
                 <span>공유</span>
