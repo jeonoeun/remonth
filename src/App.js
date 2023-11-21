@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./styles/App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Builder from "./pages/Builder/Builder";
 import Remonth from "./pages/Remonth/Remonth";
@@ -18,6 +18,7 @@ import ScrollToTop from "./ScrollToTop";
 
 export default function App() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const [moments, setMoments] = useState();
   const [userMoments, setUserMoments] = useState();
   const [remonths, setRemonths] = useState();
@@ -121,7 +122,7 @@ export default function App() {
           />
         </Routes>
       </div>
-      {isDesktop || isTablet || <MobileNavbar currentUser={currentUser} />}
+      {isDesktop || isTablet || pathname.includes("builder") || <MobileNavbar currentUser={currentUser} />}
     </div>
   );
 }

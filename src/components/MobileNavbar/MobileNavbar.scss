@@ -22,25 +22,31 @@
             height: 100%;
             flex: 1;
             gap: 10px;
-            opacity: 0.6;
+            opacity: 0.3;
             cursor: pointer;
+            font-size: 19px;
+            font-weight: 500;
+
+            span {
+                font-size: 15px;
+            }
         }
         
         .selected {
             position: relative;
             opacity: 1;
-            color: #3876BF;
+            color: #007AFF;
 
-            .underline {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background-color: #9FBB73;
-                border-top-left-radius: 30px;
-                border-top-right-radius: 30px;
-            }
+            // .underline {
+            //     position: absolute;
+            //     bottom: 0;
+            //     left: 0;
+            //     width: 100%;
+            //     height: 2px;
+            //     background-color: #9FBB73;
+            //     border-top-left-radius: 30px;
+            //     border-top-right-radius: 30px;
+            // }
         }
     }
 }

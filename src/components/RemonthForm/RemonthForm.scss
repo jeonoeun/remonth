@@ -44,28 +44,33 @@
 
         .card-item {
             .card-img {
-                width: 100%;
-                aspect-ratio: 1 / 1;
-                border-radius: 5px;
-                overflow: hidden;
-
-                .on {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
+                .img-ct {
+                    position: relative;
                     width: 100%;
-                    height: 109px;
-                    background-color: rgba(0, 0, 0, 0.7);
+                    aspect-ratio: 1 / 1;
                     border-radius: 5px;
-                    justify-content: center;
+                    overflow: hidden;
 
-                    .flex {
-                        flex-direction: column;
-                        gap: 10px;
-                        color: #35c5f0;
+                    .on {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(0, 0, 0, 0.7);
+                        border-radius: 5px;
+                        justify-content: center;
+    
+                        .flex {
+                            flex-direction: column;
+                            gap: 10px;
+                            color: #35c5f0;
+                        }
                     }
+    
                 }
 
+               
                 img {
                     width: 100%;
                     height: 100%;
@@ -109,6 +114,7 @@
             color: #fff;
             width: 100%;
             padding: 20px;
+            border-radius: 0px !important;
         }
     }
 }

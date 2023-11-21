@@ -35,7 +35,7 @@ export default function Header({ currentUser }) {
             <div className="hd-user">
               <Link to="/mypage" className="flex">
                 <img src={currentUser.image} alt="" />
-                <p>{currentUser.name}</p>
+                <p>{currentUser.name} 님</p>
               </Link>
             </div>
           ) : (

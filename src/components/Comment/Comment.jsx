@@ -24,7 +24,7 @@ export default function Comment({ currentUser, setIsCommentModal, comments }) {
                   </div>
                 </div>
                 {list.userId === currentUser.id && (
-                  <div className="user-btn flex">
+                  <div className="user-delete-btn flex">
                     <span onClick={() => removeComment(id, list)}>삭제</span>
                   </div>
                 )}

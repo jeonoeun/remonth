@@ -19,30 +19,27 @@ const categroyList = [
   "순간",
 ];
 
-export default function RemonthForm({ userMoments }) {
+export default function RemonthForm({ userMoments, currentUser }) {
   const [remonthData, setRemonthData] = useState({
     month: "",
     title: "",
     review: "",
     selectedCards: [],
   });
-
-  const currentUser = useSelector((state) => state.user.currentUser);
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     setIsUploading(true);
-    addNewRemonth(remonthData, currentUser) //
-      .then(() => {
-        setSuccess("등록되었습니다!");
-        setTimeout(() => {
-          setSuccess(null);
-          navigate("/");
-        }, 4000);
-      })
-      .finally(() => setIsUploading(false));
+    addNewRemonth(remonthData, currentUser).then(() => {
+      setSuccess("등록되었습니다!");
+      setTimeout(() => {
+        setSuccess(null);
+        navigate("/");
+        setIsUploading(false);
+      }, 4000);
+    });
   };
 
   const handleChange = (e) => {
@@ -150,15 +147,17 @@ export default function RemonthForm({ userMoments }) {
                           }}
                         >
                           <div className="card-img">
-                            <img src={card.image} alt="" />
-                            {remonthData.selectedCards.includes(card) && (
-                              <div className="on flex">
-                                <div className="flex">
-                                  <BsFillCheckCircleFill />
-                                  <span>추가됨</span>
+                            <div className="img-ct">
+                              <img src={card.image} alt="" />
+                              {remonthData.selectedCards.includes(card) && (
+                                <div className="on flex">
+                                  <div className="flex">
+                                    <BsFillCheckCircleFill />
+                                    <span>추가됨</span>
+                                  </div>
                                 </div>
-                              </div>
-                            )}
+                              )}
+                            </div>
                           </div>
                           <p>{card.title}</p>
                           <p>{card.date}</p>

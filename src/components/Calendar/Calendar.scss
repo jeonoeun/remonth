@@ -1,3 +1,5 @@
+@import "../../styles/mixin.scss";
+
 .calendar {
   padding-top: 20px;
   // react-calendar custom
@@ -38,7 +40,7 @@
 
   .react-calendar__tile {
     position: relative;
-    padding-bottom: 75px;
+    padding-bottom: 100px;
   }
 
   .react-calendar__month-view__weekdays__weekday {
@@ -134,9 +136,12 @@
           justify-content: center;
         }
       }
-
-     
     }
   }
+}
 
+@include mobile {
+  .react-calendar__tile {
+    padding-bottom: 75px !important;
+  }
 }

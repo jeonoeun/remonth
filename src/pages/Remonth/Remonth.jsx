@@ -141,7 +141,7 @@ export default function Remonth({ remonths }) {
               </div>
               <div className="card-info">
                 <p className="card-title">
-                  {card.month.slice(-2)}월호 | {card.title}
+                  {card.title}
                 </p>
                 <p className="card-review">{card.review}</p>
                 <div className="like-box">

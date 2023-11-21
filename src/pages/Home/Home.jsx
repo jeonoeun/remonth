@@ -27,7 +27,7 @@ export default function Home({ userMoments }) {
           <div className="title-area flex">
             <div>
               <p className="box-title">10월의 모먼트</p>
-              <p>
+              <p className="sum-title">
                 총{" "}
                 {userMoments &&
                   userMoments.filter((item) => item.category === selectedTag)

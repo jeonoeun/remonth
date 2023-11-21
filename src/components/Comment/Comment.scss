@@ -26,10 +26,11 @@
                 justify-content: space-between;
                 align-items: flex-start;
 
-                .user-btn {
+                .user-delete-btn {
                     font-size: 13px;
                     color: #868E96;
                     gap: 5px;
+                    cursor: pointer;
                 }
             }
 

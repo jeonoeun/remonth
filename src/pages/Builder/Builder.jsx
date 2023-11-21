@@ -202,7 +202,7 @@ export default function Builder({ userMoments, currentUser }) {
           </div>
         </form>
       ) : (
-        <RemonthForm userMoments={userMoments} />
+        <RemonthForm userMoments={userMoments} currentUser={currentUser} />
       )}
     </div>
   );

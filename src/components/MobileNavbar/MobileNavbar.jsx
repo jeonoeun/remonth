@@ -9,13 +9,13 @@ import { login } from "../../api/firebase";
 
 export default function MobileNavbar({ currentUser }) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
   return (
     <div className="mobile-navbar">
       <ul className="flex">
         <li
-          className={location.pathname === "/" ? "selected" : ""}
+          className={pathname === "/" ? "selected" : ""}
           onClick={() => navigate("/")}
         >
           <AiFillHome />
@@ -26,14 +26,14 @@ export default function MobileNavbar({ currentUser }) {
           <span>검색</span>
         </li>
         <li
-          className={location.pathname.includes("moment") ? "selected" : ""}
+          className={pathname.includes("moment") ? "selected" : ""}
           onClick={() => navigate("/moment")}
         >
           <BsFillGridFill />
           <span>모먼트</span>
         </li>
         <li
-          className={location.pathname.includes("remonth") ? "selected" : ""}
+          className={pathname.includes("remonth") ? "selected" : ""}
           onClick={() => navigate("/remonth")}
         >
           <FaMountain />
@@ -44,7 +44,7 @@ export default function MobileNavbar({ currentUser }) {
         </li>
         {currentUser ? (
           <li
-            className={location.pathname === "/mypage" ? "selected" : ""}
+            className={pathname === "/mypage" ? "selected" : ""}
             onClick={() => navigate("/mypage")}
           >
             <BsFillHeartFill />
