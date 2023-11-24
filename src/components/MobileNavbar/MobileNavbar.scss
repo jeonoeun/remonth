@@ -4,10 +4,8 @@
     left: 0;
     width: 100%;
     height: 80px;
-    // border-top: 1px solid #EDEDED;
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.7);
-    // border-top: 1px solid #f0f0f0;
     box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
 
     .flex {
@@ -23,9 +21,9 @@
             flex: 1;
             gap: 10px;
             opacity: 0.3;
-            cursor: pointer;
             font-size: 19px;
             font-weight: 500;
+            cursor: pointer;
 
             span {
                 font-size: 15px;
@@ -35,18 +33,7 @@
         .selected {
             position: relative;
             opacity: 1;
-            color: #007AFF;
-
-            // .underline {
-            //     position: absolute;
-            //     bottom: 0;
-            //     left: 0;
-            //     width: 100%;
-            //     height: 2px;
-            //     background-color: #9FBB73;
-            //     border-top-left-radius: 30px;
-            //     border-top-right-radius: 30px;
-            // }
+            color: var(--main-color);
         }
     }
 }

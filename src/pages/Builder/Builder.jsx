@@ -172,7 +172,7 @@ export default function Builder({ userMoments, currentUser }) {
           <div className="block keyword">
             <p className="block-title">태그</p>
             <div className="tag-info">
-              <span>- 엔터를 입력하여 태그를 등록 할 수 있습니다.</span>
+              <span>엔터를 입력하여 태그를 등록 할 수 있습니다.</span>
             </div>
             <div className="tag-wrapper">
               <div className="hashTags">
@@ -202,7 +202,7 @@ export default function Builder({ userMoments, currentUser }) {
           </div>
         </form>
       ) : (
-        <RemonthForm userMoments={userMoments} currentUser={currentUser} />
+        <RemonthForm userMoments={userMoments} />
       )}
     </div>
   );

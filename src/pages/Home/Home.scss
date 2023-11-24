@@ -1,10 +1,11 @@
+@import "../../styles/mixin.scss";
+
 .home {
     background-color: #fff;
-    padding: 0 0 80px;
+    padding: 0 0 40px;
 
     .content {
         margin-top: 0px;
-
     }
 
     .moment-box {
@@ -22,7 +23,9 @@
             }
 
             .sum-title {
-                color: #8a8a8e;
+                color: #a0a0a0;
+                font-size: 16px;
+                font-weight: 400;
             }
         }
 
@@ -45,7 +48,7 @@
                 }
 
                 .on {
-                    background-color: #191B1C;
+                    background-color: #303030;
                     color: #fff;
                 }
             }
@@ -110,3 +113,9 @@
 
     }
 }
+
+@include mobile {
+    .home {
+        padding: 0 0 100px;
+    }
+  }

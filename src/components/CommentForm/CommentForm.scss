@@ -10,10 +10,15 @@
     z-index: 998;
 
     .comment-form-title {
-        padding: 16px;
+        padding: 20px;
         z-index: 998;
         justify-content: space-between;
         border-bottom: 1px solid rgba(210, 210, 210, 0.3);
+
+        .summit-btn {
+            color: var(--main-color);
+            font-weight: 600;
+        }
     }
 
     .content {
@@ -39,7 +44,3 @@
         }
     }
 }
-
-@include tablet {}
-
-@include desktop {}

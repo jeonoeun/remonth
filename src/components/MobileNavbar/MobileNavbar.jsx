@@ -38,9 +38,6 @@ export default function MobileNavbar({ currentUser }) {
         >
           <FaMountain />
           <span>월간지</span>
-          {/* {location.pathname.includes("remonth") ? (
-            <motion.div className="underline" layoutId="underline" />
-          ) : null} */}
         </li>
         {currentUser ? (
           <li

@@ -97,14 +97,16 @@ export default function MomentDetail({ moments, currentUser }) {
                     <span className="user-name">{matchedItem.user.name}</span>
                   </div>
                 )}
-                <span>·</span>
-                <span>{matchedItem.date}</span>
-                <span>·</span>
-                <span>{matchedItem.category}</span>
+                <span className="bar"></span>
+                <span>{matchedItem.date} 의 {matchedItem.category}</span>
               </li>
               <li className="flex like-box">
-                <span>좋아요 {likeUsers && likeUsers.length}</span>
-                <span>댓글 {comments && comments.length}</span>
+                <span>
+                  좋아요 <strong>{likeUsers && likeUsers.length}</strong>
+                </span>
+                <span>
+                  댓글 <strong>{comments && comments.length}</strong>
+                </span>
               </li>
             </ul>
             <ul className="util-list flex">

@@ -74,9 +74,9 @@ export default function ReactCalendar({ userMoments }) {
                       className="flex"
                       onClick={() => navigate(`/moment/${card.id}`)}
                     >
-                      {/* <div className="color-box"></div> */}
+                      <div className="color-box"></div>
                       <div>
-                        <p>{card.title}</p>
+                        <p className="card-title">{card.title}</p>
                         <span className="category-name">{card.category}</span>
                       </div>
                     </li>

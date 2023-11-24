@@ -39,7 +39,7 @@ export default function Remonth({ remonths }) {
       <PageHeader title={"월간지"} />
       <div className="content">
         <div className="block-title flex">
-          <div>
+          <div className="amount-title">
             <span>전체</span>
             <span className="color-num">
               {selectedCards && selectedCards.length}
@@ -140,14 +140,9 @@ export default function Remonth({ remonths }) {
                 </div>
               </div>
               <div className="card-info">
-                <p className="card-title">
-                  {card.title}
-                </p>
+                <p className="card-title">{card.title}</p>
                 <p className="card-review">{card.review}</p>
-                <div className="like-box">
-                  <span>좋아요 0</span>
-                  <span>댓글 0</span>
-                </div>
+                <div className="card-date"> {card.month} 월호</div>
               </div>
             </div>
           ))}

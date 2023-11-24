@@ -19,7 +19,7 @@ const categroyList = [
   "순간",
 ];
 
-export default function RemonthForm({ userMoments, currentUser }) {
+export default function RemonthForm({ userMoments }) {
   const [remonthData, setRemonthData] = useState({
     month: "",
     title: "",
@@ -29,6 +29,7 @@ export default function RemonthForm({ userMoments, currentUser }) {
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleSubmit = () => {
     setIsUploading(true);
@@ -96,11 +97,12 @@ export default function RemonthForm({ userMoments, currentUser }) {
       </form>
       {remonthData.month && (
         <div className="select-area">
-          <div className="block selected-num flex">
+          <div className="selected-num flex">
             <p>추가된 카드</p>
             <div className="flex">
               <div className="num">
-                {Object.keys(remonthData.selectedCards).length} 개
+                <strong>{Object.keys(remonthData.selectedCards).length} </strong>
+                개
               </div>
               <MdOutlineKeyboardArrowRight />
             </div>
@@ -116,6 +118,7 @@ export default function RemonthForm({ userMoments, currentUser }) {
                   <p className="block-title">{list}</p>
                   <Swiper
                     slidesPerView={3}
+                    slidesPerGroup={3}
                     spaceBetween={8}
                     className="mySwiper"
                   >
@@ -159,8 +162,8 @@ export default function RemonthForm({ userMoments, currentUser }) {
                               )}
                             </div>
                           </div>
-                          <p>{card.title}</p>
-                          <p>{card.date}</p>
+                          <p className="card-item-name">{card.title}</p>
+                          <p className="card-item-date">{card.date}</p>
                         </div>
                       </SwiperSlide>
                     ))}

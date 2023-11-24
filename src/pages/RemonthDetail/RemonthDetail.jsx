@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiThumbUp } from "react-icons/hi";
-import { FaShareAlt, FaComment } from "react-icons/fa";
+
+import { FaShareAlt } from "react-icons/fa";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import {
   addRemonthLikeUser,
@@ -72,10 +73,6 @@ export default function RemonthDetail({ remonths, currentUser }) {
                 </span>
                 <span className="bar"></span>
                 <span>
-                  댓글 <strong>463</strong>
-                </span>
-                <span className="bar"></span>
-                <span>
                   <strong>{matchedItem.month.slice(-2)}</strong> 월호
                 </span>
               </div>
@@ -94,10 +91,6 @@ export default function RemonthDetail({ remonths, currentUser }) {
                 <HiThumbUp />
                 <span>좋아요</span>
               </li>
-              {/* <li>
-                <FaComment />
-                <span>댓글</span>
-              </li> */}
               <li>
                 <FaShareAlt />
                 <span>공유</span>
@@ -113,16 +106,12 @@ export default function RemonthDetail({ remonths, currentUser }) {
                   </span>
                   <ul className="title-area">
                     <li className="title-title">{card.title}</li>
-                    <li>✦✦✦✦✧</li>
-                    <li>{card.date}</li>
+                    <li className="title-date">{card.date}</li>
                     <li className="flex">
-                      <p>
-                        {matchedItem.month.slice(-2)}월의 {card.category}
-                      </p>
                       {card.tags && (
                         <div className="tags flex">
                           {card.tags.map((tag) => (
-                            <span>/ {tag}</span>
+                            <span>{tag} / </span>
                           ))}
                         </div>
                       )}
@@ -133,7 +122,6 @@ export default function RemonthDetail({ remonths, currentUser }) {
                     alt=""
                     onClick={() => navigate(`/moment/${card.id}`)}
                   />
-                  <p className="review">{card.review}</p>
                 </div>
               ))}
             </div>

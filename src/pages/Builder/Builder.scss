@@ -7,7 +7,7 @@
 
     .location-btn {
         cursor: pointer;
-        
+
         li {
             flex: 1;
             border-bottom: 2px solid #ddd;
@@ -16,7 +16,8 @@
         }
 
         .on {
-            border-bottom: 2px solid #35c5f0;
+            border-bottom: 2px solid var(--main-color);
+            font-weight: 600;
         }
     }
 
@@ -29,7 +30,8 @@
             padding: 20px 0;
 
             .block-title {
-                margin-bottom: 15px;
+                margin-bottom: 16px;
+                font-weight: 600;
             }
 
             .input {
@@ -40,8 +42,8 @@
             }
 
             .card-img {
-                width: 150px;
-                height: 150px;
+                width: 19rem;
+                aspect-ratio: 1 / 1;
                 border: 1px solid #EBEBEB;
                 border-radius: 5px;
                 overflow: hidden;
@@ -66,6 +68,10 @@
 
             .tag-info {
                 margin-bottom: 10px;
+                color: #8A8A8E;
+                color: var(--main-color);
+                font-size: 15px;
+                font-weight: 300;
             }
 
             .tag-wrapper {
@@ -121,9 +127,9 @@
             }
 
             .on {
-                border: 1px solid rgb(22, 131, 231);
-                color: rgb(22, 131, 231);
-                background-color: rgb(236, 245, 253);
+                border: 1px solid var(--main-color);
+                color: var(--main-color);
+                background-color: #f6f1eb;
             }
         }
 
@@ -132,11 +138,11 @@
             padding: 10px 0;
 
             .button {
-                background-color: #35c5f0;
+                background-color: var(--main-color);
                 color: #fff;
                 width: 100%;
                 padding: 20px;
-                border-radius: 7px;
+                border-radius: 5px;
             }
         }
     }
@@ -144,6 +150,11 @@
 
 @include mobile {
     .location-btn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
         margin-top: 52px;
 
         li {
@@ -168,6 +179,7 @@
     }
 
     .form-area {
+        padding-top: 100px !important;
         padding-bottom: 80px !important;
     }
 }

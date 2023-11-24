@@ -3,21 +3,26 @@
 .remonth-form {
         background-color: #fff;
         padding-bottom: 100px;
+        min-height: 900px;
 
     .form-ct {
-        padding: 20px 0 20px 20px;
+        padding: 20px;
     }
 
     .selected-num {
         justify-content: flex-end;
         gap: 8px;
+        color: #8A8A8E;
+        padding-top: 20px;
 
         .flex {
             gap: 5px;
 
             .num {
                 strong {
-                    color: #35c5f0;
+                    color: #5784E6;
+                    color: var(--main-color);
+                    font-weight: 500;
                 }
             }
         }
@@ -28,7 +33,8 @@
         padding: 20px 0;
 
         .block-title {
-            margin-bottom: 15px;
+            margin-bottom: 16px;
+            font-weight: 600;
         }
 
         .input {
@@ -43,7 +49,10 @@
         overflow-x: visible;
 
         .card-item {
+            cursor: pointer;
+            
             .card-img {
+
                 .img-ct {
                     position: relative;
                     width: 100%;
@@ -60,22 +69,41 @@
                         background-color: rgba(0, 0, 0, 0.7);
                         border-radius: 5px;
                         justify-content: center;
+                        font-size: 16px;
+                        font-weight: 700;
     
                         .flex {
                             flex-direction: column;
                             gap: 10px;
-                            color: #35c5f0;
+                            color: var(--main-color);
                         }
                     }
-    
                 }
-
                
                 img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
                 }
+            }
+
+            .card-item-name {
+                width: 100%;
+                white-space: normal;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                line-height: 2.8rem;
+                font-size: 15px;
+                font-weight: 600;
+                padding: 5px 0;
+            }
+
+            .card-item-date {
+                color: #8A8A8E;
+                font-size: 14px;
+                font-weight: 300;
             }
         }
     }
@@ -90,7 +118,7 @@
         padding: 0 20px;
 
         .button {
-            background-color: #35c5f0;
+            background-color: var(--main-color);
             color: #fff;
             width: 100%;
             padding: 20px;
@@ -100,6 +128,10 @@
 }
 
 @include mobile {
+    .remonth-form {
+        padding-top: 80px;
+    }
+
     .btn-area {
         position: fixed;
         bottom: 0;

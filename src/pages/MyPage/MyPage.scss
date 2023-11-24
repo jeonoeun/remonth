@@ -8,7 +8,7 @@
         position: absolute;
         top: 0;
         right: 0;
-        padding: 20px;
+        padding: 30px 20px;
         font-size: 24px;
     }
 
@@ -17,7 +17,7 @@
             border-bottom: 10px solid rgb(247, 249, 250);
 
             .user {
-                padding: 20px;
+                padding: 30px 20px;
 
                 .user-img {
                     width: 96px;
@@ -61,19 +61,22 @@
         }
 
         .block {
-            padding: 20px;
+            padding: 30px 20px 20px;
 
             .block-title {
                 justify-content: space-between;
                 margin-bottom: 20px;
+                font-weight: 600;
 
                 .color-num {
-                    color: #35C5F0;
-                    margin: 0 6px;
+                    color: var(--main-color);
+                    margin: 0 5px;
+                    font-weight: 500;
+
                 }
 
                 button {
-                    color: #35C5F0;
+                    color: var(--main-color);
                 }
             }
 

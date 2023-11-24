@@ -10,7 +10,6 @@ import {
   arrayUnion,
   updateDoc,
   arrayRemove,
-  deleteField,
 } from "firebase/firestore";
 
 import {
@@ -20,15 +19,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
 } from "firebase/auth";
-import {
-  get,
-  getDatabase,
-  onValue,
-  push,
-  ref,
-  remove,
-  set,
-} from "firebase/database";
+
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -44,8 +35,6 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
-
-const database = getDatabase();
 
 //로그인
 export function login() {
@@ -206,7 +195,7 @@ export function getRemonthLikeUsers(id, callback) {
   const docRef = doc(db, "remonths", id);
   const unsubscriber = onSnapshot(docRef, (snapshot) => {
     const item = snapshot.data();
-    callback(item.likeUsers ? item.likeUsers : []);
+    callback(item.likeUsers && item.likeUsers);
   });
 
   // unsubscriber(); // 구독을 해제할 때 사용

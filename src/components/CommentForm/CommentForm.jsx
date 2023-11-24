@@ -33,7 +33,7 @@ export default function CommentForm({ setIsCommentModal, setSuccess }) {
         <button onClick={() => setIsCommentModal(false)}>
           <AiOutlineClose />
         </button>
-        <button onClick={handleComment}>저장</button>
+        <button className="summit-btn" onClick={handleComment}>저장</button>
       </div>
       <div className="content">
         <input

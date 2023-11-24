@@ -40,7 +40,7 @@ export default function Moment({ moments }) {
       <PageHeader title={"모먼트"} />
       <div className="content">
         <div className="block-title flex">
-          <div>
+          <div className="amount-title">
             <span>전체</span>
             <span className="color-num">{list && list.length}</span>
           </div>
@@ -102,8 +102,8 @@ export default function Moment({ moments }) {
                 className="clear flex"
                 onClick={() => setSelectedCategory([])}
               >
-                <GrPowerReset />
                 <span>초기화</span>
+                <GrPowerReset />
               </button>
               <button className="close" onClick={() => setIsModal(false)}>
                 적용

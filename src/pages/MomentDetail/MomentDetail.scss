@@ -10,6 +10,7 @@
         right: 0;
         padding: 20px;
         font-size: 24px;
+        color: var(--main-color);
     }
 
     .content-ct {
@@ -32,11 +33,22 @@
                     font-size: 30px;
                     font-weight: 600;
                     text-align: center;
-                    line-height: 3.6rem;
+                    line-height: 4rem;
+                    padding-bottom: 15px;
                 }
 
                 .detail-info {
                     gap: 5px;
+                    color: #787878;
+
+                    .bar {
+                        display: inline-block;
+                        background: rgb(180, 180, 180);
+                        vertical-align: top;
+                        width: 1px;
+                        height: 10px;
+                        margin: 0 3px;
+                    }
                 }
 
                 .profile {
@@ -55,6 +67,10 @@
                     gap: 12px;
                     font-weight: 300;
                     font-size: 14px;
+
+                    strong {
+                        color: #4a4a4a;
+                    }
                 }
             }
 
@@ -81,16 +97,16 @@
                 }
 
                 .on {
-                    color: rgb(255, 47, 110);
+                    color: var(--main-color);
 
                     &:hover {
-                        color: rgb(255, 47, 110);
+                        color: var(--main-color);
                     }
                 }
             }
 
             .box-list {
-                padding: 20px 0;
+                padding: 42px 0;
             }
         }
 
@@ -98,7 +114,8 @@
             margin-bottom: 50px;
 
             .block-title {
-                margin-bottom: 10px;
+                margin-bottom: 16px;
+                font-weight: 600;
             }
         }
 
@@ -125,28 +142,6 @@
                     padding: 5px 7px;
                     border-radius: 5px;
                     box-shadow: rgba(176, 184, 193, 0.125) 0px 0px 8px 8px;
-                }
-            }
-
-        }
-
-        .gallery {
-            .flex {
-                gap: 10px;
-                flex-direction: row;
-                flex-wrap: wrap;
-
-                .image {
-                    flex: 1;
-                    height: 227px;
-                    border-radius: 12px;
-                    overflow: hidden;
-
-                    img {
-                        display: block;
-                        width: 100%;
-                        height: 100%;
-                    }
                 }
             }
         }
@@ -178,8 +173,6 @@
         background-color: #000;
         z-index: 10000;
         background: rgba(0, 0, 0, 0.56);
-
-       
     }
 
     .user-modal {
@@ -203,7 +196,7 @@
 
         .close {
             justify-content: center;
-            color: rgb(255, 47, 110);
+            color: var(--main-color);
         }
     }
 }
@@ -220,7 +213,6 @@
 }
 
 @include tablet {
-
     .background {
         .user-modal {
             bottom: 20px;

@@ -36,12 +36,10 @@
                     border-radius: 50%;
                 }
             }
-
-           
         }
 
         .login-btn {
-            background-color: #3876BF;
+            background-color: var(--main-color);
             color: #fff;
             padding: 8px 24px;
             border-radius: 7px;
