@@ -48,7 +48,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
               {matchedItem.selectedCards
                 .filter((_, i) => i < 4)
                 .map((e) => (
-                  <div className="image">
+                  <div key={e.image} className="image">
                     <img src={e.image} alt="" />
                   </div>
                 ))}
@@ -100,7 +100,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
           <div className="content-body">
             <div className="card-area">
               {matchedItem.selectedCards.map((card) => (
-                <div className="category-card">
+                <div key={card.id} className="category-card">
                   <span className="category-name">
                     {categroyList[card.category]}
                   </span>
@@ -111,7 +111,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
                       {card.tags && (
                         <div className="tags flex">
                           {card.tags.map((tag) => (
-                            <span>{tag} / </span>
+                            <span key={tag}>{tag} / </span>
                           ))}
                         </div>
                       )}

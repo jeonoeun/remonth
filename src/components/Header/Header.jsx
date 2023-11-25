@@ -1,10 +1,12 @@
 import React from "react";
 import "./Header.scss";
-import { login } from "../../api/firebase";
 import logo from "../../images/logo.png";
-import { Link } from "react-router-dom";
+import { login } from "../../api/firebase";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header({ currentUser }) {
+  const { pathname } = useLocation();
+
   return (
     <header className="header">
       <div className="hd-wrapper flex">
@@ -35,7 +37,9 @@ export default function Header({ currentUser }) {
             <div className="hd-user">
               <Link to="/mypage" className="flex">
                 <img src={currentUser.image} alt="" />
-                <p>{currentUser.name} 님</p>
+                <p>
+                  <strong>{currentUser.name} </strong>님
+                </p>
               </Link>
             </div>
           ) : (

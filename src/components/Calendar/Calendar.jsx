@@ -61,8 +61,8 @@ export default function ReactCalendar({ userMoments }) {
         }}
       />
       {isDateModal && (
-        <div className="date-modal">
-          <div className="modal flex">
+        <div className="date-modal" onClick={() => setIsDateModal(false)}>
+          <div className="modal flex" onClick={(e) => e.stopPropagation()}>
             <div className="inner">
               <div className="date-title">
                 {moment(value).format("YYYY년 MM월 DD일")}

@@ -56,7 +56,7 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
           <Swiper slidesPerView={3} spaceBetween={8} className="mySwiper">
             {userMoments &&
               userMoments.map((card) => (
-                <SwiperSlide>
+                <SwiperSlide key={card.id}>
                   <div
                     className="card-item"
                     onClick={() => navigate(`/moment/${card.id}`)}
@@ -80,10 +80,15 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
               {userRemonths && userRemonths.length}
             </span>
           </div>
-          <Swiper slidesPerView={3} spaceBetween={8} className="mySwiper">
+          <Swiper
+            slidesPerView={3}
+            slidesPerGroup={3}
+            spaceBetween={8}
+            className="mySwiper"
+          >
             {userRemonths &&
               userRemonths.map((card) => (
-                <SwiperSlide>
+                <SwiperSlide key={card.id}>
                   <div
                     className="card-item"
                     onClick={() => navigate(`/remonth/${card.id}`)}

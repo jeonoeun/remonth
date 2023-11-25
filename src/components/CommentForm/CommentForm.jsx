@@ -24,7 +24,7 @@ export default function CommentForm({ setIsCommentModal, setSuccess }) {
     setSuccess("댓글이 등록되었습니다!");
     setTimeout(() => {
       setSuccess(null);
-    }, 2000);
+    }, 3000);
   };
 
   return (

@@ -20,16 +20,18 @@ const categroyList = [
   "순간",
 ];
 
-export default function Builder({ userMoments, currentUser }) {
+export default function Builder({ userMoments, currentUser, setSuccess }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
   const [card, setCard] = useState({
+    category: "",
+    title: "",
+    review: "",
     tags: [],
   });
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
-  const [success, setSuccess] = useState();
   const location = useLocation();
 
   const handleSubmit = (e) => {
@@ -39,11 +41,17 @@ export default function Builder({ userMoments, currentUser }) {
       .then((url) => {
         addNewMoment(card, url, currentUser, cardDate.date) //
           .then(() => {
-            setSuccess("등록되었습니다!");
+            setCard(() => ({
+              category: "",
+              title: "",
+              review: "",
+              tags: [],
+            }));
+            setFile(null);
+            setSuccess("모먼트가 등록되었습니다!");
             setTimeout(() => {
               setSuccess(null);
-              navigate("/");
-            }, 4000);
+            }, 3000);
           });
       })
       .finally(() => setIsUploading(false));
@@ -148,25 +156,26 @@ export default function Builder({ userMoments, currentUser }) {
             <p className="block-title">제목</p>
             <input
               type="text"
-              id="title"
               placeholder="제목 추가"
               name="title"
+              value={card.title}
               required
-              className="input"
               onChange={handleChange}
               onKeyDown={handleKeyDown}
+              className="input"
             />
           </div>
           <div className="block">
             <p className="block-title">리뷰/메모</p>
             <input
               type="text"
-              id="review"
               name="review"
+              value={card.review}
+              required
               placeholder="리뷰 또는 추가로 입력할 내용을 작성해주세요"
-              className="input"
               onChange={handleChange}
               onKeyDown={handleKeyDown}
+              className="input"
             />
           </div>
           <div className="block keyword">
@@ -178,7 +187,7 @@ export default function Builder({ userMoments, currentUser }) {
               <div className="hashTags">
                 {card.tags &&
                   card.tags.map((tag) => (
-                    <div className="tag">
+                    <div key={tag} className="tag">
                       <span>{tag}</span>
                     </div>
                   ))}
@@ -202,7 +211,7 @@ export default function Builder({ userMoments, currentUser }) {
           </div>
         </form>
       ) : (
-        <RemonthForm userMoments={userMoments} />
+        <RemonthForm userMoments={userMoments} setSuccess={setSuccess} />
       )}
     </div>
   );

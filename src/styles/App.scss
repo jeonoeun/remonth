@@ -1,9 +1,5 @@
 @import "./mixin.scss";
 
-// * {
-//     outline: 1px solid #f00;
-// }
-
 body {
     position: relative;
     font-family: "Pretendard Variable", Pretendard, -apple-system, "Noto Sans KR",
@@ -23,6 +19,19 @@ body {
     padding: 40px 20px;
 }
 
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(248, 248, 248);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .content-area {
     position: relative;
     width: 640px;
@@ -37,6 +46,7 @@ body {
     display: flex;
     align-items: center;
 }
+
 
 @include mobile {
     .wrapper {

@@ -8,11 +8,9 @@
         padding: 20px;
 
         .amount-title {
-            font-size: 20px;
             font-weight: 700;
 
             .color-num {
-                font-size: 16px;
                 font-weight: 500;
                 color: var(--main-color);
                 margin: 0 7px;
@@ -20,8 +18,9 @@
         }
 
         .block-title {
+            align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
 
             button {
                 width: 35px;

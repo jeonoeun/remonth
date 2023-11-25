@@ -19,7 +19,7 @@ const categroyList = [
   "순간",
 ];
 
-export default function RemonthForm({ userMoments }) {
+export default function RemonthForm({ userMoments, setSuccess }) {
   const [remonthData, setRemonthData] = useState({
     month: "",
     title: "",
@@ -27,20 +27,25 @@ export default function RemonthForm({ userMoments }) {
     selectedCards: [],
   });
   const [isUploading, setIsUploading] = useState(false);
-  const [success, setSuccess] = useState();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleSubmit = () => {
     setIsUploading(true);
-    addNewRemonth(remonthData, currentUser).then(() => {
-      setSuccess("등록되었습니다!");
-      setTimeout(() => {
-        setSuccess(null);
-        navigate("/");
-        setIsUploading(false);
-      }, 4000);
-    });
+    addNewRemonth(remonthData, currentUser) //
+      .then(() => {
+        setRemonthData(() => ({
+          month: "",
+          title: "",
+          review: "",
+          selectedCards: [],
+        }));
+        setSuccess("월간지가 등록되었습니다!");
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
+      })
+      .finally(() => setIsUploading(false));
   };
 
   const handleChange = (e) => {
@@ -61,6 +66,7 @@ export default function RemonthForm({ userMoments }) {
           <p className="block-title">날짜 선택</p>
           <input
             type="month"
+            value={remonthData.month}
             onChange={(e) => {
               setRemonthData((prev) => ({
                 ...prev,
@@ -73,9 +79,9 @@ export default function RemonthForm({ userMoments }) {
           <p className="block-title">월간지 제목</p>
           <input
             type="text"
-            id="title"
-            placeholder="월간지 제목 추가"
             name="title"
+            value={remonthData.title}
+            placeholder="월간지 제목 추가"
             required
             className="input"
             onChange={handleChange}
@@ -86,8 +92,8 @@ export default function RemonthForm({ userMoments }) {
           <p className="block-title">설명</p>
           <input
             type="text"
-            id="review"
             name="review"
+            value={remonthData.review}
             placeholder="월간지에 대한 간단한 설명을 작성해주세요"
             className="input"
             onChange={handleChange}
@@ -101,7 +107,9 @@ export default function RemonthForm({ userMoments }) {
             <p>추가된 카드</p>
             <div className="flex">
               <div className="num">
-                <strong>{Object.keys(remonthData.selectedCards).length} </strong>
+                <strong>
+                  {Object.keys(remonthData.selectedCards).length}{" "}
+                </strong>
                 개
               </div>
               <MdOutlineKeyboardArrowRight />
@@ -114,7 +122,7 @@ export default function RemonthForm({ userMoments }) {
 
             if (filteredItems.length !== 0) {
               return (
-                <div className="block">
+                <div key={list} className="block">
                   <p className="block-title">{list}</p>
                   <Swiper
                     slidesPerView={3}
@@ -123,7 +131,7 @@ export default function RemonthForm({ userMoments }) {
                     className="mySwiper"
                   >
                     {filteredItems.map((card) => (
-                      <SwiperSlide>
+                      <SwiperSlide key={card.id}>
                         <div
                           className="card-item"
                           onClick={() => {

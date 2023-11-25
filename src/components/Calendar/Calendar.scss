@@ -23,8 +23,8 @@
   }
 
   .react-calendar__tile--now {
-    background: rgba(168, 150, 59, 0.1);
-    border: 1px solid rgba(168, 150, 59, 0.5);
+    background: rgba(255, 46, 109, 0.1);
+    border: 1.5px solid rgba(255, 46, 109, 0.5);
     color: #191B1C;
   }
 
@@ -121,6 +121,7 @@
               -webkit-box-orient: vertical;
               overflow: hidden;
               line-height: 2.7rem;
+              font-weight: 500;
               margin-top: -7px;
             }
 

@@ -116,7 +116,7 @@ export function getLikeUsers(id, callback) {
   const docRef = doc(db, "moments", id);
   const unsubscriber = onSnapshot(docRef, (snapshot) => {
     const item = snapshot.data();
-    callback(item.likeUsers ? item.likeUsers : []);
+    callback(item && item.likeUsers ? item.likeUsers : []);
   });
 
   // unsubscriber(); // 구독을 해제할 때 사용
@@ -136,7 +136,7 @@ export async function getComments(id, callback) {
   const docRef = doc(db, "moments", id);
   const unsubscriber = onSnapshot(docRef, (snapshot) => {
     const item = snapshot.data();
-    callback(item.comments ? item.comments : []);
+    callback(item && item.comments ? item.comments : []);
   });
 }
 
@@ -195,7 +195,7 @@ export function getRemonthLikeUsers(id, callback) {
   const docRef = doc(db, "remonths", id);
   const unsubscriber = onSnapshot(docRef, (snapshot) => {
     const item = snapshot.data();
-    callback(item.likeUsers && item.likeUsers);
+    callback(item && item.likeUsers ? item.likeUsers : []);
   });
 
   // unsubscriber(); // 구독을 해제할 때 사용

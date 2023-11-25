@@ -2,16 +2,15 @@
 
 .moment {
     background-color: #fff;
+    padding-bottom: 50px;
 
     .content {
         padding: 20px;
 
         .amount-title {
-            font-size: 20px;
             font-weight: 700;
 
             .color-num {
-                font-size: 16px;
                 font-weight: 500;
                 color: var(--main-color);
                 margin: 0 7px;
@@ -19,8 +18,9 @@
         }
 
         .block-title {
+            align-items: center;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
 
             button {
                 width: 35px;
@@ -30,8 +30,6 @@
                 justify-content: center;
             }
         }
-
-
 
         .filter-box {
             .list {
@@ -106,7 +104,7 @@
     .momentList-ct {
         margin-top: 20px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         column-gap: 15px;
 
         .card-item {
@@ -184,4 +182,7 @@
         margin-top: 52px;
     }
 
+    .momentList-ct {
+        grid-template-columns: 1fr 1fr !important;
+    }
 }

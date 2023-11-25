@@ -43,7 +43,7 @@ export default function Home({ userMoments }) {
             <ul className="list-ct flex">
               {categroyList.map((item) => (
                 <li
-                  className={item === selectedTag && "on"}
+                  className={item === selectedTag ? "on" : ""}
                   key={item}
                   onClick={() => setSelectedTag(item)}
                 >
@@ -57,6 +57,7 @@ export default function Home({ userMoments }) {
               .filter((item) => item.category === selectedTag)
               .map((card) => (
                 <div
+                  key={card.id}
                   className="card-item"
                   onClick={() => navigate(`moment/${card.id}`)}
                 >

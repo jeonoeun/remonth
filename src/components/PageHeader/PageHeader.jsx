@@ -16,7 +16,7 @@ export default function PageHeader({
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleLogout = () => {
@@ -27,11 +27,15 @@ export default function PageHeader({
 
   return (
     <div className="title flex">
-      <button onClick={() => navigate(-1)}>
+      <button
+        onClick={() =>
+          pathname.includes("/builder") ? navigate("/") : navigate(-1)
+        }
+      >
         <MdKeyboardArrowLeft />
       </button>
       <p className="page-name">{title}</p>
-      {location.pathname.includes("/moment") &&
+      {pathname.includes("/moment") &&
         currentUser &&
         currentUser.id &&
         matchedItem &&
@@ -40,7 +44,7 @@ export default function PageHeader({
             <IoMdSettings />
           </button>
         )}
-      {location.pathname === "/mypage" ? (
+      {pathname === "/mypage" ? (
         <button className="logout-button" onClick={handleLogout}>
           <AiFillSetting />
         </button>

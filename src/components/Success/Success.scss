@@ -1,0 +1,17 @@
+.success-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0057FF;
+    width: 350px;
+    z-index: 10000;
+    text-align: center;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    font-weight: 500;
+    justify-content: center;
+    gap: 7px;
+}
