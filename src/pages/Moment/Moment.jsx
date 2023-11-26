@@ -3,8 +3,8 @@ import "./Moment.scss";
 import { AiOutlineClose } from "react-icons/ai";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
-import PageHeader from "../../components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/PageHeader/PageHeader";
 import categoryList from "../../data";
 
 export default function Moment({ moments }) {
