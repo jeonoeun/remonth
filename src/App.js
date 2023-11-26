@@ -42,7 +42,7 @@ export default function App() {
         setLoading(false);
       });
     } catch (error) {
-      console.error("데이터 가져오기 오류:", error);
+      console.error("data error:", error);
       setLoading(false);
     }
   }, []);
@@ -55,7 +55,7 @@ export default function App() {
         setLoading(false);
       });
     } catch (error) {
-      console.error("데이터 가져오기 오류:", error);
+      console.error("data error:", error);
       setLoading(false);
     }
   }, []);
