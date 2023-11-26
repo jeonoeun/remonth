@@ -1,4 +1,12 @@
+import { v4 as uuid } from "uuid";
 import { initializeApp } from "firebase/app";
+import {
+  getAuth,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import {
   doc,
   getFirestore,
@@ -12,23 +20,13 @@ import {
   arrayRemove,
 } from "firebase/firestore";
 
-import {
-  getAuth,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-} from "firebase/auth";
-
-import { v4 as uuid } from "uuid";
-
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
-  storageBucket: "remonth-a1913.appspot.com",
-  messagingSenderId: "112184301653",
-  appId: "1:112184301653:web:9bf2c84156fbf7741adcdc",
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGIN_ID,
+  appId: process.env.REACT_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
