@@ -8,17 +8,7 @@ import { HiPhotograph } from "react-icons/hi";
 import { setCardDetail } from "../../store/card";
 import RemonthForm from "../../components/RemonthForm/RemonthForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
-
-const categroyList = [
-  "노래",
-  "책",
-  "영상",
-  "음식",
-  "소비",
-  "공간",
-  "운동",
-  "순간",
-];
+import categoryList from "../../data";
 
 export default function Builder({ userMoments, currentUser, setSuccess }) {
   const navigate = useNavigate();
@@ -105,15 +95,15 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
           <div className="block cate">
             <p className="block-title">카테고리 선택</p>
             <ul className="builder-category-list flex">
-              {categroyList.map((list) => (
+              {categoryList.map((list) => (
                 <li
-                  key={list}
+                  key={list.type}
                   onClick={() =>
-                    setCard((card) => ({ ...card, category: list }))
+                    setCard((card) => ({ ...card, category: list.type }))
                   }
-                  className={card.category === list ? "on" : null}
+                  className={card.category === list.type ? "on" : null}
                 >
-                  {list}
+                  {list.type}
                 </li>
               ))}
             </ul>

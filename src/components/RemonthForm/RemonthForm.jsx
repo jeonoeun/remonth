@@ -5,19 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { addNewRemonth } from "../../api/firebase";
-import { useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-
-const categroyList = [
-  "노래",
-  "책",
-  "영상",
-  "음식",
-  "소비",
-  "공간",
-  "운동",
-  "순간",
-];
+import categoryList from "../../data";
 
 export default function RemonthForm({ userMoments, setSuccess }) {
   const [remonthData, setRemonthData] = useState({
@@ -27,7 +16,6 @@ export default function RemonthForm({ userMoments, setSuccess }) {
     selectedCards: [],
   });
   const [isUploading, setIsUploading] = useState(false);
-  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const handleSubmit = () => {
@@ -115,15 +103,15 @@ export default function RemonthForm({ userMoments, setSuccess }) {
               <MdOutlineKeyboardArrowRight />
             </div>
           </div>
-          {categroyList.map((list) => {
+          {categoryList.map((list) => {
             const filteredItems = userMoments
               .filter((item) => item.date.slice(0, 7) === remonthData.month)
-              .filter((item) => item.category === list);
+              .filter((item) => item.category === list.type);
 
             if (filteredItems.length !== 0) {
               return (
-                <div key={list} className="block">
-                  <p className="block-title">{list}</p>
+                <div key={list.type} className="block">
+                  <p className="block-title">{list.type}</p>
                   <Swiper
                     slidesPerView={3}
                     slidesPerGroup={3}

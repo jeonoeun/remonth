@@ -23,12 +23,12 @@ import {
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCt85_Yc5ta22H8ckRrwMUK4ZvwGPByg3I",
-  authDomain: "remonth-d68c4.firebaseapp.com",
-  projectId: "remonth-d68c4",
-  storageBucket: "remonth-d68c4.appspot.com",
-  messagingSenderId: "140253864757",
-  appId: "1:140253864757:web:ef49ad9c75c3ad4d42a27c",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECTID,
+  storageBucket: "remonth-a1913.appspot.com",
+  messagingSenderId: "112184301653",
+  appId: "1:112184301653:web:9bf2c84156fbf7741adcdc",
 };
 
 const app = initializeApp(firebaseConfig);

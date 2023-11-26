@@ -3,17 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
 import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
-
-const categroyList = [
-  "노래",
-  "책",
-  "영상",
-  "음식",
-  "소비",
-  "공간",
-  "운동",
-  "순간",
-];
+import categoryList from "../../data";
 
 export default function Home({ userMoments }) {
   const navigate = useNavigate();
@@ -41,13 +31,13 @@ export default function Home({ userMoments }) {
           </div>
           <div className="category-ct flex">
             <ul className="list-ct flex">
-              {categroyList.map((item) => (
+              {categoryList.map((item) => (
                 <li
-                  className={item === selectedTag ? "on" : ""}
-                  key={item}
-                  onClick={() => setSelectedTag(item)}
+                  className={item.type === selectedTag ? "on" : ""}
+                  key={item.type}
+                  onClick={() => setSelectedTag(item.type)}
                 >
-                  {item}
+                  {item.type}
                 </li>
               ))}
             </ul>

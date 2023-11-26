@@ -70,12 +70,6 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
         {isModal && (
           <div className="background">
             <ul className="user-modal">
-              {/* <li>
-              <span>수정하기</span>
-              <span>
-                <BiSolidPencil />
-              </span>
-            </li> */}
               <li onClick={handleRemove}>
                 <span>삭제하기</span>
                 <span>

@@ -13,6 +13,43 @@
         font-size: 24px;
     }
 
+    .background {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 10000;
+        background: rgba(0, 0, 0, 0.56);
+    }
+
+    .user-modal {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        background-color: #fff;
+        padding: 0 20px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
+        z-index: 10000;
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            border-bottom: 1px solid rgb(241, 243, 245);
+            cursor: pointer;
+        }
+
+        .close {
+            justify-content: center;
+            color: var(--main-color);
+        }
+    }
+
     .content {
         .user-area {
             border-bottom: 10px solid rgb(247, 249, 250);
@@ -109,5 +146,23 @@
 @include mobile {
     .content {
         margin-top: 52px;
+    }
+}
+
+@include tablet {
+    .user-modal {
+            bottom: 20px;
+            width: 600px !important;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+}
+
+@include desktop {
+    .user-modal {
+        bottom: 20px;
+        width: 600px !important;
+        border-radius: 12px;
+        overflow: hidden;
     }
 }

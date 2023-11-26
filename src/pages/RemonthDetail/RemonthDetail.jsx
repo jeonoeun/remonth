@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiThumbUp } from "react-icons/hi";
-
 import { FaShareAlt } from "react-icons/fa";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import {
@@ -10,17 +9,7 @@ import {
   getRemonthLikeUsers,
   removeRemonthLikeUser,
 } from "../../api/firebase";
-
-const categroyList = {
-  노래: "music",
-  책: "book",
-  영상: "video",
-  음식: "food",
-  소비: "item",
-  공간: "place",
-  운동: "workout",
-  순간: "moment",
-};
+import categoryList from "../../data";
 
 export default function RemonthDetail({ remonths, currentUser }) {
   const { id } = useParams();
@@ -102,7 +91,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
               {matchedItem.selectedCards.map((card) => (
                 <div key={card.id} className="category-card">
                   <span className="category-name">
-                    {categroyList[card.category]}
+                    {card.category}
                   </span>
                   <ul className="title-area">
                     <li className="title-title">{card.title}</li>

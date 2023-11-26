@@ -5,17 +5,7 @@ import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { useNavigate } from "react-router-dom";
-
-const categroyList = [
-  "노래",
-  "책",
-  "영상",
-  "음식",
-  "소비",
-  "공간",
-  "운동",
-  "순간",
-];
+import categoryList from "../../data";
 
 export default function Moment({ moments }) {
   const navigate = useNavigate();
@@ -80,19 +70,19 @@ export default function Moment({ moments }) {
             <li className="list flex">
               <div className="list-name">카테고리</div>
               <ul className="category-list flex">
-                {categroyList.map((list) => (
+                {categoryList.map((list) => (
                   <li
-                    key={list}
+                    key={list.type}
                     onClick={() => {
-                      selectedCategory.includes(list)
+                      selectedCategory.includes(list.type)
                         ? setSelectedCategory(
-                            selectedCategory.filter((e) => e !== list)
+                            selectedCategory.filter((e) => e !== list.type)
                           )
-                        : setSelectedCategory((prev) => [...prev, list]);
+                        : setSelectedCategory((prev) => [...prev, list.type]);
                     }}
-                    className={selectedCategory.includes(list) && "on"}
+                    className={selectedCategory.includes(list.type) ? "on" : ""}
                   >
-                    {list}
+                    {list.type}
                   </li>
                 ))}
               </ul>

@@ -2,10 +2,8 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import "./PageHeader.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { AiFillSetting } from "react-icons/ai";
-import { setCurrentUser } from "../../store/user";
-import { logout } from "../../api/firebase";
 import { IoMdSettings } from "react-icons/io";
 
 export default function PageHeader({
@@ -13,17 +11,11 @@ export default function PageHeader({
   isModal,
   setIsModal,
   title,
+  handleModal,
 }) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.user.currentUser);
-
-  const handleLogout = () => {
-    logout();
-    dispatch(setCurrentUser(null));
-    navigate("/");
-  };
 
   return (
     <div className="title flex">
@@ -45,7 +37,7 @@ export default function PageHeader({
           </button>
         )}
       {pathname === "/mypage" ? (
-        <button className="logout-button" onClick={handleLogout}>
+        <button className="logout-button" onClick={handleModal}>
           <AiFillSetting />
         </button>
       ) : null}

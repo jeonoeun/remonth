@@ -8,7 +8,7 @@ import Moment from "./pages/Moment/Moment";
 import MyPage from "./pages/MyPage/MyPage";
 import RemonthDetail from "./pages/RemonthDetail/RemonthDetail";
 import { getMomentList, getRemonthList, onUserChanged } from "./api/firebase";
-import { setCurrentUser } from "./store/user";
+import { addNewUser, setCurrentUser } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 import MomentDetail from "./pages/MomentDetail/MomentDetail";
 import Header from "./components/Header/Header";
@@ -21,45 +21,42 @@ import NotFound from "./pages/NotFound/NotFound";
 
 export default function App() {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const userList = useSelector((state) => state.user.userList);
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState();
-
-  const { pathname } = useLocation();
   const [allMoments, setAllMoments] = useState();
   const [userMoments, setUserMoments] = useState();
   const [allRemonths, setAllRemonths] = useState();
   const [userRemonths, setUserRemonths] = useState();
-  const currentUser = useSelector((state) => state.user.currentUser);
-
   const isMobile = useMediaQuery({ maxWidth: 728 });
   const isTablet = useMediaQuery({ minWidth: 729, maxWidth: 1279 });
   const isDesktop = useMediaQuery({ minWidth: 1280 });
 
   useEffect(() => {
     setLoading(true);
-
     try {
       getMomentList((moments) => {
         setAllMoments(moments);
-        setLoading(false); // 데이터 성공적으로 가져옴
+        setLoading(false);
       });
     } catch (error) {
       console.error("데이터 가져오기 오류:", error);
-      setLoading(false); // 데이터 가져오기 실패
+      setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     setLoading(true);
-
     try {
       getRemonthList((data) => {
         setAllRemonths(data);
-        setLoading(false); // 데이터 성공적으로 가져옴
+        setLoading(false);
       });
     } catch (error) {
       console.error("데이터 가져오기 오류:", error);
-      setLoading(false); // 데이터 가져오기 실패
+      setLoading(false);
     }
   }, []);
 
@@ -83,7 +80,7 @@ export default function App() {
     onUserChanged((userAuth) => {
       userAuth &&
         dispatch(
-          setCurrentUser({
+          addNewUser({
             name: userAuth.displayName,
             image: userAuth.photoURL,
             id: userAuth.uid,
@@ -92,6 +89,17 @@ export default function App() {
         );
     });
   }, [dispatch]);
+
+  useEffect(() => {
+    onUserChanged((userAuth) => {
+      const found =
+        userList &&
+        userAuth &&
+        userList.find((user) => user.id === userAuth.uid);
+      found && dispatch(setCurrentUser(found));
+    });
+  }, [dispatch, userList]);
+  
 
   return (
     <div className="wrapper">

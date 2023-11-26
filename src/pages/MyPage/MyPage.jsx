@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { AiFillDelete } from "react-icons/ai";
+import { BiSolidPencil } from "react-icons/bi";
 import { logout } from "../../api/firebase";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/user";
 import { AiFillSetting } from "react-icons/ai";
+import { useState } from "react";
 
 export default function MyPage({ userMoments, userRemonths, currentUser }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isModal, setIsModal] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -18,12 +22,37 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
     navigate("/");
   };
 
+  const handleModal = () => {
+    setIsModal(!isModal);
+  };
+
   return (
     <div className="myPage">
-      <PageHeader title={"마이페이지"} />
-      <button className="user-btn" onClick={handleLogout}>
+      <PageHeader title={"마이페이지"} handleModal={handleModal} />
+      <button className="user-btn" onClick={handleModal}>
         <AiFillSetting />
       </button>
+      {isModal && (
+        <div className="background" onClick={() => setIsModal(false)}>
+          <ul className="user-modal" onClick={(e) => e.stopPropagation()}>
+            <li>
+              <span>회원 정보 수정하기</span>
+              <span>
+                <BiSolidPencil />
+              </span>
+            </li>
+            <li onClick={handleLogout}>
+              <span>로그아웃</span>
+              <span>
+                <AiFillDelete />
+              </span>
+            </li>
+            <li className="close" onClick={() => setIsModal(!isModal)}>
+              취소
+            </li>
+          </ul>
+        </div>
+      )}
       <div className="content">
         <div className="user-area">
           <div className="user">
