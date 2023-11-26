@@ -9,7 +9,6 @@ import {
   getRemonthLikeUsers,
   removeRemonthLikeUser,
 } from "../../api/firebase";
-import categoryList from "../../data";
 
 export default function RemonthDetail({ remonths, currentUser }) {
   const { id } = useParams();
@@ -90,9 +89,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
             <div className="card-area">
               {matchedItem.selectedCards.map((card) => (
                 <div key={card.id} className="category-card">
-                  <span className="category-name">
-                    {card.category}
-                  </span>
+                  <span className="category-name">{card.category}</span>
                   <ul className="title-area">
                     <li className="title-title">{card.title}</li>
                     <li className="title-date">{card.date}</li>

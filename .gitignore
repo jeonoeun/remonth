@@ -1,12 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# API_KEY
+.env
+
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
-
-# API_KEY
-.env
 
 # testing
 /coverage
