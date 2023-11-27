@@ -15,6 +15,7 @@ import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { IoMdSettings } from "react-icons/io";
+import LoginModal from "../../components/LoginModal/LoginModal";
 
 export default function MomentDetail({ moments, currentUser, setSuccess }) {
   const { id } = useParams();
@@ -24,6 +25,7 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
   const [comments, setComments] = useState();
   const [isModal, setIsModal] = useState(false);
   const [isCommentModal, setIsCommentModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleRemove = () => {
     removeMoment(id); //
@@ -112,11 +114,15 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
               <ul className="util-list flex">
                 <li
                   onClick={() => {
-                    currentUser &&
-                    likeUsers &&
-                    likeUsers.includes(currentUser.id)
-                      ? removeLikeUser(id, currentUser.id)
-                      : addLikeUser(id, currentUser.id);
+                    if (currentUser && currentUser.id) {
+                      if (likeUsers && likeUsers.includes(currentUser.id)) {
+                        removeLikeUser(id, currentUser.id);
+                      } else {
+                        addLikeUser(id, currentUser.id);
+                      }
+                    } else {
+                      setShowLoginModal(true);
+                    }
                   }}
                   className={
                     currentUser &&
@@ -129,7 +135,15 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
                   <HiThumbUp />
                   <span>좋아요</span>
                 </li>
-                <li onClick={() => setIsCommentModal(!isCommentModal)}>
+                <li
+                  onClick={() => {
+                    if (currentUser && currentUser.id) {
+                      setIsCommentModal(!isCommentModal);
+                    } else {
+                      setShowLoginModal(true);
+                    }
+                  }}
+                >
                   <FaComment />
                   <span>댓글</span>
                 </li>
@@ -161,6 +175,7 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
               currentUser={currentUser}
               comments={comments}
               setIsCommentModal={setIsCommentModal}
+              setShowLoginModal={setShowLoginModal}
             />
           </div>
         )}
@@ -170,6 +185,7 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
             setSuccess={setSuccess}
           />
         )}
+        {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
       </div>
     )
   );

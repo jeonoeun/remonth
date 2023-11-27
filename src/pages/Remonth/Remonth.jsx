@@ -135,14 +135,18 @@ export default function Remonth({ remonths }) {
                     <p>{card.userData.name}</p>
                   </div>
                   <span className="card-num">
-                    + {card.selectedCards.length}
+                    {card.selectedCards.length !== 0 &&
+                      "+ " + card.selectedCards.length}
                   </span>
                 </div>
               </div>
               <div className="card-info">
                 <p className="card-title">{card.title}</p>
                 <p className="card-review">{card.review}</p>
-                <div className="card-date"> {card.month} 월호</div>
+                <div className="card-date flex">
+                  <span>{card.month.slice(0, 4)}년</span>
+                  <span>{card.month.slice(-2)} 월호</span>
+                </div>
               </div>
             </div>
           ))}

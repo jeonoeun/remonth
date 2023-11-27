@@ -12,7 +12,7 @@ export default function Login() {
   const handleLogin = async (provider) => {
     try {
       await login(provider);
-      navigate("/");
+      navigate(-1);
     } catch (error) {
       console.error("error:", error);
     }

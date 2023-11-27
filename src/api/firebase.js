@@ -178,6 +178,18 @@ export async function getRemonthList(callback) {
   });
 }
 
+//월간지 삭제하기
+export async function removeRemonth(id) {
+  const docRef = doc(db, "remonths", id);
+  deleteDoc(docRef)
+    .then(() => {
+      console.log("Entire Document has been deleted successfully.");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
 // 월간지 좋아요 유저 추가하기
 export async function addRemonthLikeUser(id, userId) {
   const likeUsersRef = doc(db, "remonths", id);

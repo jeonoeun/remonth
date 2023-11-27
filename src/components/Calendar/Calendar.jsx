@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
+import categoryList from "../../data";
 
 export default function ReactCalendar({ userMoments }) {
   const navigate = useNavigate();
@@ -29,16 +30,12 @@ export default function ReactCalendar({ userMoments }) {
     );
   }, [value, dispatch]);
 
-  const handleClick = () => {
-    setIsDateModal(true);
-  };
-
   return (
     <div className="calendar">
       <Calendar
         onChange={onChange}
         value={value}
-        onClickDay={handleClick}
+        onClickDay={() => setIsDateModal(true)}
         formatDay={(locale, date) =>
           date.toLocaleString("en", { day: "numeric" })
         }
@@ -71,10 +68,20 @@ export default function ReactCalendar({ userMoments }) {
                 <ul>
                   {matchedCard.map((card) => (
                     <li
+                      key={card.id}
                       className="flex"
                       onClick={() => navigate(`/moment/${card.id}`)}
                     >
-                      <div className="color-box"></div>
+                      {(() => {
+                        const found = categoryList.find(
+                          (e) => e.type === card.category
+                        );
+                        if (found.eng) {
+                          return (
+                            <div className={"color-box " + found.eng}></div>
+                          );
+                        }
+                      })()}
                       <div>
                         <p className="card-title">{card.title}</p>
                         <span className="category-name">{card.category}</span>

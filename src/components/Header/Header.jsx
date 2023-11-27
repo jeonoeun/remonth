@@ -19,7 +19,7 @@ export default function Header({ currentUser }) {
               <Link to="/moment">모먼트</Link>
             </li>
             <li>
-              <Link to="/moment">검색</Link>
+              <Link to="/search">검색</Link>
             </li>
             <li>
               <Link to="/remonth">월간지</Link>

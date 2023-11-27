@@ -21,7 +21,10 @@ export default function MobileNavbar({ currentUser }) {
           <AiFillHome />
           <span>홈</span>
         </li>
-        <li onClick={() => navigate("/")}>
+        <li
+          className={pathname === "/search" ? "selected" : ""}
+          onClick={() => navigate("/search")}
+        >
           <FiSearch />
           <span>검색</span>
         </li>

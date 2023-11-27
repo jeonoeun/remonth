@@ -3,6 +3,16 @@
 .remonth-detail {
     background-color: #fff;
 
+    .user-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 20px;
+        font-size: 24px;
+        color: var(--main-color);
+        z-index: 99;
+    }
+
     .img-ct {
         position: relative;
         height: 200px;
@@ -83,6 +93,10 @@
 
             strong {
                 color: #4a4a4a;
+            }
+
+            .flex {
+                gap: 4px;
             }
 
             .bar {
@@ -166,6 +180,14 @@
 
                     .tags {
                         gap: 5px;
+
+                        .tag {
+                            background-color: #e6e7e9;
+                            color: #0057FF;
+                            padding: 5px 7px;
+                            border-radius: 5px;
+                            box-shadow: rgba(176, 184, 193, 0.125) 0px 0px 8px 8px;
+                        }
                     }
                 }
 
@@ -186,10 +208,73 @@
             }
         }
     }
+
+    .background {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        z-index: 10000;
+        background: rgba(0, 0, 0, 0.56);
+
+        .user-modal {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            background-color: #fff;
+            padding: 0 20px;
+            box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 6px 0px;
+            z-index: 10000;
+    
+            li {
+                display: flex;
+                justify-content: space-between;
+                padding: 20px 0;
+                border-bottom: 1px solid rgb(241, 243, 245);
+                cursor: pointer;
+            }
+    
+            .close {
+                justify-content: center;
+                color: var(--main-color);
+            }
+        }
+    }
 }
 
 @include mobile {
+    .user-btn {
+        display: none;
+    }
+
     .remonth-detail {
         padding-bottom: 80px;
+    }
+}
+
+@include tablet {
+    .background {
+        .user-modal {
+            bottom: 20px !important;
+            width: 600px !important;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    }
+}
+
+@include desktop {
+    .background {
+        .user-modal {
+            bottom: 20px !important;
+            width: 600px !important;
+            border-radius: 12px;
+            overflow: hidden;
+        }
     }
 }

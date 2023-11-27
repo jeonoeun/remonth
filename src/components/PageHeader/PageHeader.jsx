@@ -36,6 +36,15 @@ export default function PageHeader({
             <IoMdSettings />
           </button>
         )}
+      {pathname.includes("/remonth") &&
+        currentUser &&
+        currentUser.id &&
+        matchedItem &&
+        matchedItem.userData.id === currentUser.id && (
+          <button className="setting-btn" onClick={() => setIsModal(!isModal)}>
+            <IoMdSettings />
+          </button>
+        )}
       {pathname === "/mypage" ? (
         <button className="logout-button" onClick={handleModal}>
           <AiFillSetting />

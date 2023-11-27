@@ -199,8 +199,8 @@
 @include tablet {
     .background {
         .user-modal {
-            bottom: 20px;
-            width: 600px;
+            bottom: 20px !important;
+            width: 600px !important;
             border-radius: 12px;
             overflow: hidden;
         }
@@ -210,8 +210,8 @@
 @include desktop {
     .background {
         .user-modal {
-            bottom: 20px;
-            width: 600px;
+            bottom: 20px !important;
+            width: 600px !important;
             border-radius: 12px;
             overflow: hidden;
         }

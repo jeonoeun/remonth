@@ -109,9 +109,17 @@
               width: 16px;
               min-width: 16px;
               height: 16px;
-              background-color: aqua;
               border-radius: 3px;
             }
+
+            .music { background-color: #F4F27E;}
+            .book { background-color: #994D1C;}
+            .video { background-color: #35A29F;}
+            .food { background-color: #9ADE7B;}
+            .item { background-color: #DC8686;}
+            .place { background-color: #A78295;}
+            .workout { background-color: #3085C3;}
+            .moment { background-color: #606C5D;}
 
             .card-title {
               width: 100%;

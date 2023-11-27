@@ -19,6 +19,8 @@ import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Success from "./components/Success/Success";
 import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
+import PrivateRoute from "./PrivateRoute";
+import Search from "./pages/Search/Search";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -119,6 +121,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home userMoments={userMoments} />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/search" element={<Search />} />
             <Route path="/moment" element={<Moment moments={allMoments} />} />
             <Route
               path="/moment/:id"
@@ -140,35 +143,38 @@ export default function App() {
                 <RemonthDetail
                   remonths={allRemonths}
                   currentUser={currentUser}
-                />
-              }
-            />
-            <Route
-              path="/mypage"
-              element={
-                <MyPage
-                  userMoments={userMoments}
-                  userRemonths={userRemonths}
-                  currentUser={currentUser}
-                />
-              }
-            />
-            <Route
-              path="/builder/moment"
-              element={
-                <Builder
-                  userMoments={userMoments}
-                  currentUser={currentUser}
                   setSuccess={setSuccess}
                 />
               }
             />
-            <Route
-              path="/builder/remonth"
-              element={
-                <Builder userMoments={userMoments} setSuccess={setSuccess} />
-              }
-            />
+            <Route element={<PrivateRoute />}>
+              <Route
+                path="/mypage"
+                element={
+                  <MyPage
+                    userMoments={userMoments}
+                    userRemonths={userRemonths}
+                    currentUser={currentUser}
+                  />
+                }
+              />
+              <Route
+                path="/builder/moment"
+                element={
+                  <Builder
+                    userMoments={userMoments}
+                    currentUser={currentUser}
+                    setSuccess={setSuccess}
+                  />
+                }
+              />
+              <Route
+                path="/builder/remonth"
+                element={
+                  <Builder userMoments={userMoments} setSuccess={setSuccess} />
+                }
+              />
+            </Route>
             <Route path="/*" element={<NotFound />} />
             <Route path="/moment/*" element={<NotFound />} />
           </Routes>

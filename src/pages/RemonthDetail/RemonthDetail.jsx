@@ -7,14 +7,29 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import {
   addRemonthLikeUser,
   getRemonthLikeUsers,
+  removeRemonth,
   removeRemonthLikeUser,
 } from "../../api/firebase";
+import { IoMdSettings } from "react-icons/io";
+import { AiFillDelete } from "react-icons/ai";
+import LoginModal from "../../components/LoginModal/LoginModal";
 
-export default function RemonthDetail({ remonths, currentUser }) {
+export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [matchedItem, setMatchedItem] = useState();
   const [likeUsers, setLikeUsers] = useState();
+  const [isModal, setIsModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const handleRemove = () => {
+    removeRemonth(id); //
+    navigate("/remonth");
+    setSuccess("게시글이 삭제되었습니다");
+    setTimeout(() => {
+      setSuccess(null);
+    }, 3000);
+  };
 
   useEffect(() => {
     remonths && setMatchedItem(remonths.find((remonth) => remonth.id === id));
@@ -28,7 +43,33 @@ export default function RemonthDetail({ remonths, currentUser }) {
 
   return (
     <div className="remonth-detail">
-      <PageHeader />
+      <PageHeader
+        matchedItem={matchedItem}
+        isModal={isModal}
+        setIsModal={setIsModal}
+      />
+      {currentUser &&
+        matchedItem &&
+        matchedItem.userData.id === currentUser.id && (
+          <button className="user-btn" onClick={() => setIsModal(!isModal)}>
+            <IoMdSettings />
+          </button>
+        )}
+      {isModal && (
+        <div className="background">
+          <ul className="user-modal">
+            <li onClick={handleRemove}>
+              <span>삭제하기</span>
+              <span>
+                <AiFillDelete />
+              </span>
+            </li>
+            <li className="close" onClick={() => setIsModal(!isModal)}>
+              취소
+            </li>
+          </ul>
+        </div>
+      )}
       {matchedItem && (
         <div className="content">
           <div className="content-header">
@@ -61,19 +102,30 @@ export default function RemonthDetail({ remonths, currentUser }) {
                 </span>
                 <span className="bar"></span>
                 <span>
-                  <strong>{matchedItem.month.slice(-2)}</strong> 월호
+                  <strong className="flex">
+                    <span>{matchedItem.month.slice(0, 4)}년</span>
+                    <span>{matchedItem.month.slice(-2)} 월호</span>
+                  </strong>
                 </span>
               </div>
             </div>
             <ul className="util-list flex">
               <li
                 onClick={() => {
-                  likeUsers && likeUsers.includes(currentUser.id)
-                    ? removeRemonthLikeUser(id, currentUser.id)
-                    : addRemonthLikeUser(id, currentUser.id);
+                  if (currentUser && currentUser.id) {
+                    if (likeUsers && likeUsers.includes(currentUser.id)) {
+                      removeRemonthLikeUser(id, currentUser.id);
+                    } else {
+                      addRemonthLikeUser(id, currentUser.id);
+                    }
+                  } else {
+                    setShowLoginModal(true);
+                  }
                 }}
                 className={
-                  likeUsers && likeUsers.includes(currentUser.id) ? "on" : ""
+                  currentUser && likeUsers && likeUsers.includes(currentUser.id)
+                    ? "on"
+                    : ""
                 }
               >
                 <HiThumbUp />
@@ -97,7 +149,9 @@ export default function RemonthDetail({ remonths, currentUser }) {
                       {card.tags && (
                         <div className="tags flex">
                           {card.tags.map((tag) => (
-                            <span key={tag}>{tag} / </span>
+                            <span key={tag} className="tag">
+                              {tag}
+                            </span>
                           ))}
                         </div>
                       )}
@@ -114,6 +168,7 @@ export default function RemonthDetail({ remonths, currentUser }) {
           </div>
         </div>
       )}
+      {showLoginModal && <LoginModal setShowLoginModal={setShowLoginModal} />}
     </div>
   );
 }

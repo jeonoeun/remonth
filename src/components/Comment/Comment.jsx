@@ -3,7 +3,12 @@ import "./Comment.scss";
 import { useParams } from "react-router-dom";
 import { removeComment } from "../../api/firebase";
 
-export default function Comment({ currentUser, setIsCommentModal, comments }) {
+export default function Comment({
+  currentUser,
+  setIsCommentModal,
+  comments,
+  setShowLoginModal,
+}) {
   const { id } = useParams();
 
   return (
@@ -34,7 +39,16 @@ export default function Comment({ currentUser, setIsCommentModal, comments }) {
           ))}
         </ul>
       ) : (
-        <div className="none-comments" onClick={() => setIsCommentModal(true)}>
+        <div
+          className="none-comments"
+          onClick={() => {
+            if (currentUser && currentUser.id) {
+              setIsCommentModal(true);
+            } else {
+              setShowLoginModal(true);
+            }
+          }}
+        >
           아직 댓글이 없어요. <br /> 첫번째 댓글을 달아보시겠어요?
         </div>
       )}
