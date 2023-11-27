@@ -1,11 +1,11 @@
 import React from "react";
 import "./Header.scss";
 import logo from "../../images/logo.png";
-import { login } from "../../api/firebase";
-import { Link, useLocation } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header({ currentUser }) {
-  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   return (
     <header className="header">
@@ -43,7 +43,7 @@ export default function Header({ currentUser }) {
               </Link>
             </div>
           ) : (
-            <button onClick={login} className="login-btn">
+            <button onClick={() => navigate("/login")} className="login-btn">
               로그인
             </button>
           )}

@@ -48,7 +48,7 @@ export default function MobileNavbar({ currentUser }) {
             <span>마이</span>
           </li>
         ) : (
-          <li onClick={login}>
+          <li onClick={() => navigate("/login")}>
             <FaUser />
             <span>로그인</span>
           </li>

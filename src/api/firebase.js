@@ -6,6 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
   GoogleAuthProvider,
+  GithubAuthProvider,
 } from "firebase/auth";
 import {
   doc,
@@ -33,10 +34,17 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 //로그인
-export function login() {
-  signInWithPopup(auth, googleProvider).catch((error) => console.error(error));
+export async function login(getProvider) {
+  const provider = getProvider === "google" ? googleProvider : githubProvider;
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 //로그아웃

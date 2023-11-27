@@ -18,12 +18,12 @@ import ScrollToTop from "./ScrollToTop";
 import LoadingSpinner from "./components/LoadingSpinner/LoadingSpinner";
 import Success from "./components/Success/Success";
 import NotFound from "./pages/NotFound/NotFound";
+import Login from "./pages/Login/Login";
 
 export default function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const userList = useSelector((state) => state.user.userList);
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState();
   const [allMoments, setAllMoments] = useState();
@@ -92,14 +92,17 @@ export default function App() {
 
   useEffect(() => {
     onUserChanged((userAuth) => {
-      const found =
-        userList &&
-        userAuth &&
-        userList.find((user) => user.id === userAuth.uid);
-      found && dispatch(setCurrentUser(found));
+      userAuth &&
+        dispatch(
+          setCurrentUser({
+            name: userAuth.displayName,
+            image: userAuth.photoURL,
+            id: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
     });
-  }, [dispatch, userList]);
-  
+  }, [dispatch]);
 
   return (
     <div className="wrapper">
@@ -115,6 +118,7 @@ export default function App() {
         <div className="content-area">
           <Routes>
             <Route path="/" element={<Home userMoments={userMoments} />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/moment" element={<Moment moments={allMoments} />} />
             <Route
               path="/moment/:id"
