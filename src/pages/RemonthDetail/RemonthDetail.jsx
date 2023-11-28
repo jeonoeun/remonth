@@ -131,10 +131,10 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
                 <HiThumbUp />
                 <span>좋아요</span>
               </li>
-              <li>
+              {/* <li>
                 <FaShareAlt />
                 <span>공유</span>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="content-body">

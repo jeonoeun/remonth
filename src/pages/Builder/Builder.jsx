@@ -15,7 +15,7 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
   const [card, setCard] = useState({
-    category: "",
+    category: "노래",
     title: "",
     review: "",
     tags: [],
@@ -32,7 +32,7 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
         addNewMoment(card, url, currentUser, cardDate.date) //
           .then(() => {
             setCard(() => ({
-              category: "",
+              category: "노래",
               title: "",
               review: "",
               tags: [],
@@ -91,7 +91,7 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
         </li>
       </ul>
       {location.pathname === "/builder/moment" ? (
-        <form className="form-area" onSubmit={handleSubmit}>
+        <form className="form-area" action="" onSubmit={handleSubmit}>
           <div className="block cate">
             <p className="block-title">카테고리 선택</p>
             <ul className="builder-category-list flex">
@@ -159,10 +159,10 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
             <p className="block-title">리뷰/메모</p>
             <input
               type="text"
+              placeholder="리뷰 또는 추가로 입력할 내용을 작성해주세요"
               name="review"
               value={card.review}
               required
-              placeholder="리뷰 또는 추가로 입력할 내용을 작성해주세요"
               onChange={handleChange}
               onKeyDown={handleKeyDown}
               className="input"
@@ -170,9 +170,6 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
           </div>
           <div className="block keyword">
             <p className="block-title">태그</p>
-            <div className="tag-info">
-              <span>엔터를 입력하여 태그를 등록 할 수 있습니다.</span>
-            </div>
             <div className="tag-wrapper">
               <div className="hashTags">
                 {card.tags &&
@@ -189,13 +186,12 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
                 />
               </div>
             </div>
+            <div className="tag-info">
+              <span>엔터를 입력하여 태그를 등록 할 수 있습니다.</span>
+            </div>
           </div>
           <div className="btn-area">
-            <button
-              className="button"
-              disabled={isUploading}
-              onClick={handleSubmit}
-            >
+            <button className="button" type="submit" disabled={isUploading}>
               {isUploading ? "업로드 중..." : "등록하기"}
             </button>
           </div>

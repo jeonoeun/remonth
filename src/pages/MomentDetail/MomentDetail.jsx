@@ -147,10 +147,10 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
                   <FaComment />
                   <span>댓글</span>
                 </li>
-                <li>
+                {/* <li>
                   <FaShareAlt />
                   <span>공유</span>
-                </li>
+                </li> */}
               </ul>
               <div className="box-list">
                 <div className="review block">
