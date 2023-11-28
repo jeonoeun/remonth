@@ -142,6 +142,7 @@ export default function RemonthForm({ userMoments, setSuccess }) {
                                   const updatedSelectedCards = [
                                     ...selectedCards,
                                   ];
+                                  
                                   updatedSelectedCards.splice(existingIndex, 1);
 
                                   return {
