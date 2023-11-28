@@ -37,7 +37,7 @@ export default function RemonthForm({ userMoments, setSuccess }) {
         })
         .finally(() => setIsUploading(false));
     } else {
-      alert("월간지를 등록하기 위해선 하나 이상의 카드를 선택해주세요");
+      alert("월간지를 등록하기 위해선 하나 이상의 카드를 선택해 주세요😎");
       return;
     }
   };
