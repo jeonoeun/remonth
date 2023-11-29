@@ -7,8 +7,13 @@ import Remonth from "./pages/Remonth/Remonth";
 import Moment from "./pages/Moment/Moment";
 import MyPage from "./pages/MyPage/MyPage";
 import RemonthDetail from "./pages/RemonthDetail/RemonthDetail";
-import { getMomentList, getRemonthList, onUserChanged } from "./api/firebase";
-import { addNewUser, setCurrentUser } from "./store/user";
+import {
+  getMomentList,
+  getRemonthList,
+  onUserChanged,
+  setUser,
+} from "./api/firebase";
+import { setCurrentUser } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 import MomentDetail from "./pages/MomentDetail/MomentDetail";
 import Header from "./components/Header/Header";
@@ -82,7 +87,7 @@ export default function App() {
     onUserChanged((userAuth) => {
       userAuth &&
         dispatch(
-          addNewUser({
+          setCurrentUser({
             name: userAuth.displayName,
             image: userAuth.photoURL,
             id: userAuth.uid,
@@ -94,17 +99,9 @@ export default function App() {
 
   useEffect(() => {
     onUserChanged((userAuth) => {
-      userAuth &&
-        dispatch(
-          setCurrentUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
+      userAuth && setUser(userAuth.uid);
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="wrapper">
@@ -152,6 +149,8 @@ export default function App() {
                 path="/mypage"
                 element={
                   <MyPage
+                    moments={allMoments}
+                    remonths={allRemonths}
                     userMoments={userMoments}
                     userRemonths={userRemonths}
                     currentUser={currentUser}

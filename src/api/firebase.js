@@ -218,3 +218,76 @@ export function getRemonthLikeUsers(id, callback) {
 
   // unsubscriber(); // 구독을 해제할 때 사용
 }
+
+// 유저 추가하기
+export async function setUser(userId) {
+  const data = {
+    userId,
+    likesMoments: [],
+    likesRemonths: [],
+  };
+
+  const q = query(collection(db, "users"));
+  onSnapshot(q, async (querySnapshot) => {
+    const userExists = querySnapshot.docs.some((doc) => doc.id === userId);
+
+    if (userExists) {
+      return;
+    }
+
+    await setDoc(doc(db, "users", userId), data);
+  });
+}
+
+// 유저 좋아요 카드 추가하기
+export async function setUserLikes(matchedItem, userId, type) {
+  const ref = doc(db, "users", userId);
+  const cardType =
+    type === "moment"
+      ? {
+          likesMoments: arrayUnion({
+            id: matchedItem.id,
+            image: matchedItem.image,
+          }),
+        }
+      : {
+          likesRemonths: arrayUnion({
+            id: matchedItem.id,
+            image: matchedItem.selectedCards[0].image,
+          }),
+        };
+
+  await updateDoc(ref, cardType);
+}
+
+// 유저 좋아요 카드 삭제하기
+export async function removeUserLikes(matchedItem, userId, type) {
+  const ref = doc(db, "users", userId);
+  const cardType =
+    type === "moment"
+      ? {
+          likesMoments: arrayRemove({
+            id: matchedItem.id,
+            image: matchedItem.image,
+          }),
+        }
+      : {
+          likesRemonths: arrayRemove({
+            id: matchedItem.id,
+            image: matchedItem.selectedCards[0].image,
+          }),
+        };
+
+  await updateDoc(ref, cardType);
+}
+
+// 유저 좋아요 카드 리스트 가져오기
+export function getUserLikesCard(userId, callback) {
+  const docRef = doc(db, "users", userId);
+  const unsubscriber = onSnapshot(docRef, (snapshot) => {
+    const item = snapshot.data();
+    callback(item);
+  });
+
+  // unsubscriber(); // 구독을 해제할 때 사용
+}

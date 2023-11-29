@@ -3,13 +3,15 @@ import "./MomentDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiThumbUp } from "react-icons/hi";
 import { AiFillDelete } from "react-icons/ai";
-import { FaShareAlt, FaComment } from "react-icons/fa";
+import { FaComment } from "react-icons/fa";
 import {
   addLikeUser,
   getComments,
   getLikeUsers,
   removeLikeUser,
   removeMoment,
+  removeUserLikes,
+  setUserLikes,
 } from "../../api/firebase";
 import Comment from "../../components/Comment/Comment";
 import CommentForm from "../../components/CommentForm/CommentForm";
@@ -27,15 +29,6 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
   const [isCommentModal, setIsCommentModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const handleRemove = () => {
-    removeMoment(id); //
-    navigate("/moment");
-    setSuccess("게시글이 삭제되었습니다");
-    setTimeout(() => {
-      setSuccess(null);
-    }, 3000);
-  };
-
   useEffect(() => {
     const found = moments && moments.find((moment) => moment.id === id);
     found ? setMatchedItem(found) : navigate("/notFound");
@@ -52,6 +45,29 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
       setComments(data);
     });
   }, [id]);
+
+  const handleRemove = () => {
+    removeMoment(id); //
+    navigate("/moment");
+    setSuccess("게시글이 삭제되었습니다");
+    setTimeout(() => {
+      setSuccess(null);
+    }, 3000);
+  };
+
+  const handleLikeUsers = () => {
+    if (currentUser && currentUser.id) {
+      if (likeUsers && likeUsers.includes(currentUser.id)) {
+        removeLikeUser(id, currentUser.id);
+        removeUserLikes(matchedItem, currentUser.id, "moment");
+      } else {
+        addLikeUser(id, currentUser.id);
+        setUserLikes(matchedItem, currentUser.id, "moment");
+      }
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   return (
     matchedItem && (
@@ -113,17 +129,7 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
               </ul>
               <ul className="util-list flex">
                 <li
-                  onClick={() => {
-                    if (currentUser && currentUser.id) {
-                      if (likeUsers && likeUsers.includes(currentUser.id)) {
-                        removeLikeUser(id, currentUser.id);
-                      } else {
-                        addLikeUser(id, currentUser.id);
-                      }
-                    } else {
-                      setShowLoginModal(true);
-                    }
-                  }}
+                  onClick={handleLikeUsers}
                   className={
                     currentUser &&
                     likeUsers &&

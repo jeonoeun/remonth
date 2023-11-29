@@ -7,7 +7,6 @@ const initialState = {
     image: "",
     email: "",
   },
-  userList: [],
 };
 
 const userSlice = createSlice({
@@ -17,17 +16,8 @@ const userSlice = createSlice({
     setCurrentUser: (state, action) => {
       state.currentUser = action.payload;
     },
-    addNewUser: (state, action) => {
-      const found =
-        state.userList &&
-        state.userList.length !== 0 &&
-        state.userList.find((e) => e.id === action.payload.id);
-      if (!found) {
-        state.userList && state.userList.push(action.payload);
-      }
-    },
   },
 });
 
-export const { setCurrentUser, addNewUser } = userSlice.actions;
+export const { setCurrentUser } = userSlice.actions;
 export default userSlice.reducer;

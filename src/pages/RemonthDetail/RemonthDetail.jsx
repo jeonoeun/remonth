@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./RemonthDetail.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { HiThumbUp } from "react-icons/hi";
-import { FaShareAlt } from "react-icons/fa";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import {
   addRemonthLikeUser,
   getRemonthLikeUsers,
   removeRemonth,
   removeRemonthLikeUser,
+  removeUserLikes,
+  setUserLikes,
 } from "../../api/firebase";
 import { IoMdSettings } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
@@ -22,15 +23,6 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
   const [isModal, setIsModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  const handleRemove = () => {
-    removeRemonth(id); //
-    navigate("/remonth");
-    setSuccess("게시글이 삭제되었습니다");
-    setTimeout(() => {
-      setSuccess(null);
-    }, 3000);
-  };
-
   useEffect(() => {
     remonths && setMatchedItem(remonths.find((remonth) => remonth.id === id));
   }, [id, remonths]);
@@ -40,6 +32,29 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
       setLikeUsers(data);
     });
   }, [id]);
+
+  const handleRemove = () => {
+    removeRemonth(id); //
+    navigate("/remonth");
+    setSuccess("게시글이 삭제되었습니다");
+    setTimeout(() => {
+      setSuccess(null);
+    }, 3000);
+  };
+
+  const handleLikeUsers = () => {
+    if (currentUser && currentUser.id) {
+      if (likeUsers && likeUsers.includes(currentUser.id)) {
+        removeRemonthLikeUser(id, currentUser.id);
+        removeUserLikes(matchedItem, currentUser.id, "remonth");
+      } else {
+        addRemonthLikeUser(id, currentUser.id);
+        setUserLikes(matchedItem, currentUser.id, "remonth");
+      }
+    } else {
+      setShowLoginModal(true);
+    }
+  };
 
   return (
     <div className="remonth-detail">
@@ -111,17 +126,7 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
             </div>
             <ul className="util-list flex">
               <li
-                onClick={() => {
-                  if (currentUser && currentUser.id) {
-                    if (likeUsers && likeUsers.includes(currentUser.id)) {
-                      removeRemonthLikeUser(id, currentUser.id);
-                    } else {
-                      addRemonthLikeUser(id, currentUser.id);
-                    }
-                  } else {
-                    setShowLoginModal(true);
-                  }
-                }}
+                onClick={handleLikeUsers}
                 className={
                   currentUser && likeUsers && likeUsers.includes(currentUser.id)
                     ? "on"
@@ -131,10 +136,6 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
                 <HiThumbUp />
                 <span>좋아요</span>
               </li>
-              {/* <li>
-                <FaShareAlt />
-                <span>공유</span>
-              </li> */}
             </ul>
           </div>
           <div className="content-body">

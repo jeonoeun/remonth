@@ -5,16 +5,24 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { AiFillDelete } from "react-icons/ai";
 import { BiSolidPencil } from "react-icons/bi";
-import { logout } from "../../api/firebase";
+import { getUserLikesCard, logout } from "../../api/firebase";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../store/user";
 import { AiFillSetting } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function MyPage({ userMoments, userRemonths, currentUser }) {
+export default function MyPage({
+  allMoments,
+  allRemonths,
+  userMoments,
+  userRemonths,
+  currentUser,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
+  const [userLikeMoments, setUserLikeMoments] = useState();
+  const [userLikeRemonths, setUserLikeRemonths] = useState();
 
   const handleLogout = () => {
     logout();
@@ -25,6 +33,13 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
   const handleModal = () => {
     setIsModal(!isModal);
   };
+
+  useEffect(() => {
+    getUserLikesCard(currentUser.id, (item) => {
+      item && setUserLikeMoments(item.likesMoments);
+      item && setUserLikeRemonths(item.likesRemonths);
+    });
+  }, [currentUser.id]);
 
   return (
     <div className="myPage">
@@ -102,6 +117,7 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
             + 모먼트 등록하기
           </button>
         </div>
+
         <div className="block">
           <div className="block-title">
             <span>월간지</span>
@@ -133,6 +149,58 @@ export default function MyPage({ userMoments, userRemonths, currentUser }) {
           >
             + 월간지 등록하기
           </button>
+        </div>
+        <div className="like-area">
+          {userLikeMoments && (
+            <div className="block">
+              <div className="block-title">
+                <span>좋아요한 모먼트</span>
+                <span className="color-num">{userLikeMoments.length}</span>
+              </div>
+              <Swiper
+                slidesPerView={3}
+                slidesPerGroup={3}
+                spaceBetween={8}
+                className="mySwiper"
+              >
+                {userLikeMoments.map((card) => (
+                  <SwiperSlide key={card.id}>
+                    <div
+                      className="card-item"
+                      onClick={() => navigate(`/moment/${card.id}`)}
+                    >
+                      <img src={card.image} alt="" />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
+          {userLikeRemonths && (
+            <div className="block">
+              <div className="block-title">
+                <span>좋아요한 월간지</span>
+                <span className="color-num">{userLikeRemonths.length}</span>
+              </div>
+              <Swiper
+                slidesPerView={3}
+                slidesPerGroup={3}
+                spaceBetween={8}
+                className="mySwiper"
+              >
+                {userLikeRemonths.map((card) => (
+                  <SwiperSlide key={card.id}>
+                    <div
+                      className="card-item"
+                      onClick={() => navigate(`/remonth/${card.id}`)}
+                    >
+                      <img src={card.image} alt="" />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
         </div>
       </div>
     </div>
