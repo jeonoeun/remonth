@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 export default function LoginModal({ setShowLoginModal }) {
   const navigate = useNavigate();
   return (
-    <div className="login-modal">
-      <div className="inner">
+    <div className="login-modal" onClick={() => setShowLoginModal(false)}>
+      <div className="inner" onClick={(e) => e.stopPropagation()}>
         <p>
           로그인이 필요해요. <br /> 로그인 페이지로 이동하시겠어요?
         </p>

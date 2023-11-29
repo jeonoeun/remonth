@@ -50,12 +50,12 @@ export default function MyPage({
       {isModal && (
         <div className="background" onClick={() => setIsModal(false)}>
           <ul className="user-modal" onClick={(e) => e.stopPropagation()}>
-            <li>
+            {/* <li>
               <span>회원 정보 수정하기</span>
               <span>
                 <BiSolidPencil />
               </span>
-            </li>
+            </li> */}
             <li onClick={handleLogout}>
               <span>로그아웃</span>
               <span>
@@ -85,7 +85,10 @@ export default function MyPage({
               <span>월간지</span>
             </div>
             <div className="flex">
-              <span className="num">0</span>
+              <span className="num">
+                {(userLikeMoments || userLikeRemonths) &&
+                  userLikeMoments.length + userLikeRemonths.length}
+              </span>
               <span>좋아요</span>
             </div>
           </div>

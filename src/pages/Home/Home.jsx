@@ -4,10 +4,12 @@ import Calendar from "../../components/Calendar/Calendar";
 import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
 import categoryList from "../../data";
+import moment from "moment";
 
 export default function Home({ userMoments }) {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState("노래");
+  const today = moment().format("YYYY-MM-DD");
 
   return (
     <div className="home">
@@ -16,7 +18,7 @@ export default function Home({ userMoments }) {
         <div className="moment-box">
           <div className="title-area flex">
             <div>
-              <p className="box-title">10월의 모먼트</p>
+              <p className="box-title">{today.slice(5, 7)}월의 모먼트</p>
               <p className="sum-title">
                 총{" "}
                 {userMoments &&

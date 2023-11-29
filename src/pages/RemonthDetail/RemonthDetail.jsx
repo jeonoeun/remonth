@@ -71,8 +71,8 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
           </button>
         )}
       {isModal && (
-        <div className="background">
-          <ul className="user-modal">
+        <div className="background" onClick={() => setIsModal(false)}>
+          <ul className="user-modal" onClick={(e) => e.stopPropagation()}>
             <li onClick={handleRemove}>
               <span>삭제하기</span>
               <span>
