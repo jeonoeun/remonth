@@ -14,14 +14,19 @@ import {
 import { IoMdSettings } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
 import LoginModal from "../../components/LoginModal/LoginModal";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user";
+import { selectAllRemonths } from "../../store/remonths";
 
-export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
+export default function RemonthDetail({ setSuccess }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [matchedItem, setMatchedItem] = useState();
   const [likeUsers, setLikeUsers] = useState();
   const [isModal, setIsModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const currentUser = useSelector(selectCurrentUser);
+  const remonths = useSelector(selectAllRemonths);
 
   useEffect(() => {
     remonths && setMatchedItem(remonths.find((remonth) => remonth.id === id));
@@ -149,8 +154,8 @@ export default function RemonthDetail({ remonths, currentUser, setSuccess }) {
                     <li className="flex">
                       {card.tags && (
                         <div className="tags flex">
-                          {card.tags.map((tag) => (
-                            <span key={tag} className="tag">
+                          {card.tags.map((tag, i) => (
+                            <span key={i} className="tag">
                               {tag}
                             </span>
                           ))}

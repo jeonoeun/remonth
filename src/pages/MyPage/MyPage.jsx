@@ -4,25 +4,23 @@ import PageHeader from "../../components/PageHeader/PageHeader";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { AiFillDelete } from "react-icons/ai";
-import { BiSolidPencil } from "react-icons/bi";
 import { getUserLikesCard, logout } from "../../api/firebase";
-import { useDispatch } from "react-redux";
-import { setCurrentUser } from "../../store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCurrentUser, setCurrentUser } from "../../store/user";
 import { AiFillSetting } from "react-icons/ai";
 import { useEffect, useState } from "react";
+import { selectUserMoments } from "../../store/moments";
+import { selectUserRemonths } from "../../store/remonths";
 
-export default function MyPage({
-  allMoments,
-  allRemonths,
-  userMoments,
-  userRemonths,
-  currentUser,
-}) {
+export default function MyPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
   const [userLikeMoments, setUserLikeMoments] = useState();
   const [userLikeRemonths, setUserLikeRemonths] = useState();
+  const userMoments = useSelector(selectUserMoments);
+  const userRemonths = useSelector(selectUserRemonths);
+  const currentUser = useSelector(selectCurrentUser);
 
   const handleLogout = () => {
     logout();
@@ -50,12 +48,6 @@ export default function MyPage({
       {isModal && (
         <div className="background" onClick={() => setIsModal(false)}>
           <ul className="user-modal" onClick={(e) => e.stopPropagation()}>
-            {/* <li>
-              <span>회원 정보 수정하기</span>
-              <span>
-                <BiSolidPencil />
-              </span>
-            </li> */}
             <li onClick={handleLogout}>
               <span>로그아웃</span>
               <span>

@@ -9,8 +9,10 @@ import { setCardDetail } from "../../store/card";
 import RemonthForm from "../../components/RemonthForm/RemonthForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import categoryList from "../../data";
+import { selectUserMoments } from "../../store/moments";
+import { selectCurrentUser } from "../../store/user";
 
-export default function Builder({ userMoments, currentUser, setSuccess }) {
+export default function Builder({ setSuccess }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cardDate = useSelector((state) => state.card.card);
@@ -23,6 +25,8 @@ export default function Builder({ userMoments, currentUser, setSuccess }) {
   const [file, setFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const location = useLocation();
+  const userMoments = useSelector(selectUserMoments);
+  const currentUser = useSelector(selectCurrentUser);
 
   const handleSubmit = (e) => {
     e.preventDefault();

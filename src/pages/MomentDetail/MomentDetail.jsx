@@ -18,8 +18,11 @@ import CommentForm from "../../components/CommentForm/CommentForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { IoMdSettings } from "react-icons/io";
 import LoginModal from "../../components/LoginModal/LoginModal";
+import { useSelector } from "react-redux";
+import { selectAllMoments } from "../../store/moments";
+import { selectCurrentUser } from "../../store/user";
 
-export default function MomentDetail({ moments, currentUser, setSuccess }) {
+export default function MomentDetail({ setSuccess }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [matchedItem, setMatchedItem] = useState();
@@ -28,6 +31,8 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
   const [isModal, setIsModal] = useState(false);
   const [isCommentModal, setIsCommentModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const moments = useSelector(selectAllMoments);
+  const currentUser = useSelector(selectCurrentUser);
 
   useEffect(() => {
     const found = moments && moments.find((moment) => moment.id === id);
@@ -153,10 +158,6 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
                   <FaComment />
                   <span>댓글</span>
                 </li>
-                {/* <li>
-                  <FaShareAlt />
-                  <span>공유</span>
-                </li> */}
               </ul>
               <div className="box-list">
                 <div className="review block">
@@ -178,7 +179,6 @@ export default function MomentDetail({ moments, currentUser, setSuccess }) {
               </div>
             </div>
             <Comment
-              currentUser={currentUser}
               comments={comments}
               setIsCommentModal={setIsCommentModal}
               setShowLoginModal={setShowLoginModal}

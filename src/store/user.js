@@ -20,4 +20,5 @@ const userSlice = createSlice({
 });
 
 export const { setCurrentUser } = userSlice.actions;
+export const selectCurrentUser = (state) => state.user.currentUser;
 export default userSlice.reducer;

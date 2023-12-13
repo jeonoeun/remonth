@@ -7,13 +7,8 @@ import Remonth from "./pages/Remonth/Remonth";
 import Moment from "./pages/Moment/Moment";
 import MyPage from "./pages/MyPage/MyPage";
 import RemonthDetail from "./pages/RemonthDetail/RemonthDetail";
-import {
-  getMomentList,
-  getRemonthList,
-  onUserChanged,
-  setUser,
-} from "./api/firebase";
-import { setCurrentUser } from "./store/user";
+import { getMomentList, getRemonthList } from "./api/firebase";
+import { selectCurrentUser } from "./store/user";
 import { useDispatch, useSelector } from "react-redux";
 import MomentDetail from "./pages/MomentDetail/MomentDetail";
 import Header from "./components/Header/Header";
@@ -26,17 +21,25 @@ import NotFound from "./pages/NotFound/NotFound";
 import Login from "./pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";
 import Search from "./pages/Search/Search";
+import {
+  selectAllMoments,
+  setAllMoments,
+  setUserMoments,
+} from "./store/moments";
+import {
+  selectAllRemonths,
+  setAllRemonths,
+  setUserRemonths,
+} from "./store/remonths";
 
 export default function App() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const currentUser = useSelector((state) => state.user.currentUser);
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState();
-  const [allMoments, setAllMoments] = useState();
-  const [userMoments, setUserMoments] = useState();
-  const [allRemonths, setAllRemonths] = useState();
-  const [userRemonths, setUserRemonths] = useState();
+  const allMoments = useSelector(selectAllMoments);
+  const allRemonths = useSelector(selectAllRemonths);
+  const currentUser = useSelector(selectCurrentUser);
   const isMobile = useMediaQuery({ maxWidth: 728 });
   const isTablet = useMediaQuery({ minWidth: 729, maxWidth: 1279 });
   const isDesktop = useMediaQuery({ minWidth: 1280 });
@@ -45,70 +48,54 @@ export default function App() {
     setLoading(true);
     try {
       getMomentList((moments) => {
-        setAllMoments(moments);
+        dispatch(setAllMoments(moments));
         setLoading(false);
       });
     } catch (error) {
       console.error("data error:", error);
       setLoading(false);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setLoading(true);
     try {
-      getRemonthList((data) => {
-        setAllRemonths(data);
+      getRemonthList((remonths) => {
+        dispatch(setAllRemonths(remonths));
         setLoading(false);
       });
     } catch (error) {
       console.error("data error:", error);
       setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    setUserMoments(
-      currentUser &&
-        allMoments &&
-        allMoments.filter((moment) => moment.user.id === currentUser.id)
-    );
-  }, [allMoments, currentUser]);
-
-  useEffect(() => {
-    setUserRemonths(
-      currentUser &&
-        allRemonths &&
-        allRemonths.filter((remonth) => remonth.userData.id === currentUser.id)
-    );
-  }, [allRemonths, currentUser]);
-
-  useEffect(() => {
-    onUserChanged((userAuth) => {
-      userAuth &&
-        dispatch(
-          setCurrentUser({
-            name: userAuth.displayName,
-            image: userAuth.photoURL,
-            id: userAuth.uid,
-            email: userAuth.email,
-          })
-        );
-    });
   }, [dispatch]);
 
   useEffect(() => {
-    onUserChanged((userAuth) => {
-      userAuth && setUser(userAuth.uid);
-    });
-  }, []);
+    currentUser &&
+      allMoments &&
+      dispatch(
+        setUserMoments(
+          allMoments.filter((moment) => moment.user.id === currentUser.id)
+        )
+      );
+  }, [allMoments, currentUser, dispatch]);
+
+  useEffect(() => {
+    currentUser &&
+      allRemonths &&
+      dispatch(
+        setUserRemonths(
+          allRemonths.filter(
+            (remonth) => remonth.userData.id === currentUser.id
+          )
+        )
+      );
+  }, [allRemonths, currentUser, dispatch]);
 
   return (
     <div className="wrapper">
       <ScrollToTop />
-
-      {isMobile ? null : <Header currentUser={currentUser} />}
-
+      {isMobile ? null : <Header />}
       {loading ? (
         <div className="loading-spinner">
           <LoadingSpinner />
@@ -116,62 +103,28 @@ export default function App() {
       ) : (
         <div className="content-area">
           <Routes>
-            <Route path="/" element={<Home userMoments={userMoments} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/moment" element={<Moment moments={allMoments} />} />
+            <Route path="/moment" element={<Moment />} />
             <Route
               path="/moment/:id"
-              element={
-                <MomentDetail
-                  moments={allMoments}
-                  currentUser={currentUser}
-                  setSuccess={setSuccess}
-                />
-              }
+              element={<MomentDetail setSuccess={setSuccess} />}
             />
-            <Route
-              path="/remonth"
-              element={<Remonth remonths={allRemonths} />}
-            />
+            <Route path="/remonth" element={<Remonth />} />
             <Route
               path="/remonth/:id"
-              element={
-                <RemonthDetail
-                  remonths={allRemonths}
-                  currentUser={currentUser}
-                  setSuccess={setSuccess}
-                />
-              }
+              element={<RemonthDetail setSuccess={setSuccess} />}
             />
             <Route element={<PrivateRoute />}>
-              <Route
-                path="/mypage"
-                element={
-                  <MyPage
-                    moments={allMoments}
-                    remonths={allRemonths}
-                    userMoments={userMoments}
-                    userRemonths={userRemonths}
-                    currentUser={currentUser}
-                  />
-                }
-              />
+              <Route path="/mypage" element={<MyPage />} />
               <Route
                 path="/builder/moment"
-                element={
-                  <Builder
-                    userMoments={userMoments}
-                    currentUser={currentUser}
-                    setSuccess={setSuccess}
-                  />
-                }
+                element={<Builder setSuccess={setSuccess} />}
               />
               <Route
                 path="/builder/remonth"
-                element={
-                  <Builder userMoments={userMoments} setSuccess={setSuccess} />
-                }
+                element={<Builder setSuccess={setSuccess} />}
               />
             </Route>
             <Route path="/*" element={<NotFound />} />
@@ -181,7 +134,7 @@ export default function App() {
       )}
 
       {isDesktop || isTablet || pathname.includes("builder") || (
-        <MobileNavbar currentUser={currentUser} />
+        <MobileNavbar />
       )}
       {success && <Success text={success} />}
     </div>

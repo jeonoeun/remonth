@@ -1,5 +1,3 @@
-//firebase에 보낼 카드 설정 담는 곳
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const cardSlice = createSlice({

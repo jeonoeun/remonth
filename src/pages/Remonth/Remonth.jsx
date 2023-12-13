@@ -5,15 +5,18 @@ import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
 import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import PageHeader from "../../components/PageHeader/PageHeader";
+import { useSelector } from "react-redux";
+import { selectAllRemonths } from "../../store/remonths";
 
-export default function Remonth({ remonths }) {
+export default function Remonth() {
   const navigate = useNavigate();
-  const [selectedCards, setSelectedCards] = useState(remonths);
   const [isModal, setIsModal] = useState(false);
   const [isDateModal, setIsDateModal] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [selectedDate, setSelectedDate] = useState({ start: "", end: "" });
+  const remonths = useSelector(selectAllRemonths);
+  const [selectedCards, setSelectedCards] = useState(remonths);
 
   useEffect(() => {
     if (selectedDate.start && selectedDate.end) {

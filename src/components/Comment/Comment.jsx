@@ -2,14 +2,16 @@ import React from "react";
 import "./Comment.scss";
 import { useParams } from "react-router-dom";
 import { removeComment } from "../../api/firebase";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user";
 
 export default function Comment({
-  currentUser,
   setIsCommentModal,
   comments,
   setShowLoginModal,
 }) {
   const { id } = useParams();
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <div className="comment-area">
@@ -18,8 +20,8 @@ export default function Comment({
       </p>
       {comments && comments.length > 0 ? (
         <ul className="inner">
-          {comments.map((list) => (
-            <li key={list.commentId}>
+          {comments.map((list, i) => (
+            <li key={i}>
               <div className="top flex">
                 <div className="flex">
                   <img src={list.image} alt="" />

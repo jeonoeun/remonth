@@ -6,12 +6,15 @@ import { GrPowerReset } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import categoryList from "../../data";
+import { useSelector } from "react-redux";
+import { selectAllMoments } from "../../store/moments";
 
-export default function Moment({ moments }) {
+export default function Moment() {
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [list, setList] = useState();
+  const moments = useSelector(selectAllMoments);
 
   useEffect(() => {
     setList(() => {

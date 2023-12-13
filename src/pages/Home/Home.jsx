@@ -5,11 +5,14 @@ import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
 import categoryList from "../../data";
 import moment from "moment";
+import { useSelector } from "react-redux";
+import { selectUserMoments } from "../../store/moments";
 
-export default function Home({ userMoments }) {
+export default function Home() {
   const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState("노래");
   const today = moment().format("YYYY-MM-DD");
+  const userMoments = useSelector(selectUserMoments);
 
   return (
     <div className="home">

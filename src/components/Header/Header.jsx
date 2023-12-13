@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Header.scss";
 import logo from "../../images/logo.png";
-
 import { Link, useNavigate } from "react-router-dom";
+import { selectCurrentUser, setCurrentUser } from "../../store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { onUserChanged, setUser } from "../../api/firebase";
 
-export default function Header({ currentUser }) {
+export default function Header() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentUser = useSelector(selectCurrentUser);
+
+  useEffect(() => {
+    onUserChanged((userAuth) => {
+      userAuth &&
+        dispatch(
+          setCurrentUser({
+            name: userAuth.displayName,
+            image: userAuth.photoURL,
+            id: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+      userAuth && setUser(userAuth.uid);
+    });
+  }, [dispatch]);
 
   return (
     <header className="header">
