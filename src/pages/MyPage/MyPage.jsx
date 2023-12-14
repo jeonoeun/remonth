@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser, setCurrentUser } from "../../store/user";
 import { AiFillSetting } from "react-icons/ai";
 import { useEffect, useState } from "react";
-import { selectUserMoments } from "../../store/moments";
+import { selectUserMoments, setUserMoments } from "../../store/moments";
 import { selectUserRemonths } from "../../store/remonths";
 
 export default function MyPage() {
@@ -25,6 +25,7 @@ export default function MyPage() {
   const handleLogout = () => {
     logout();
     dispatch(setCurrentUser(null));
+    dispatch(setUserMoments([]));
     navigate("/");
   };
 
