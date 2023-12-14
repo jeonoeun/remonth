@@ -1,5 +1,4 @@
-🌳 Remonth (다시 한 달)
-![main](https://github.com/outoro/remonth/tree/main/src/images/thumbnail.jpg)
+![main](https://github.com/outoro/remonth/assets/102403987/2069544d-2d23-4a6c-84f4-b5f3fe12ffcf)
 <main align="center">
     <h3 align="center">🎆 순간을 기록하다 보면 일상이 다채로워 집니다. 🎆</h3> 
 </main>
@@ -20,7 +19,7 @@
 ## 🚩 프로젝트 개요
 * **프로젝트 명** : Remonth(다시 한 달)
 * **진행 기간** : 23.10.03 ~ ing
-* **서비스 URL** : [Remonth(다시 한 달) 🌳 바로 가기](https://remonth.vercel.app/)
+* **서비스 URL** : [Remonth(다시 한 달) 🏞 바로 가기](https://remonth.vercel.app/)
 
 <br>
 
