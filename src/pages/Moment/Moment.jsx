@@ -5,7 +5,7 @@ import { BiSliderAlt } from "react-icons/bi";
 import { GrPowerReset } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import categoryList from "../../data";
+import categoryList from "../../constants/data"
 import { useSelector } from "react-redux";
 import { selectAllMoments } from "../../store/moments";
 

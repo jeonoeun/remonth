@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setCardDetail } from "../../store/card";
 import { useEffect } from "react";
-import categoryList from "../../data";
+import categoryList from "../../constants/data"
 
 export default function ReactCalendar({ userMoments }) {
   const navigate = useNavigate();

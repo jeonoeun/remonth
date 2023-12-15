@@ -8,7 +8,7 @@ import { HiPhotograph } from "react-icons/hi";
 import { setCardDetail } from "../../store/card";
 import RemonthForm from "../../components/RemonthForm/RemonthForm";
 import PageHeader from "../../components/PageHeader/PageHeader";
-import categoryList from "../../data";
+import categoryList from "../../constants/data"
 import { selectUserMoments } from "../../store/moments";
 import { selectCurrentUser } from "../../store/user";
 

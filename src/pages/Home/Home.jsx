@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "../../components/Calendar/Calendar";
 import "./Home.scss";
 import { IoIosArrowForward } from "react-icons/io";
-import categoryList from "../../data";
+import categoryList from "../../constants/data"
 import moment from "moment";
 import { useSelector } from "react-redux";
 import { selectUserMoments } from "../../store/moments";

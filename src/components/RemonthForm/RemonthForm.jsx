@@ -6,7 +6,7 @@ import "swiper/css";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { addNewRemonth } from "../../api/firebase";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import categoryList from "../../data";
+import categoryList from "../../constants/data";
 
 export default function RemonthForm({ userMoments, setSuccess }) {
   const [remonthData, setRemonthData] = useState({
@@ -142,7 +142,7 @@ export default function RemonthForm({ userMoments, setSuccess }) {
                                   const updatedSelectedCards = [
                                     ...selectedCards,
                                   ];
-                                  
+
                                   updatedSelectedCards.splice(existingIndex, 1);
 
                                   return {
